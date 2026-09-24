@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CAC_I_ORDERS_WITH_PRODUCTS" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CAC_I_ORDERS_AGGREGATED"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CAC_B_ORDERS">
+    <resourceUri>CAC_B_ORDERS</resourceUri>
+  </DataSource>
+  <DataSource id="CAD_B_PRODUCT">
+    <resourceUri>CAD_B_PRODUCT</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Orders_Source">
+    <viewAttributes>
+      <viewAttribute id="PRODUCT_ID"/>
+      <viewAttribute id="QUANTITY"/>
+      <viewAttribute id="AMOUNT"/>
+      <viewAttribute id="ORDER_ID"/></viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CAC_B_ORDERS"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Products_Source">
+    <viewAttributes>
+      <viewAttribute id="PRODUCT_ID"/>
+      <viewAttribute id="CATEGORY"/>
+    
+      <viewAttribute id="PRODUCT_NAME"/>
+      <viewAttribute id="UNIT_PRICE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CAD_B_PRODUCT"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_Orders_Products" cardinality="C1_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="CATEGORY"/>
+      <viewAttribute id="QUANTITY" aggregationType="sum"/>
+      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+      <viewAttribute id="ORDER_ID" aggregationType="sum"/>
+      <viewAttribute id="PRODUCT_ID" aggregationType="sum"/>
+      <viewAttribute id="PRODUCT_NAME"/>
+      <viewAttribute id="UNIT_PRICE" aggregationType="sum"/>
+      <viewAttribute hidden="true" id="JOIN$PRODUCT_ID$PRODUCT_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="PROFIT_ESTIMATE" datatype="DECIMAL" length="15" expressionLanguage="SQL" scale="2">
+        <formula>(&quot;UNIT_PRICE&quot; - (&quot;UNIT_PRICE&quot; * 0.6)) * &quot;QUANTITY&quot;</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="Products_Source">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_NAME" source="PRODUCT_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="UNIT_PRICE" source="UNIT_PRICE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT_ID$PRODUCT_ID" source="PRODUCT_ID"/>
+    </input>
+    <input node="Orders_Source">
+      <mapping xsi:type="Calculation:AttributeMapping" target="QUANTITY" source="QUANTITY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT_ID$PRODUCT_ID" source="PRODUCT_ID"/>
+    </input>
+    <joinAttribute name="JOIN$PRODUCT_ID$PRODUCT_ID"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_Orders_Products">
+  <attributes>
+    <attribute id="CATEGORY" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CATEGORY"/>
+      <keyMapping columnObjectName="Join_Orders_Products" columnName="CATEGORY"/>
+    </attribute>
+    <attribute id="ORDER_ID" order="4" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="TRANSACTION_COUNT"/>
+      <keyMapping columnObjectName="Join_Orders_Products" columnName="ORDER_ID"/>
+    </attribute>
+    <attribute id="PRODUCT_ID" order="5" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT_ID_1"/>
+      <keyMapping columnObjectName="Join_Orders_Products" columnName="PRODUCT_ID"/>
+    </attribute>
+    <attribute id="PRODUCT_NAME" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT_NAME"/>
+      <keyMapping columnObjectName="Join_Orders_Products" columnName="PRODUCT_NAME"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="QUANTITY" order="2" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="TOTAL_QUANTITY"/>
+      <measureMapping columnObjectName="Join_Orders_Products" columnName="QUANTITY"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="AMOUNT" order="3" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="TOTAL_SALES"/>
+      <measureMapping columnObjectName="Join_Orders_Products" columnName="AMOUNT"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="UNIT_PRICE" order="7" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="UNIT_PRICE"/>
+      <measureMapping columnObjectName="Join_Orders_Products" columnName="UNIT_PRICE"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="PROFIT_ESTIMATE" order="8" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="PROFIT_ESTIMATE"/>
+      <measureMapping columnObjectName="Join_Orders_Products" columnName="PROFIT_ESTIMATE"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="222" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Orders_Source" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="91" y="376"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Products_Source" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="302" y="376"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_Orders_Products" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="196" y="217"/>
+      <rectangleSize height="30" width="212"/>
+    </shape>
+    <shape modelObjectName="Products_Source" modelObjectNameSpace="Join_Orders_Products" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="16" y="32"/>
+      <rectangleSize width="177"/>
+    </shape>
+    <shape modelObjectName="Orders_Source" modelObjectNameSpace="Join_Orders_Products" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="257" y="16"/>
+      <rectangleSize width="194"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

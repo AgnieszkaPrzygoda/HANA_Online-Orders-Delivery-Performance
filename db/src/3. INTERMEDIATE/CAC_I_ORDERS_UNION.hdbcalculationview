@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CAC_I_ORDERS_UNION" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CAC_I_ORDERS_UNION"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="FACT_ORDERS">
+    <resourceUri>FACT_ORDERS</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Source">
+    <viewAttributes>
+      <viewAttribute id="ORDER_ID"/>
+      <viewAttribute id="LINE_ITEM_ID"/>
+      <viewAttribute id="DATE_ID"/>
+      <viewAttribute id="CUSTOMER_ID"/>
+      <viewAttribute id="PRODUCT_ID"/>
+      <viewAttribute id="CARRIER_ID"/>
+      <viewAttribute id="DELIVERY_DATE"/>
+      <viewAttribute id="DELIVERY_STATUS"/>
+      <viewAttribute id="QUANTITY"/>
+      <viewAttribute id="AMOUNT"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="FACT_ORDERS"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="PRJ_HISTORICAL" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="ORDER_ID"/>
+      <viewAttribute id="LINE_ITEM_ID"/>
+      <viewAttribute id="DATE_ID"/>
+      <viewAttribute id="CUSTOMER_ID"/>
+      <viewAttribute id="PRODUCT_ID"/>
+      <viewAttribute id="CARRIER_ID"/>
+      <viewAttribute id="DELIVERY_DATE"/>
+      <viewAttribute id="DELIVERY_STATUS"/>
+      <viewAttribute id="QUANTITY"/>
+      <viewAttribute id="AMOUNT"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="DATA_SOURCE" datatype="NVARCHAR" length="20" expressionLanguage="SQL">
+        <formula>'Historical'</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="Source"/>
+    <filter>&quot;DATE_ID&quot; &lt; '20240101'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="PRJ_ACTIVE" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="ORDER_ID"/>
+      <viewAttribute id="LINE_ITEM_ID"/>
+      <viewAttribute id="DATE_ID"/>
+      <viewAttribute id="CUSTOMER_ID"/>
+      <viewAttribute id="PRODUCT_ID"/>
+      <viewAttribute id="CARRIER_ID"/>
+      <viewAttribute id="DELIVERY_DATE"/>
+      <viewAttribute id="DELIVERY_STATUS"/>
+      <viewAttribute id="QUANTITY"/>
+      <viewAttribute id="AMOUNT"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="DATA_SOURCE" datatype="NVARCHAR" length="20" expressionLanguage="SQL">
+        <formula>'Active'</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="Source"/>
+    <filter>&quot;DATE_ID&quot; &gt;= '20240101'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_ORDERS" columnBasedPruningFlag="true">
+    <viewAttributes>
+      <viewAttribute id="ORDER_ID" aggregationType="sum"/>
+      <viewAttribute id="LINE_ITEM_ID" aggregationType="sum"/>
+      <viewAttribute id="DATE_ID" aggregationType="sum"/>
+      <viewAttribute id="CUSTOMER_ID" aggregationType="sum"/>
+      <viewAttribute id="PRODUCT_ID" aggregationType="sum"/>
+      <viewAttribute id="CARRIER_ID" aggregationType="sum"/>
+      <viewAttribute id="DELIVERY_DATE"/>
+      <viewAttribute id="DELIVERY_STATUS"/>
+      <viewAttribute id="QUANTITY" aggregationType="sum"/>
+      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+      <viewAttribute datatype="NVARCHAR" length="20" id="DATA_SOURCE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="PRJ_HISTORICAL">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LINE_ITEM_ID" source="LINE_ITEM_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATE_ID" source="DATE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_ID" source="CUSTOMER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CARRIER_ID" source="CARRIER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_DATE" source="DELIVERY_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_STATUS" source="DELIVERY_STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QUANTITY" source="QUANTITY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATA_SOURCE" source="DATA_SOURCE"/>
+    </input>
+    <input node="PRJ_ACTIVE">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LINE_ITEM_ID" source="LINE_ITEM_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATE_ID" source="DATE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_ID" source="CUSTOMER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CARRIER_ID" source="CARRIER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_DATE" source="DELIVERY_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_STATUS" source="DELIVERY_STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QUANTITY" source="QUANTITY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATA_SOURCE" source="DATA_SOURCE"/>
+    </input>
+    <columnBasedPruningAttributes>
+      <columnBasedPruningAttribute id="DATA_SOURCE"/>
+    </columnBasedPruningAttributes>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Union_ORDERS">
+  <attributes>
+    <attribute id="LINE_ITEM_ID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="LINE_ITEM_ID"/>
+      <keyMapping columnObjectName="Union_ORDERS" columnName="LINE_ITEM_ID"/>
+    </attribute>
+    <attribute id="DATE_ID" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DATE_ID"/>
+      <keyMapping columnObjectName="Union_ORDERS" columnName="DATE_ID"/>
+    </attribute>
+    <attribute id="CUSTOMER_ID" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTOMER_ID"/>
+      <keyMapping columnObjectName="Union_ORDERS" columnName="CUSTOMER_ID"/>
+    </attribute>
+    <attribute id="PRODUCT_ID" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT_ID"/>
+      <keyMapping columnObjectName="Union_ORDERS" columnName="PRODUCT_ID"/>
+    </attribute>
+    <attribute id="CARRIER_ID" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CARRIER_ID"/>
+      <keyMapping columnObjectName="Union_ORDERS" columnName="CARRIER_ID"/>
+    </attribute>
+    <attribute id="DELIVERY_DATE" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DELIVERY_DATE"/>
+      <keyMapping columnObjectName="Union_ORDERS" columnName="DELIVERY_DATE"/>
+    </attribute>
+    <attribute id="DELIVERY_STATUS" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DELIVERY_STATUS"/>
+      <keyMapping columnObjectName="Union_ORDERS" columnName="DELIVERY_STATUS"/>
+    </attribute>
+    <attribute id="DATA_SOURCE" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DATA_SOURCE"/>
+      <keyMapping columnObjectName="Union_ORDERS" columnName="DATA_SOURCE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="ORDER_ID" order="1" aggregationType="count" measureType="simple">
+      <descriptions defaultDescription="ORDER_ID"/>
+      <measureMapping columnObjectName="Union_ORDERS" columnName="ORDER_ID"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="QUANTITY" order="9" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="QUANTITY"/>
+      <measureMapping columnObjectName="Union_ORDERS" columnName="QUANTITY"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="AMOUNT" order="10" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="AMOUNT"/>
+      <measureMapping columnObjectName="Union_ORDERS" columnName="AMOUNT"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="216.61276534220582" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Source" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="206.66666666666663" y="483.9999976158142"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="PRJ_HISTORICAL" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="91.99999999999997" y="356.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="PRJ_ACTIVE" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="321.99999999999994" y="356.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Union_ORDERS" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="209.61276534220582" y="205"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

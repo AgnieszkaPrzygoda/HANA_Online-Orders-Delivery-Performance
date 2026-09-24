@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CAD_B_PRODUCT" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Projection" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CAD_B_PRODUCT"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="DIM_PRODUCT">
+    <resourceUri>DIM_PRODUCT</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="PRODUCT_ID"/>
+      <viewAttribute id="PRODUCT_NAME"/>
+      <viewAttribute id="CATEGORY"/>
+      <viewAttribute id="UNIT_PRICE"/>
+      <viewAttribute id="WEIGHT_KG"/>
+      <viewAttribute id="IS_FRAGILE"/>
+      <viewAttribute id="HANDLING_TYPE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="DIM_PRODUCT"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Projection_1">
+  <attributes>
+    <attribute id="PRODUCT_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT_ID"/>
+      <keyMapping columnObjectName="Projection_1" columnName="PRODUCT_ID"/>
+    </attribute>
+    <attribute id="PRODUCT_NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT_NAME"/>
+      <keyMapping columnObjectName="Projection_1" columnName="PRODUCT_NAME"/>
+    </attribute>
+    <attribute id="CATEGORY" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CATEGORY"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CATEGORY"/>
+    </attribute>
+    <attribute id="UNIT_PRICE" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="UNIT_PRICE"/>
+      <keyMapping columnObjectName="Projection_1" columnName="UNIT_PRICE"/>
+    </attribute>
+    <attribute id="WEIGHT_KG" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="WEIGHT_KG"/>
+      <keyMapping columnObjectName="Projection_1" columnName="WEIGHT_KG"/>
+    </attribute>
+    <attribute id="IS_FRAGILE" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="IS_FRAGILE"/>
+      <keyMapping columnObjectName="Projection_1" columnName="IS_FRAGILE"/>
+    </attribute>
+    <attribute id="HANDLING_TYPE" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HANDLING_TYPE"/>
+      <keyMapping columnObjectName="Projection_1" columnName="HANDLING_TYPE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

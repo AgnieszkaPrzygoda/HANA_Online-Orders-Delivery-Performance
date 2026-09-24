@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CAD_I_PRODUCT" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Projection" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CAD_I_PRODUCT"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CAD_B_PRODUCT">
+    <resourceUri>CAD_B_PRODUCT</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="PRODUCT_ID"/>
+      <viewAttribute id="PRODUCT_NAME"/>
+      <viewAttribute id="CATEGORY"/>
+      <viewAttribute id="UNIT_PRICE"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="PRICE_RANGE" datatype="NVARCHAR" length="10" expressionLanguage="SQL">
+        <formula>CASE
+WHEN &quot;UNIT_PRICE&quot; &lt; 50 THEN 'Budget'
+WHEN &quot;UNIT_PRICE&quot; &lt; 200 THEN 'Mid-Range'
+ELSE 'Premium'
+END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="PRODUCT_FULL_NAME" datatype="NVARCHAR" length="50" expressionLanguage="SQL">
+        <formula>&quot;CATEGORY&quot; ||'-'|| &quot;PRODUCT_NAME&quot;</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="CAD_B_PRODUCT"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Projection_1">
+  <attributes>
+    <attribute id="PRODUCT_ID" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT_ID"/>
+      <keyMapping columnObjectName="Projection_1" columnName="PRODUCT_ID"/>
+    </attribute>
+    <attribute id="PRODUCT_NAME" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT_NAME"/>
+      <keyMapping columnObjectName="Projection_1" columnName="PRODUCT_NAME"/>
+    </attribute>
+    <attribute id="CATEGORY" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CATEGORY"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CATEGORY"/>
+    </attribute>
+    <attribute id="UNIT_PRICE" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="UNIT_PRICE"/>
+      <keyMapping columnObjectName="Projection_1" columnName="UNIT_PRICE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes>
+    <calculatedAttribute id="PRODUCT_FULL_NAME" order="1" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <keyCalculation datatype="NVARCHAR" expressionLanguage="SQL" length="100">
+        <formula>&quot;CATEGORY&quot; || ' - ' || &quot;PRODUCT_NAME&quot;</formula>
+      </keyCalculation>
+    </calculatedAttribute>
+    <calculatedAttribute id="PRICE_RANGE" order="2" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <keyCalculation datatype="NVARCHAR" expressionLanguage="SQL" length="13">
+        <formula>CASE
+WHEN &quot;UNIT_PRICE&quot; &lt; 50 THEN 'Budget'
+WHEN &quot;UNIT_PRICE&quot; &lt; 200 THEN 'Mid-Range'
+ELSE 'Premium'
+END</formula>
+      </keyCalculation>
+    </calculatedAttribute>
+  </calculatedAttributes>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

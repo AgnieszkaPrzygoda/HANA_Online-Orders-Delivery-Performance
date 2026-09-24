@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CAC_R_ORDERS_STAR_SCHEMA" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CAC_R_ORDERS_STAR_SCHEMA"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CAC_I_ORDERS">
+    <resourceUri>CAC_I_ORDERS</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="ORDERS_TABLE">
+    <viewAttributes>
+      <viewAttribute id="QUANTITY"/>
+      <viewAttribute id="AMOUNT"/>
+      <viewAttribute id="CUSTOMER_ID"/>
+    
+      <viewAttribute id="ORDER_ID"/>
+      <viewAttribute id="PRODUCT_ID"/>
+    
+      <viewAttribute id="DATE_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="DISCOUNT" datatype="DECIMAL" length="10" scale="2" expressionLanguage="SQL">
+        <formula>CASE 
+    WHEN &quot;AMOUNT&quot; &gt; 1000 THEN 0.15 * &quot;AMOUNT&quot;
+    WHEN &quot;AMOUNT&quot; &gt; 500 THEN 0.10 * &quot;AMOUNT&quot;
+    WHEN &quot;AMOUNT&quot; &gt; 100 THEN 0.05 * &quot;AMOUNT&quot;
+    ELSE 0.00
+END</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="CAC_I_ORDERS"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="ORDERS_TABLE">
+  <attributes>
+    <attribute id="CUSTOMER_ID_1" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTOMER_ID_1"/>
+      <keyMapping columnObjectName="ORDERS_TABLE" columnName="CUSTOMER_ID"/>
+    </attribute>
+    <attribute id="ORDER_ID" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ORDER_ID"/>
+      <keyMapping columnObjectName="ORDERS_TABLE" columnName="ORDER_ID"/>
+    </attribute>
+    <attribute id="CUSTOMER_ID$local">
+      <descriptions defaultDescription="CUSTOMER_ID"/>
+      <keyMapping columnObjectName="ORDERS_TABLE" columnName="CUSTOMER_ID"/>
+    </attribute>
+    <attribute id="DATE_ID$local">
+      <descriptions defaultDescription="DATE_ID"/>
+      <keyMapping columnObjectName="ORDERS_TABLE" columnName="DATE_ID"/>
+    </attribute>
+    <attribute id="PRODUCT_ID$local">
+      <descriptions defaultDescription="PRODUCT_ID"/>
+      <keyMapping columnObjectName="ORDERS_TABLE" columnName="PRODUCT_ID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="QUANTITY" order="1" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="QUANTITY"/>
+      <measureMapping columnObjectName="ORDERS_TABLE" columnName="QUANTITY"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="AMOUNT" order="2" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="AMOUNT"/>
+      <measureMapping columnObjectName="ORDERS_TABLE" columnName="AMOUNT"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="DISCOUNT" order="6" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="DISCOUNT"/>
+      <measureMapping columnObjectName="ORDERS_TABLE" columnName="DISCOUNT"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures>
+    <measure id="NET_AMOUNT" order="5" aggregationType="sum" measureType="simple" aggregatable="true" datatype="DECIMAL" length="10" scale="2" expressionLanguage="SQL">
+      <descriptions defaultDescription="net_amount"/>
+      <formula>&quot;AMOUNT&quot; - &quot;DISCOUNT&quot;</formula>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="REVENUE" order="7" aggregationType="sum" measureType="simple" aggregatable="true" datatype="DECIMAL" length="10" scale="2" expressionLanguage="SQL">
+      <descriptions defaultDescription="revenue"/>
+      <formula>&quot;QUANTITY&quot; * &quot;UNIT_PRICE&quot;</formula>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </calculatedMeasures>
+  <restrictedMeasures/>
+  <localDimensions/>
+  <sharedDimensions>
+    <logicalJoin associatedObjectUri="CAD_B_CUSTOMER">
+      <attributes>
+        <attributeRef>CUSTOMER_ID$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>CUSTOMER_ID</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="CN_1" joinType="inner" joinOperator="Equal"/>
+      <associatedAttributeFeatures/>
+    </logicalJoin>
+    <logicalJoin associatedObjectUri="CAD_B_DATE">
+      <attributes>
+        <attributeRef>DATE_ID$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>DATE_ID</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="CN_1" joinType="inner" joinOperator="Equal"/>
+      <associatedAttributeFeatures/>
+    </logicalJoin>
+    <logicalJoin associatedObjectUri="CAD_B_PRODUCT">
+      <attributes>
+        <attributeRef>PRODUCT_ID$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>PRODUCT_ID</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="CN_1" joinType="inner" joinOperator="Equal"/>
+      <associatedAttributeFeatures/>
+    </logicalJoin>
+  </sharedDimensions>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="108" y="105"/>
+    
+      <rectangleSize width="187"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="ORDERS_TABLE" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="108" y="237"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="ORDERS_TABLE" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+      <upperLeftCorner x="291" y="-4"/>
+      <rectangleSize width="212"/>
+    </shape>
+    <shape modelObjectName="CAD_B_CUSTOMER" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="603" y="164"/>
+      <rectangleSize width="206"/>
+    </shape>
+    <shape modelObjectName="CAD_B_DATE" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="313" y="260"/>
+      <rectangleSize width="200"/>
+    </shape>
+    <shape modelObjectName="CAD_B_PRODUCT" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="23" y="119"/>
+      <rectangleSize width="198"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
