@@ -1,5 +1,5 @@
 -- Business context: Aggregates monthly sales performance by product category
--- Performance Indicator - using CASE statement and choosen treshholds
+-- Performance Indicator using a CASE statement and chosen thresholds
 
 VIEW "V_PERFORMANCE_MONTHLY" AS
     SELECT
@@ -8,10 +8,10 @@ VIEW "V_PERFORMANCE_MONTHLY" AS
         p.CATEGORY AS PRODUCT_CATEGORY,
         SUM(o.AMOUNT) AS TOTAL_SALES_AMOUNT,
 
--- Business performance indicator driven by revenue treshold rules
+-- Business performance indicator driven by revenue threshold rules
         CASE
-            WHEN SUM(o.AMOUNT) >= 10000 THEN 'Green'
-            WHEN SUM(o.AMOUNT) >= 5000 THEN 'Yellow'
+            WHEN SUM(o.AMOUNT) >= 300 THEN 'Green'
+            WHEN SUM(o.AMOUNT) >= 200 THEN 'Yellow'
         ELSE 'Red'
         END AS PERFORMANCE_STATUS
 
@@ -27,4 +27,6 @@ JOIN "DIM_PRODUCT" p
 GROUP BY
 d.YEAR,
 d.MONTH,
-p.CATEGORY;
+p.CATEGORY
+
+ORDER BY ORDER_YEAR DESC, ORDER_MONTH ASC, PRODUCT_CATEGORY ASC;
