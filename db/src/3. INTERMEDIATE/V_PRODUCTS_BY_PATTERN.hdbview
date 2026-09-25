@@ -1,0 +1,13 @@
+-- Filters products based on a specific naming pattern using regular expressions (e.g., prefix, digits) for product catalog analysis.
+
+VIEW "V_PRODUCTS_BY_PATTERN" ( IN "IN_PATTERN" VARCHAR(100) ) 
+AS SELECT
+    PRODUCT_ID,
+    PRODUCT_NAME,
+    CATEGORY,
+    UNIT_PRICE,
+    WEIGHT_KG,
+    IS_FRAGILE,
+    HANDLING_TYPE
+FROM "DIM_PRODUCT"
+WHERE PRODUCT_NAME LIKE_REGEXPR :IN_PATTERN;
