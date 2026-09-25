@@ -1,3 +1,4 @@
+--1. "V_PERFORMANCE_MONTHLY"
 -- select the periods with the higest revenue for the 'Electronics' product category
 SELECT 
     ORDER_YEAR,
@@ -33,3 +34,13 @@ SELECT
 FROM "V_PERFORMANCE_MONTHLY"
 WHERE ORDER_YEAR >= 2024
 ORDER BY ORDER_YEAR ASC, ORDER_MONTH ASC, TOTAL_SALES_AMOUNT DESC;
+
+
+--2. "V_ORDERS_DAILY_DETAILS"
+--Verifying behavior for dates that are already the last day of the month
+SELECT * 
+FROM "V_ORDERS_DAILY_DETAILS"('2023-06-30');
+
+--Verifying behavior for dates for a non-leap years
+SELECT * 
+FROM "V_ORDERS_DAILY_DETAILS"('2023-02-10');
