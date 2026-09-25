@@ -1,0 +1,22 @@
+-- Business context: Retrieves daily order details for a specific date passed as a parameter, including customer information, month-end date, and weekday name.
+
+VIEW "V_ORDERS_DAILY_DETAILS" (IN "IN_DATE" DATE) AS
+SELECT
+    o.ORDER_ID,
+    o.LINE_ITEM_ID,
+    d.CALENDAR_DATE AS ORDER_DATE,
+    o.AMOUNT,
+    c.CUSTOMER_NAME,
+
+-- Establish the last day of the month and the weekday name for the given order date
+    LAST_DAY(d.CALENDAR_DATE) AS MONTH_END_DATE,
+    TO_VARCHAR(d.CALENDAR_DATE, 'DAY') AS WEEKDAY_NAME
+
+FROM "FACT_ORDERS" o
+JOIN "DIM_DATE" d 
+    ON o.DATE_ID = d.DATE_ID
+JOIN "DIM_CUSTOMER" c 
+    ON o.CUSTOMER_ID = c.CUSTOMER_ID
+
+-- Filter records dynamically based on the input date parameter
+WHERE d.CALENDAR_DATE = :IN_DATE;
