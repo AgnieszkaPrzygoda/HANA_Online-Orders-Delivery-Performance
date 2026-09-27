@@ -1,0 +1,25 @@
+-- Calculates the running total of customer spending over time using online order data.
+
+VIEW "V_CUSTOMER_RUNNING_REVENUE" AS
+    SELECT 
+        o.ORDER_ID,
+        o.CUSTOMER_ID,
+        c.SEGMENT,
+        d.CALENDAR_DATE as ORDER_DATE,
+        o.AMOUNT,
+    
+-- Computes cumulative spending per customer partitioned by customer ID, 
+-- ordered chronologically by order date and ID
+    SUM(o.AMOUNT) OVER (
+        PARTITION BY o.CUSTOMER_ID 
+        ORDER BY d.DATE_ID, o.ORDER_ID
+
+-- ROWS ensures physical row-by-row calculation (safe for duplicate dates)
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS RUNNING_TOTAL_SPENDING
+
+FROM FACT_ORDERS o
+JOIN DIM_CUSTOMER c 
+    ON o.CUSTOMER_ID = c.CUSTOMER_ID
+JOIN DIM_DATE d
+    ON o.DATE_ID=d.DATE_ID;
