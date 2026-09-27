@@ -44,3 +44,14 @@ FROM "V_ORDERS_DAILY_DETAILS"('2023-06-30');
 --Verifying behavior for dates for a non-leap years
 SELECT * 
 FROM "V_ORDERS_DAILY_DETAILS"('2023-02-10');
+
+
+3. "V_PRODUCTS_BY_PATTERN"
+-- Checking products starting with "L"
+SELECT * FROM "V_PRODUCTS_BY_PATTERN"('^L');
+
+--Checking products which have any number in their name e.g. the model number
+SELECT * FROM "V_PRODUCTS_BY_PATTERN"('\d');
+
+--Checking products taking into account small and big first letter
+SELECT * FROM "V_PRODUCTS_BY_PATTERN"('(?i)monitor');
