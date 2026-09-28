@@ -46,7 +46,7 @@ SELECT *
 FROM "V_ORDERS_DAILY_DETAILS"('2023-02-10');
 
 
-3. "V_PRODUCTS_BY_PATTERN"
+-- 3. "V_PRODUCTS_BY_PATTERN"
 -- Checking products starting with "L"
 SELECT * FROM "V_PRODUCTS_BY_PATTERN"('^L');
 
@@ -55,3 +55,9 @@ SELECT * FROM "V_PRODUCTS_BY_PATTERN"('\d');
 
 --Checking products taking into account small and big first letter
 SELECT * FROM "V_PRODUCTS_BY_PATTERN"('(?i)monitor');
+
+
+-- Bonus Task: “V_CUSTOMER_RUNNING_REVENUE"
+-- Running revenue per customer sorted by order id and line item id
+SELECT * FROM "V_CUSTOMER_RUNNING_REVENUE" 
+ORDER BY CUSTOMER_ID, ORDER_ID, LINE_ITEM_ID;

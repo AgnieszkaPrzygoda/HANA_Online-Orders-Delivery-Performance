@@ -2,9 +2,9 @@
 
 VIEW "V_CUSTOMER_RUNNING_REVENUE" AS
     SELECT 
+        o.CUSTOMER_ID,
         o.ORDER_ID,
         o.LINE_ITEM_ID,
-        o.CUSTOMER_ID,
         c.SEGMENT,
         d.CALENDAR_DATE as ORDER_DATE,
         o.AMOUNT,
