@@ -3,6 +3,7 @@
 VIEW "V_CUSTOMER_RUNNING_REVENUE" AS
     SELECT 
         o.ORDER_ID,
+        o.LINE_ITEM_ID,
         o.CUSTOMER_ID,
         c.SEGMENT,
         d.CALENDAR_DATE as ORDER_DATE,
@@ -12,7 +13,7 @@ VIEW "V_CUSTOMER_RUNNING_REVENUE" AS
 -- ordered chronologically by order date and ID
     SUM(o.AMOUNT) OVER (
         PARTITION BY o.CUSTOMER_ID 
-        ORDER BY d.DATE_ID, o.ORDER_ID
+        ORDER BY d.DATE_ID, o.ORDER_ID, o.LINE_ITEM_ID
 
 -- ROWS ensures physical row-by-row calculation (safe for duplicate dates)
         ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
