@@ -79,7 +79,7 @@
     <rankingFilter type="RANK" offsetReference="FRONT" dynamicPartitionAttributes="false">
       <order byViewAttributeName="AMOUNT" direction="DESC"/>
       <rankThreshold>
-        <value>12</value>
+        <value>10</value>
       </rankThreshold>
       <rankViewAttributeName>Rank_Column</rankViewAttributeName>
     </rankingFilter>
