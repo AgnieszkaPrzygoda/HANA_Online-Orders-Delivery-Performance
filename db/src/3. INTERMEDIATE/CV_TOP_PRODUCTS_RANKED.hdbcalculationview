@@ -76,33 +76,43 @@
     </viewAttributes>
     <calculatedViewAttributes/>
     <input node="Aggregation_1"/>
-    <rankingFilter type="RANK" offsetReference="FRONT" dynamicPartitionAttributes="false"/>
+    <rankingFilter type="RANK" offsetReference="FRONT" dynamicPartitionAttributes="false">
+      <order byViewAttributeName="AMOUNT" direction="DESC"/>
+      <rankThreshold>
+        <value>12</value>
+      </rankThreshold>
+      <rankViewAttributeName>Rank_Column</rankViewAttributeName>
+    </rankingFilter>
   </calculationView>
 </calculationViews>
 <logicalModel id="Rank_1">
   <attributes>
-    <attribute id="PRODUCT_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="Rank_Column" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Rank_Column"/>
+      <keyMapping columnObjectName="Rank_1" columnName="Rank_Column"/>
+    </attribute>
+    <attribute id="PRODUCT_ID" order="2" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="PRODUCT_ID"/>
       <keyMapping columnObjectName="Rank_1" columnName="PRODUCT_ID"/>
     </attribute>
-    <attribute id="PRODUCT_NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="PRODUCT_NAME" order="3" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="PRODUCT_NAME"/>
       <keyMapping columnObjectName="Rank_1" columnName="PRODUCT_NAME"/>
     </attribute>
-    <attribute id="CATEGORY" order="3" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="CATEGORY" order="4" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="CATEGORY"/>
       <keyMapping columnObjectName="Rank_1" columnName="CATEGORY"/>
     </attribute>
   </attributes>
   <calculatedAttributes/>
   <baseMeasures>
-    <measure id="AMOUNT" order="4" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="AMOUNT"/>
+    <measure id="AMOUNT" order="5" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="TOTAL_ORDERS"/>
       <measureMapping columnObjectName="Rank_1" columnName="AMOUNT"/>
       <exceptionAggregationMetadata/>
     </measure>
-    <measure id="QUANTITY" order="5" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="QUANTITY"/>
+    <measure id="QUANTITY" order="6" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="TOTAL_QUANTITY"/>
       <measureMapping columnObjectName="Rank_1" columnName="QUANTITY"/>
       <exceptionAggregationMetadata/>
     </measure>
@@ -114,25 +124,21 @@
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="243.4012701828858" y="112"/>
+      <upperLeftCorner x="243" y="112"/>
     
       <rectangleSize width="160"/>
     </shape>
   
     <shape expanded="true" modelObjectName="PRODUCTS" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="302.00000000000006" y="626.9999976158142"/>
-      <rectangleSize height="30" width="160"/>
-    </shape>
-    <shape expanded="true" modelObjectName="Rank_1" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="243.4012701828858" y="217"/>
+      <upperLeftCorner x="302" y="626"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="ORDERS" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="92" y="626.9999976158142"/>
+      <upperLeftCorner x="92" y="626"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="222.9845370985018" y="466.9999988079071"/>
+      <upperLeftCorner x="222" y="466"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape modelObjectName="ORDERS" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
@@ -144,9 +150,13 @@
       <rectangleSize width="136"/>
     </shape>
     <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="222.9845370985018" y="361.9999988079071"/>
+      <upperLeftCorner x="222" y="361"/>
       <rectangleSize height="30" width="160"/>
     </shape>
-  </shapes>
+  
+    <shape expanded="true" modelObjectName="Rank_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="243" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape></shapes>
 </layout>
 </Calculation:scenario>
