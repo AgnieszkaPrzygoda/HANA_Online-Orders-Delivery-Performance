@@ -44,7 +44,15 @@
       <viewAttribute id="IS_FRAGILE"/>
       <viewAttribute id="HANDLING_TYPE"/>
     </viewAttributes>
-    <calculatedViewAttributes/>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="WEIGHT_CATEGORY" datatype="NVARCHAR" length="13" expressionLanguage="SQL">
+        <formula>CASE 
+    WHEN &quot;WEIGHT_KG&quot; &lt; 2.00 THEN 'Light'
+    WHEN &quot;WEIGHT_KG&quot; &gt;= 2.00 AND &quot;WEIGHT_KG&quot; &lt;= 10.00 THEN 'Medium'
+    ELSE 'Heavy'
+END</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
     <input node="CAD_B_PRODUCT"/>
   </calculationView>
   <calculationView xsi:type="Calculation:ProjectionView" id="DATE">
@@ -98,11 +106,13 @@
     <viewAttributes>
       <viewAttribute id="DELIVERY_DATE"/>
       <viewAttribute id="REGION_CODE"/>
+      <viewAttribute id="WEIGHT_CATEGORY"/>
       <viewAttribute id="DATE_ID"/>
       <viewAttribute hidden="true" id="JOIN$PRODUCT_ID$PRODUCT_ID"/>
     </viewAttributes>
     <calculatedViewAttributes/>
     <input node="PRODUCTS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="WEIGHT_CATEGORY" source="WEIGHT_CATEGORY"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT_ID$PRODUCT_ID" source="PRODUCT_ID"/>
     </input>
     <input node="Join_1_1">
@@ -118,6 +128,7 @@
       <viewAttribute id="CALENDAR_DATE"/>
       <viewAttribute id="DELIVERY_DATE"/>
       <viewAttribute id="REGION_CODE"/>
+      <viewAttribute id="WEIGHT_CATEGORY"/>
       <viewAttribute hidden="true" id="JOIN$DATE_ID$DATE_ID"/>
     </viewAttributes>
     <calculatedViewAttributes>
@@ -132,6 +143,7 @@
     <input node="Join_1_2">
       <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_DATE" source="DELIVERY_DATE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="REGION_CODE" source="REGION_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WEIGHT_CATEGORY" source="WEIGHT_CATEGORY"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$DATE_ID$DATE_ID" source="DATE_ID"/>
     </input>
     <joinAttribute name="JOIN$DATE_ID$DATE_ID"/>
