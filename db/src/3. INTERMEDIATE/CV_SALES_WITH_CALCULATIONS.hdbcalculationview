@@ -33,6 +33,8 @@
       <viewAttribute id="QUANTITY"/>
       <viewAttribute id="AMOUNT"/>
       <viewAttribute id="DELIVERY_STATUS"/>
+    
+      <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
     </viewAttributes>
     <calculatedViewAttributes/>
     <input node="CAC_B_ORDERS"/>
@@ -205,9 +207,6 @@ END</formula>
       <calculatedViewAttribute id="DAYS_TO_DELIVERY" datatype="INTEGER" expressionLanguage="SQL">
         <formula>DAYS_BETWEEN(&quot;CALENDAR_DATE&quot;,&quot;DELIVERY_DATE&quot;)</formula>
       </calculatedViewAttribute>
-      <calculatedViewAttribute id="CC_1" datatype="NVARCHAR" length="13" expressionLanguage="SQL">
-        <formula></formula>
-      </calculatedViewAttribute>
     </calculatedViewAttributes>
     <input node="DATE">
       <mapping xsi:type="Calculation:AttributeMapping" target="CALENDAR_DATE" source="CALENDAR_DATE"/>
@@ -231,6 +230,10 @@ END</formula>
 </calculationViews>
 <logicalModel id="Join_1_4">
   <attributes>
+    <attribute id="DAYS_TO_DELIVERY" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DAYS_TO_DELIVERY"/>
+      <keyMapping columnObjectName="Join_1_4" columnName="DAYS_TO_DELIVERY"/>
+    </attribute>
     <attribute id="CARRIER_NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="CARRIER_NAME"/>
       <keyMapping columnObjectName="Join_1_4" columnName="CARRIER_NAME"/>
@@ -253,11 +256,6 @@ END</formula>
   </attributes>
   <calculatedAttributes/>
   <baseMeasures>
-    <measure id="AVG_DAYS_TO_DELIVERY" order="1" aggregationType="avg" measureType="simple">
-      <descriptions defaultDescription="DAYS_TO_DELIVERY"/>
-      <measureMapping columnObjectName="Join_1_4" columnName="DAYS_TO_DELIVERY"/>
-      <exceptionAggregationMetadata/>
-    </measure>
     <measure id="AMOUNT" order="5" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="TOTAL_AMOUNT"/>
       <measureMapping columnObjectName="Join_1_4" columnName="AMOUNT"/>
@@ -320,7 +318,7 @@ END</formula>
   
   
     <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="512" y="236"/>
+      <upperLeftCorner x="391" y="229"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape modelObjectName="DATE" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">

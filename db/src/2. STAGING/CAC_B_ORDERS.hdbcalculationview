@@ -21,6 +21,8 @@
       <viewAttribute id="QUANTITY"/>
       <viewAttribute id="AMOUNT"/>
       <viewAttribute id="DELIVERY_STATUS"/>
+    
+      <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
     </viewAttributes>
     <calculatedViewAttributes/>
     <input node="FACT_ORDERS"/>
@@ -55,6 +57,11 @@
     <attribute id="DELIVERY_STATUS" order="9" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="DELIVERY_STATUS"/>
       <keyMapping columnObjectName="Projection_1" columnName="DELIVERY_STATUS"/>
+    </attribute>
+  
+    <attribute id="EXPECTED_DELIVERY_DATE" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="EXPECTED_DELIVERY_DATE"/>
+      <keyMapping columnObjectName="Projection_1" columnName="EXPECTED_DELIVERY_DATE"/>
     </attribute>
   </attributes>
   <calculatedAttributes/>
