@@ -229,6 +229,13 @@ END</formula>
     ELSE NULL
 END</formula>
       </calculatedViewAttribute>
+      <calculatedViewAttribute id="DELIVERED_ORDER_ID" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>CASE
+    WHEN &quot;DELIVERY_STATUS&quot; = 'Delivered'
+    THEN &quot;ORDER_ID&quot;
+    ELSE NULL
+END</formula>
+      </calculatedViewAttribute>
     </calculatedViewAttributes>
     <input node="DATE">
       <mapping xsi:type="Calculation:AttributeMapping" target="CALENDAR_DATE" source="CALENDAR_DATE"/>
@@ -277,6 +284,15 @@ END</formula>
       <keyMapping columnObjectName="Join_1_4" columnName="ORDER_ID"/>
   
     </attribute>
+  
+    <attribute id="ON_TIME_ORDER_ID" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ON_TIME_ORDER_ID"/>
+      <keyMapping columnObjectName="Join_1_4" columnName="ON_TIME_ORDER_ID"/>
+    </attribute>
+    <attribute id="DELIVERED_ORDER_ID" order="12" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DELIVERED_ORDER_ID"/>
+      <keyMapping columnObjectName="Join_1_4" columnName="DELIVERED_ORDER_ID"/>
+    </attribute>
   </attributes>
   <calculatedAttributes/>
   <baseMeasures>
@@ -305,6 +321,31 @@ END</formula>
         <attribute attributeName="ORDER_ID"/>
       </exceptionAggregation>
       <formula>1</formula>
+      <exceptionAggregationMetadata/>
+    </measure>
+  
+    <measure id="ON_TIME_ORDER_COUNT" order="11" aggregationType="sum" measureType="simple" calculatedMeasureType="counter" datatype="BIGINT">
+      <descriptions defaultDescription="Number of On-Time Orders"/>
+      <exceptionAggregation>
+        <attribute attributeName="ON_TIME_ORDER_ID"/>
+      </exceptionAggregation>
+      <formula>1</formula>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="DELIVERED_ORDER_COUNT" order="13" aggregationType="sum" measureType="simple" calculatedMeasureType="counter" datatype="BIGINT">
+      <descriptions defaultDescription="DELIVERED_ORDER_COUNT"/>
+      <exceptionAggregation>
+        <attribute attributeName="DELIVERED_ORDER_ID"/>
+      </exceptionAggregation>
+      <formula>1</formula>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="ON_TIME_DELIVERY_RATE" order="14" aggregationType="sum" measureType="simple" datatype="DECIMAL" length="5" scale="2" expressionLanguage="SQL">
+      <descriptions defaultDescription="On-Time Delivery Rate"/>
+      <formula>CASE
+    WHEN &quot;DELIVERED_ORDER_COUNT&quot; = 0 THEN 0
+    ELSE (&quot;ON_TIME_ORDER_COUNT&quot; * 100.0) / &quot;DELIVERED_ORDER_COUNT&quot;
+END</formula>
       <exceptionAggregationMetadata/>
     </measure>
   </calculatedMeasures>
