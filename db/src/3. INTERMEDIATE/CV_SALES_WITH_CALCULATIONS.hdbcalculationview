@@ -205,6 +205,9 @@ END</formula>
       <calculatedViewAttribute id="DAYS_TO_DELIVERY" datatype="INTEGER" expressionLanguage="SQL">
         <formula>DAYS_BETWEEN(&quot;CALENDAR_DATE&quot;,&quot;DELIVERY_DATE&quot;)</formula>
       </calculatedViewAttribute>
+      <calculatedViewAttribute id="CC_1" datatype="NVARCHAR" length="13" expressionLanguage="SQL">
+        <formula></formula>
+      </calculatedViewAttribute>
     </calculatedViewAttributes>
     <input node="DATE">
       <mapping xsi:type="Calculation:AttributeMapping" target="CALENDAR_DATE" source="CALENDAR_DATE"/>
