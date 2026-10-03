@@ -105,6 +105,8 @@ END</formula>
       <viewAttribute id="CUSTOMER_ID"/>
       <viewAttribute id="AMOUNT" aggregationType="sum"/>
       <viewAttribute id="QUANTITY" aggregationType="sum"/>
+      <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
+      <viewAttribute id="DELIVERY_STATUS"/>
       <viewAttribute hidden="true" id="JOIN$CARRIER_ID$CARRIER_ID"/>
     </viewAttributes>
     <calculatedViewAttributes/>
@@ -116,6 +118,8 @@ END</formula>
       <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_ID" source="CUSTOMER_ID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="QUANTITY" source="QUANTITY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EXPECTED_DELIVERY_DATE" source="EXPECTED_DELIVERY_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_STATUS" source="DELIVERY_STATUS"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CARRIER_ID$CARRIER_ID" source="CARRIER_ID"/>
     </input>
     <input node="CARRIER">
@@ -135,6 +139,8 @@ END</formula>
       <viewAttribute id="AMOUNT" aggregationType="sum"/>
       <viewAttribute id="QUANTITY" aggregationType="sum"/>
       <viewAttribute id="REGION_CODE"/>
+      <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
+      <viewAttribute id="DELIVERY_STATUS"/>
       <viewAttribute hidden="true" id="JOIN$CUSTOMER_ID$CUSTOMER_ID"/>
     </viewAttributes>
     <calculatedViewAttributes/>
@@ -147,6 +153,8 @@ END</formula>
       <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_ID" source="CUSTOMER_ID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="QUANTITY" source="QUANTITY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EXPECTED_DELIVERY_DATE" source="EXPECTED_DELIVERY_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_STATUS" source="DELIVERY_STATUS"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CUSTOMER_ID$CUSTOMER_ID" source="CUSTOMER_ID"/>
     </input>
     <input node="CUSTOMER">
@@ -167,6 +175,8 @@ END</formula>
       <viewAttribute id="QUANTITY" aggregationType="sum"/>
       <viewAttribute id="REGION_CODE"/>
       <viewAttribute id="WEIGHT_CATEGORY"/>
+      <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
+      <viewAttribute id="DELIVERY_STATUS"/>
       <viewAttribute hidden="true" id="JOIN$PRODUCT_ID$PRODUCT_ID"/>
     </viewAttributes>
     <calculatedViewAttributes/>
@@ -184,6 +194,8 @@ END</formula>
       <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="QUANTITY" source="QUANTITY"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="REGION_CODE" source="REGION_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EXPECTED_DELIVERY_DATE" source="EXPECTED_DELIVERY_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_STATUS" source="DELIVERY_STATUS"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT_ID$PRODUCT_ID" source="PRODUCT_ID"/>
     </input>
     <joinAttribute name="JOIN$PRODUCT_ID$PRODUCT_ID"/>
@@ -201,11 +213,21 @@ END</formula>
       <viewAttribute id="REGION_CODE"/>
       <viewAttribute id="WEIGHT_CATEGORY"/>
       <viewAttribute id="CALENDAR_DATE"/>
+      <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
+      <viewAttribute id="DELIVERY_STATUS"/>
       <viewAttribute hidden="true" id="JOIN$DATE_ID$DATE_ID"/>
     </viewAttributes>
     <calculatedViewAttributes>
       <calculatedViewAttribute id="DAYS_TO_DELIVERY" datatype="INTEGER" expressionLanguage="SQL">
         <formula>DAYS_BETWEEN(&quot;CALENDAR_DATE&quot;,&quot;DELIVERY_DATE&quot;)</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="ON_TIME_ORDER_ID" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>CASE
+    WHEN &quot;DELIVERY_STATUS&quot; = 'Delivered'
+         AND &quot;DELIVERY_DATE&quot; &lt;= &quot;EXPECTED_DELIVERY_DATE&quot;
+    THEN &quot;ORDER_ID&quot;
+    ELSE NULL
+END</formula>
       </calculatedViewAttribute>
     </calculatedViewAttributes>
     <input node="DATE">
@@ -223,6 +245,8 @@ END</formula>
       <mapping xsi:type="Calculation:AttributeMapping" target="QUANTITY" source="QUANTITY"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="REGION_CODE" source="REGION_CODE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="WEIGHT_CATEGORY" source="WEIGHT_CATEGORY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EXPECTED_DELIVERY_DATE" source="EXPECTED_DELIVERY_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_STATUS" source="DELIVERY_STATUS"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$DATE_ID$DATE_ID" source="DATE_ID"/>
     </input>
     <joinAttribute name="JOIN$DATE_ID$DATE_ID"/>
