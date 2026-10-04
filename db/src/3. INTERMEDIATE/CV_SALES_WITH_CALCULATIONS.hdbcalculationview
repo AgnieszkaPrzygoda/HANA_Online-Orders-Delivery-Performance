@@ -46,6 +46,7 @@
     <calculatedViewAttributes>
       <calculatedViewAttribute id="WEIGHT_CATEGORY" datatype="NVARCHAR" length="13" expressionLanguage="SQL">
         <formula>CASE 
+    WHEN &quot;WEIGHT_KG&quot; IS NULL THEN NULL
     WHEN &quot;WEIGHT_KG&quot; &lt; 2.00 THEN 'Light'
     WHEN &quot;WEIGHT_KG&quot; &lt;= 10.00 THEN 'Medium'
     ELSE 'Heavy'
