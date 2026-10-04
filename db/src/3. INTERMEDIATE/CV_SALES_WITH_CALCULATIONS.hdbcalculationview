@@ -42,13 +42,7 @@
   <calculationView xsi:type="Calculation:ProjectionView" id="PRODUCTS">
     <viewAttributes>
       <viewAttribute id="PRODUCT_ID"/>
-      <viewAttribute id="PRODUCT_NAME"/>
-      <viewAttribute id="CATEGORY"/>
-      <viewAttribute id="UNIT_PRICE"/>
-      <viewAttribute id="WEIGHT_KG"/>
-      <viewAttribute id="IS_FRAGILE"/>
-      <viewAttribute id="HANDLING_TYPE"/>
-    </viewAttributes>
+      <viewAttribute id="WEIGHT_KG"/></viewAttributes>
     <calculatedViewAttributes>
       <calculatedViewAttribute id="WEIGHT_CATEGORY" datatype="NVARCHAR" length="13" expressionLanguage="SQL">
         <formula>CASE 
@@ -63,22 +57,14 @@ END</formula>
   <calculationView xsi:type="Calculation:ProjectionView" id="DATE">
     <viewAttributes>
       <viewAttribute id="DATE_ID"/>
-      <viewAttribute id="CALENDAR_DATE"/>
-      <viewAttribute id="YEAR"/>
-      <viewAttribute id="QUARTER"/>
-      <viewAttribute id="MONTH"/>
-      <viewAttribute id="DAY"/>
-    </viewAttributes>
+      <viewAttribute id="CALENDAR_DATE"/></viewAttributes>
     <calculatedViewAttributes/>
     <input node="CAD_B_DATE"/>
   </calculationView>
   <calculationView xsi:type="Calculation:ProjectionView" id="CUSTOMER">
     <viewAttributes>
       <viewAttribute id="CUSTOMER_ID"/>
-      <viewAttribute id="CUSTOMER_NAME"/>
-      <viewAttribute id="REGION"/>
-      <viewAttribute id="SEGMENT"/>
-    </viewAttributes>
+      <viewAttribute id="REGION"/></viewAttributes>
     <calculatedViewAttributes>
       <calculatedViewAttribute id="REGION_CODE" datatype="NVARCHAR" length="2" expressionLanguage="SQL">
         <formula>UPPER(LEFT(&quot;REGION&quot;, 2))</formula>
@@ -89,13 +75,11 @@ END</formula>
   <calculationView xsi:type="Calculation:ProjectionView" id="CARRIER">
     <viewAttributes>
       <viewAttribute id="CARRIER_ID"/>
-      <viewAttribute id="CARRIER_NAME"/>
-      <viewAttribute id="SERVICE_LEVEL"/>
-    </viewAttributes>
+      <viewAttribute id="CARRIER_NAME"/></viewAttributes>
     <calculatedViewAttributes/>
     <input node="CAD_B_CARRIER"/>
   </calculationView>
-  <calculationView xsi:type="Calculation:JoinView" id="Join_1_1" cardinality="CN_1" joinType="leftOuter" multiJoinNode="Join_1" multiJoinCentralTable="DATE" multiJoinOrder="Outside In">
+  <calculationView xsi:type="Calculation:JoinView" id="Join_FACT_DIM_1" cardinality="CN_1" joinType="leftOuter" multiJoinNode="Join_FACT_DIM" multiJoinCentralTable="DATE" multiJoinOrder="Outside In">
     <viewAttributes>
       <viewAttribute id="DELIVERY_DATE"/>
       <viewAttribute id="PRODUCT_ID"/>
@@ -128,7 +112,7 @@ END</formula>
     </input>
     <joinAttribute name="JOIN$CARRIER_ID$CARRIER_ID"/>
   </calculationView>
-  <calculationView xsi:type="Calculation:JoinView" id="Join_1_2" cardinality="CN_1" joinType="leftOuter" multiJoinNode="Join_1" multiJoinCentralTable="DATE" multiJoinOrder="Outside In">
+  <calculationView xsi:type="Calculation:JoinView" id="Join_FACT_DIM_2" cardinality="CN_1" joinType="leftOuter" multiJoinNode="Join_FACT_DIM" multiJoinCentralTable="DATE" multiJoinOrder="Outside In">
     <viewAttributes>
       <viewAttribute id="DELIVERY_DATE"/>
       <viewAttribute id="PRODUCT_ID"/>
@@ -138,13 +122,13 @@ END</formula>
       <viewAttribute id="CUSTOMER_ID"/>
       <viewAttribute id="AMOUNT" aggregationType="sum"/>
       <viewAttribute id="QUANTITY" aggregationType="sum"/>
-      <viewAttribute id="REGION_CODE"/>
       <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
       <viewAttribute id="DELIVERY_STATUS"/>
+      <viewAttribute id="REGION_CODE"/>
       <viewAttribute hidden="true" id="JOIN$CUSTOMER_ID$CUSTOMER_ID"/>
     </viewAttributes>
     <calculatedViewAttributes/>
-    <input node="Join_1_1">
+    <input node="Join_FACT_DIM_1">
       <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_DATE" source="DELIVERY_DATE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="DATE_ID" source="DATE_ID"/>
@@ -163,7 +147,7 @@ END</formula>
     </input>
     <joinAttribute name="JOIN$CUSTOMER_ID$CUSTOMER_ID"/>
   </calculationView>
-  <calculationView xsi:type="Calculation:JoinView" id="Join_1_3" cardinality="C1_N" joinType="leftOuter" multiJoinNode="Join_1" multiJoinCentralTable="DATE" multiJoinOrder="Outside In">
+  <calculationView xsi:type="Calculation:JoinView" id="Join_FACT_DIM_3" cardinality="C1_N" joinType="rightOuter" multiJoinNode="Join_FACT_DIM" multiJoinCentralTable="DATE" multiJoinOrder="Outside In">
     <viewAttributes>
       <viewAttribute id="DELIVERY_DATE"/>
       <viewAttribute id="PRODUCT_ID"/>
@@ -173,10 +157,10 @@ END</formula>
       <viewAttribute id="CUSTOMER_ID"/>
       <viewAttribute id="AMOUNT" aggregationType="sum"/>
       <viewAttribute id="QUANTITY" aggregationType="sum"/>
-      <viewAttribute id="REGION_CODE"/>
-      <viewAttribute id="WEIGHT_CATEGORY"/>
       <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
       <viewAttribute id="DELIVERY_STATUS"/>
+      <viewAttribute id="REGION_CODE"/>
+      <viewAttribute id="WEIGHT_CATEGORY"/>
       <viewAttribute hidden="true" id="JOIN$PRODUCT_ID$PRODUCT_ID"/>
     </viewAttributes>
     <calculatedViewAttributes/>
@@ -184,7 +168,7 @@ END</formula>
       <mapping xsi:type="Calculation:AttributeMapping" target="WEIGHT_CATEGORY" source="WEIGHT_CATEGORY"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT_ID$PRODUCT_ID" source="PRODUCT_ID"/>
     </input>
-    <input node="Join_1_2">
+    <input node="Join_FACT_DIM_2">
       <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_DATE" source="DELIVERY_DATE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="DATE_ID" source="DATE_ID"/>
@@ -193,14 +177,14 @@ END</formula>
       <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_ID" source="CUSTOMER_ID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="QUANTITY" source="QUANTITY"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="REGION_CODE" source="REGION_CODE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="EXPECTED_DELIVERY_DATE" source="EXPECTED_DELIVERY_DATE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_STATUS" source="DELIVERY_STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REGION_CODE" source="REGION_CODE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT_ID$PRODUCT_ID" source="PRODUCT_ID"/>
     </input>
     <joinAttribute name="JOIN$PRODUCT_ID$PRODUCT_ID"/>
   </calculationView>
-  <calculationView xsi:type="Calculation:JoinView" id="Join_1_4" cardinality="C1_N" joinType="leftOuter" multiJoinNode="Join_1" multiJoinCentralTable="DATE" multiJoinOrder="Outside In">
+  <calculationView xsi:type="Calculation:JoinView" id="Join_FACT_DIM_4" cardinality="C1_N" joinType="rightOuter" multiJoinNode="Join_FACT_DIM" multiJoinCentralTable="DATE" multiJoinOrder="Outside In">
     <viewAttributes>
       <viewAttribute id="DELIVERY_DATE"/>
       <viewAttribute id="PRODUCT_ID"/>
@@ -210,11 +194,11 @@ END</formula>
       <viewAttribute id="CUSTOMER_ID"/>
       <viewAttribute id="AMOUNT" aggregationType="sum"/>
       <viewAttribute id="QUANTITY" aggregationType="sum"/>
+      <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
+      <viewAttribute id="DELIVERY_STATUS"/>
       <viewAttribute id="REGION_CODE"/>
       <viewAttribute id="WEIGHT_CATEGORY"/>
       <viewAttribute id="CALENDAR_DATE"/>
-      <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
-      <viewAttribute id="DELIVERY_STATUS"/>
       <viewAttribute hidden="true" id="JOIN$DATE_ID$DATE_ID"/>
     </viewAttributes>
     <calculatedViewAttributes>
@@ -241,7 +225,7 @@ END</formula>
       <mapping xsi:type="Calculation:AttributeMapping" target="CALENDAR_DATE" source="CALENDAR_DATE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$DATE_ID$DATE_ID" source="DATE_ID"/>
     </input>
-    <input node="Join_1_3">
+    <input node="Join_FACT_DIM_3">
       <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_DATE" source="DELIVERY_DATE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="DATE_ID" source="DATE_ID"/>
@@ -250,60 +234,62 @@ END</formula>
       <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_ID" source="CUSTOMER_ID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="QUANTITY" source="QUANTITY"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="REGION_CODE" source="REGION_CODE"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="WEIGHT_CATEGORY" source="WEIGHT_CATEGORY"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="EXPECTED_DELIVERY_DATE" source="EXPECTED_DELIVERY_DATE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_STATUS" source="DELIVERY_STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REGION_CODE" source="REGION_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WEIGHT_CATEGORY" source="WEIGHT_CATEGORY"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$DATE_ID$DATE_ID" source="DATE_ID"/>
     </input>
     <joinAttribute name="JOIN$DATE_ID$DATE_ID"/>
   </calculationView>
 </calculationViews>
-<logicalModel id="Join_1_4">
+<logicalModel id="Join_FACT_DIM_4">
   <attributes>
     <attribute id="DAYS_TO_DELIVERY" order="1" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="DAYS_TO_DELIVERY"/>
-      <keyMapping columnObjectName="Join_1_4" columnName="DAYS_TO_DELIVERY"/>
+      <keyMapping columnObjectName="Join_FACT_DIM_4" columnName="DAYS_TO_DELIVERY"/>
     </attribute>
     <attribute id="CARRIER_NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="CARRIER_NAME"/>
-      <keyMapping columnObjectName="Join_1_4" columnName="CARRIER_NAME"/>
+      <keyMapping columnObjectName="Join_FACT_DIM_4" columnName="CARRIER_NAME"/>
     </attribute>
     <attribute id="WEIGHT_CATEGORY" order="3" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="WEIGHT_CATEGORY"/>
-      <keyMapping columnObjectName="Join_1_4" columnName="WEIGHT_CATEGORY"/>
+      <keyMapping columnObjectName="Join_FACT_DIM_4" columnName="WEIGHT_CATEGORY"/>
     </attribute>
     <attribute id="REGION_CODE" order="4" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="REGION_CODE"/>
-      <keyMapping columnObjectName="Join_1_4" columnName="REGION_CODE"/>
+      <keyMapping columnObjectName="Join_FACT_DIM_4" columnName="REGION_CODE"/>
     </attribute>
   
     <attribute id="ORDER_ID" hidden="true" order="9" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="ORDER_ID"/>
   
-      <keyMapping columnObjectName="Join_1_4" columnName="ORDER_ID"/>
+      <keyMapping columnObjectName="Join_FACT_DIM_4" columnName="ORDER_ID"/>
   
     </attribute>
   
     <attribute id="ON_TIME_ORDER_ID" order="10" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="ON_TIME_ORDER_ID"/>
-      <keyMapping columnObjectName="Join_1_4" columnName="ON_TIME_ORDER_ID"/>
+  
+      <keyMapping columnObjectName="Join_FACT_DIM_4" columnName="ON_TIME_ORDER_ID"/>
+  
     </attribute>
     <attribute id="DELIVERED_ORDER_ID" order="12" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="DELIVERED_ORDER_ID"/>
-      <keyMapping columnObjectName="Join_1_4" columnName="DELIVERED_ORDER_ID"/>
+      <keyMapping columnObjectName="Join_FACT_DIM_4" columnName="DELIVERED_ORDER_ID"/>
     </attribute>
   </attributes>
   <calculatedAttributes/>
   <baseMeasures>
     <measure id="AMOUNT" order="5" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="TOTAL_AMOUNT"/>
-      <measureMapping columnObjectName="Join_1_4" columnName="AMOUNT"/>
+      <measureMapping columnObjectName="Join_FACT_DIM_4" columnName="AMOUNT"/>
       <exceptionAggregationMetadata/>
     </measure>
     <measure id="QUANTITY" order="6" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="QUANTITY"/>
-      <measureMapping columnObjectName="Join_1_4" columnName="QUANTITY"/>
+      <measureMapping columnObjectName="Join_FACT_DIM_4" columnName="QUANTITY"/>
       <exceptionAggregationMetadata/>
     </measure>
   </baseMeasures>
@@ -382,27 +368,27 @@ END</formula>
   
   
   
-    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+    <shape expanded="true" modelObjectName="Join_FACT_DIM" modelObjectNameSpace="CalculationView">
       <upperLeftCorner x="391" y="229"/>
       <rectangleSize height="30" width="160"/>
     </shape>
-    <shape modelObjectName="DATE" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
-      <upperLeftCorner x="20" y="30"/>
-      <rectangleSize width="136"/>
+    <shape modelObjectName="DATE" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
+      <upperLeftCorner x="14" y="42"/>
+      <rectangleSize width="200"/>
     </shape>
-    <shape modelObjectName="PRODUCTS" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
+    <shape modelObjectName="PRODUCTS" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
       <upperLeftCorner x="602" y="42"/>
       <rectangleSize width="198"/>
     </shape>
-    <shape modelObjectName="CUSTOMER" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
+    <shape modelObjectName="CUSTOMER" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
       <upperLeftCorner x="585" y="233"/>
       <rectangleSize width="206"/>
     </shape>
-    <shape modelObjectName="ORDERS" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
-      <upperLeftCorner x="300" y="42"/>
-      <rectangleSize width="208"/>
+    <shape modelObjectName="ORDERS" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
+      <upperLeftCorner x="298" y="127"/>
+      <rectangleSize width="260"/>
     </shape>
-    <shape modelObjectName="CARRIER" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
+    <shape modelObjectName="CARRIER" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
       <upperLeftCorner x="74" y="291"/>
       <rectangleSize width="194"/>
     </shape></shapes>
