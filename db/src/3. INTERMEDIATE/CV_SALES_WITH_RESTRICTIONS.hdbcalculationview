@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_SALES_WITH_RESTRICTIONS" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" id="CV_SALES_WITH_RESTRICTIONS" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
 <descriptions defaultDescription="CV_SALES_WITH_RESTRICTIONS"/>
 <localVariables/>
 <variableMappings/>
@@ -188,7 +188,34 @@
     </measure>
   </baseMeasures>
   <calculatedMeasures/>
-  <restrictedMeasures/>
+  <restrictedMeasures>
+    <measure id="DELIVERED_SALES" order="9" aggregationType="sum" datatype="DECIMAL" length="10" scale="2" baseMeasure="AMOUNT" restrictionExpressionLanguage="SQL">
+      <descriptions defaultDescription="Delivered Sales"/>
+      <restriction logicalOperator="AND">
+        <filter xsi:type="Privilege:AttributeFilter" attributeName="DELIVERY_STATUS" datatype="NVARCHAR">
+          <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Delivered"/>
+        </filter>
+        <attributeName>DELIVERY_STATUS</attributeName>
+      </restriction>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="FRAGILE_PRODUCT_SALES" order="10" aggregationType="sum" datatype="DECIMAL" length="10" scale="2" baseMeasure="AMOUNT" restrictionExpressionLanguage="SQL">
+      <descriptions defaultDescription="Fragile Product Sales"/>
+      <restriction logicalOperator="AND">
+        <filter xsi:type="Privilege:AttributeFilter" attributeName="HANDLING_TYPE" datatype="NVARCHAR">
+          <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Fragile"/>
+        </filter>
+        <attributeName>HANDLING_TYPE</attributeName>
+      </restriction>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="ON_TIME_SALES" order="11" aggregationType="sum" datatype="DECIMAL" length="10" scale="2" baseMeasure="AMOUNT" restrictionExpressionLanguage="SQL">
+      <descriptions defaultDescription="On-Time Sales"/>
+      <restrictionExpression>&quot;DELIVERY_STATUS&quot; = 'Delivered'
+AND &quot;DELIVERY_DATE&quot; &lt;=&quot;EXPECTED_DELIVERY_DATE&quot;</restrictionExpression>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </restrictedMeasures>
   <localDimensions/>
 </logicalModel>
 <layout>
