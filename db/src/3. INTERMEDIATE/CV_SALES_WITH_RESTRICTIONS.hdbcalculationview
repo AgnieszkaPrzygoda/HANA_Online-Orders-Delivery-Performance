@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_SALES_WITH_RESTRICTIONS" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CV_SALES_WITH_RESTRICTIONS"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CAC_B_ORDERS">
+    <resourceUri>CAC_B_ORDERS</resourceUri>
+  </DataSource>
+  <DataSource id="CAD_B_CARRIER">
+    <resourceUri>CAD_B_CARRIER</resourceUri>
+  </DataSource>
+  <DataSource id="CAD_B_PRODUCT">
+    <resourceUri>CAD_B_PRODUCT</resourceUri>
+  </DataSource>
+  <DataSource id="CAD_B_CUSTOMER">
+    <resourceUri>CAD_B_CUSTOMER</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="ORDERS">
+    <viewAttributes>
+      <viewAttribute id="AMOUNT"/>
+      <viewAttribute id="DELIVERY_STATUS"/>
+      <viewAttribute id="DELIVERY_DATE"/>
+      <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
+      <viewAttribute id="PRODUCT_ID"/>
+      <viewAttribute id="CARRIER_ID"/>
+      <viewAttribute id="ORDER_ID"/>
+      <viewAttribute id="CUSTOMER_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CAC_B_ORDERS"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="CARRIER">
+    <viewAttributes>
+      <viewAttribute id="CARRIER_ID"/>
+      <viewAttribute id="CARRIER_NAME"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CAD_B_CARRIER"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="PRODUCT">
+    <viewAttributes>
+      <viewAttribute id="HANDLING_TYPE"/>
+      <viewAttribute id="PRODUCT_ID"/>
+      <viewAttribute id="PRODUCT_NAME"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CAD_B_PRODUCT"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="CUSTOMER">
+    <viewAttributes>
+      <viewAttribute id="REGION"/>
+      <viewAttribute id="CUSTOMER_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CAD_B_CUSTOMER"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_FACT_DIM_1" cardinality="CN_1" joinType="leftOuter" multiJoinNode="Join_FACT_DIM" multiJoinCentralTable="PRODUCT" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+      <viewAttribute id="DELIVERY_STATUS"/>
+      <viewAttribute id="DELIVERY_DATE"/>
+      <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
+      <viewAttribute id="ORDER_ID" aggregationType="sum"/>
+      <viewAttribute id="REGION"/>
+      <viewAttribute id="CARRIER_ID"/>
+      <viewAttribute id="PRODUCT_ID"/>
+      <viewAttribute hidden="true" id="JOIN$CUSTOMER_ID$CUSTOMER_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="ORDERS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_STATUS" source="DELIVERY_STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_DATE" source="DELIVERY_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EXPECTED_DELIVERY_DATE" source="EXPECTED_DELIVERY_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CARRIER_ID" source="CARRIER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CUSTOMER_ID$CUSTOMER_ID" source="CUSTOMER_ID"/>
+    </input>
+    <input node="CUSTOMER">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REGION" source="REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CUSTOMER_ID$CUSTOMER_ID" source="CUSTOMER_ID"/>
+    </input>
+    <joinAttribute name="JOIN$CUSTOMER_ID$CUSTOMER_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_FACT_DIM_2" cardinality="CN_1" joinType="leftOuter" multiJoinNode="Join_FACT_DIM" multiJoinCentralTable="PRODUCT" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+      <viewAttribute id="DELIVERY_STATUS"/>
+      <viewAttribute id="DELIVERY_DATE"/>
+      <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
+      <viewAttribute id="ORDER_ID" aggregationType="sum"/>
+      <viewAttribute id="CARRIER_NAME"/>
+      <viewAttribute id="REGION"/>
+      <viewAttribute id="PRODUCT_ID"/>
+      <viewAttribute hidden="true" id="JOIN$CARRIER_ID$CARRIER_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Join_FACT_DIM_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_STATUS" source="DELIVERY_STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_DATE" source="DELIVERY_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EXPECTED_DELIVERY_DATE" source="EXPECTED_DELIVERY_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REGION" source="REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CARRIER_ID$CARRIER_ID" source="CARRIER_ID"/>
+    </input>
+    <input node="CARRIER">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CARRIER_NAME" source="CARRIER_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CARRIER_ID$CARRIER_ID" source="CARRIER_ID"/>
+    </input>
+    <joinAttribute name="JOIN$CARRIER_ID$CARRIER_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_FACT_DIM_3" cardinality="C1_N" joinType="rightOuter" multiJoinNode="Join_FACT_DIM" multiJoinCentralTable="PRODUCT" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="HANDLING_TYPE"/>
+      <viewAttribute id="PRODUCT_NAME"/>
+      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+      <viewAttribute id="DELIVERY_STATUS"/>
+      <viewAttribute id="DELIVERY_DATE"/>
+      <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
+      <viewAttribute id="ORDER_ID" aggregationType="sum"/>
+      <viewAttribute id="CARRIER_NAME"/>
+      <viewAttribute id="REGION"/>
+      <viewAttribute hidden="true" id="JOIN$PRODUCT_ID$PRODUCT_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="PRODUCT">
+      <mapping xsi:type="Calculation:AttributeMapping" target="HANDLING_TYPE" source="HANDLING_TYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_NAME" source="PRODUCT_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT_ID$PRODUCT_ID" source="PRODUCT_ID"/>
+    </input>
+    <input node="Join_FACT_DIM_2">
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_STATUS" source="DELIVERY_STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_DATE" source="DELIVERY_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EXPECTED_DELIVERY_DATE" source="EXPECTED_DELIVERY_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CARRIER_NAME" source="CARRIER_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REGION" source="REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT_ID$PRODUCT_ID" source="PRODUCT_ID"/>
+    </input>
+    <joinAttribute name="JOIN$PRODUCT_ID$PRODUCT_ID"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_FACT_DIM_3">
+  <attributes>
+    <attribute id="HANDLING_TYPE" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HANDLING_TYPE"/>
+      <keyMapping columnObjectName="Join_FACT_DIM_3" columnName="HANDLING_TYPE"/>
+    </attribute>
+    <attribute id="PRODUCT_NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT_NAME"/>
+      <keyMapping columnObjectName="Join_FACT_DIM_3" columnName="PRODUCT_NAME"/>
+    </attribute>
+    <attribute id="DELIVERY_STATUS" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DELIVERY_STATUS"/>
+      <keyMapping columnObjectName="Join_FACT_DIM_3" columnName="DELIVERY_STATUS"/>
+    </attribute>
+    <attribute id="DELIVERY_DATE" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DELIVERY_DATE"/>
+      <keyMapping columnObjectName="Join_FACT_DIM_3" columnName="DELIVERY_DATE"/>
+    </attribute>
+    <attribute id="EXPECTED_DELIVERY_DATE" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="EXPECTED_DELIVERY_DATE"/>
+      <keyMapping columnObjectName="Join_FACT_DIM_3" columnName="EXPECTED_DELIVERY_DATE"/>
+    </attribute>
+    <attribute id="CARRIER_NAME" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CARRIER_NAME"/>
+      <keyMapping columnObjectName="Join_FACT_DIM_3" columnName="CARRIER_NAME"/>
+    </attribute>
+    <attribute id="REGION" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REGION"/>
+      <keyMapping columnObjectName="Join_FACT_DIM_3" columnName="REGION"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="AMOUNT" order="3" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="TOTAL_SALES"/>
+      <measureMapping columnObjectName="Join_FACT_DIM_3" columnName="AMOUNT"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="474.7377768962724" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="ORDERS" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="722.0000000000001" y="406.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="CARRIER" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="512" y="406.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="PRODUCT" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="302.0000000000001" y="406.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="CUSTOMER" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="91.99999999999997" y="406.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_FACT_DIM" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="474.73777689627235" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="PRODUCT" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+    <shape modelObjectName="ORDERS" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+    <shape modelObjectName="CARRIER" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
+      <upperLeftCorner x="620" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+    <shape modelObjectName="CUSTOMER" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
+      <upperLeftCorner x="920" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
