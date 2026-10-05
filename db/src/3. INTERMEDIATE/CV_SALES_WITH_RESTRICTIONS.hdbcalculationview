@@ -181,7 +181,7 @@
   </attributes>
   <calculatedAttributes/>
   <baseMeasures>
-    <measure id="AMOUNT" order="3" aggregationType="sum" measureType="simple">
+    <measure id="TOTAL_SALES" order="3" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="TOTAL_SALES"/>
       <measureMapping columnObjectName="Join_FACT_DIM_3" columnName="AMOUNT"/>
       <exceptionAggregationMetadata/>
@@ -189,7 +189,7 @@
   </baseMeasures>
   <calculatedMeasures/>
   <restrictedMeasures>
-    <measure id="DELIVERED_SALES" order="9" aggregationType="sum" datatype="DECIMAL" length="10" scale="2" baseMeasure="AMOUNT" restrictionExpressionLanguage="SQL">
+    <measure id="DELIVERED_SALES" order="9" aggregationType="sum" datatype="DECIMAL" length="10" scale="2" baseMeasure="TOTAL_SALES" restrictionExpressionLanguage="SQL">
       <descriptions defaultDescription="Delivered Sales"/>
       <restriction logicalOperator="AND">
         <filter xsi:type="Privilege:AttributeFilter" attributeName="DELIVERY_STATUS" datatype="NVARCHAR">
@@ -199,7 +199,7 @@
       </restriction>
       <exceptionAggregationMetadata/>
     </measure>
-    <measure id="FRAGILE_PRODUCT_SALES" order="10" aggregationType="sum" datatype="DECIMAL" length="10" scale="2" baseMeasure="AMOUNT" restrictionExpressionLanguage="SQL">
+    <measure id="FRAGILE_PRODUCT_SALES" order="10" aggregationType="sum" datatype="DECIMAL" length="10" scale="2" baseMeasure="TOTAL_SALES" restrictionExpressionLanguage="SQL">
       <descriptions defaultDescription="Fragile Product Sales"/>
       <restriction logicalOperator="AND">
         <filter xsi:type="Privilege:AttributeFilter" attributeName="HANDLING_TYPE" datatype="NVARCHAR">
@@ -209,7 +209,7 @@
       </restriction>
       <exceptionAggregationMetadata/>
     </measure>
-    <measure id="ON_TIME_SALES" order="11" aggregationType="sum" datatype="DECIMAL" length="10" scale="2" baseMeasure="AMOUNT" restrictionExpressionLanguage="SQL">
+    <measure id="ON_TIME_SALES" order="11" aggregationType="sum" datatype="DECIMAL" length="10" scale="2" baseMeasure="TOTAL_SALES" restrictionExpressionLanguage="SQL">
       <descriptions defaultDescription="On-Time Sales"/>
       <restrictionExpression>&quot;DELIVERY_STATUS&quot; = 'Delivered'
 AND &quot;DELIVERY_DATE&quot; &lt;=&quot;EXPECTED_DELIVERY_DATE&quot;</restrictionExpression>
