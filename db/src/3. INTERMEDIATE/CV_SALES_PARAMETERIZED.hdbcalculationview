@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_SALES_PARAMETERIZED" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CV_SALES_PARAMETERIZED"/>
+<localVariables>
+  <variable id="IP_DATE_FROM" parameter="true">
+    <descriptions defaultDescription="Date From">
+      <comment text="Start date of the sales analysis period"/>
+    </descriptions>
+    <variableProperties datatype="DATE" mandatory="true">
+      <valueDomain type="Date"/>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+  <variable id="IP_DATE_TO" parameter="true">
+    <descriptions defaultDescription="Date To">
+      <comment text="End date of the sales analysis period"/>
+    </descriptions>
+    <variableProperties datatype="DATE" mandatory="true">
+      <valueDomain type="Date"/>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+  <variable id="IP_CATEGORIES" parameter="true">
+    <descriptions defaultDescription="Product Categories">
+      <comment text="Product categories included in the sales analysis"/>
+    </descriptions>
+    <variableProperties datatype="NVARCHAR" length="50" mandatory="false">
+      <valueDomain type="AttributeValue">
+        <externalLikeStructureName>CAD_B_PRODUCT</externalLikeStructureName>
+        <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+        <externalLikeElementName>CATEGORY</externalLikeElementName>
+      </valueDomain>
+      <selection multiLine="true" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+  <variable id="IP_MIN_AMOUNT" parameter="true">
+    <descriptions defaultDescription="Minimum Sales Amount">
+      <comment text="Minimum sales amount included in the analysis"/>
+    </descriptions>
+    <variableProperties datatype="DECIMAL" length="10" scale="2" mandatory="false" defaultExpressionLanguage="SQL" defaultValue="0">
+      <valueDomain type="empty"/>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CAC_B_ORDERS">
+    <resourceUri>CAC_B_ORDERS</resourceUri>
+  </DataSource>
+  <DataSource id="CAD_B_DATE">
+    <resourceUri>CAD_B_DATE</resourceUri>
+  </DataSource>
+  <DataSource id="CAD_B_PRODUCT">
+    <resourceUri>CAD_B_PRODUCT</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="ORDERS">
+    <viewAttributes>
+      <viewAttribute id="DATE_ID"/>
+      <viewAttribute id="CUSTOMER_ID"/>
+      <viewAttribute id="PRODUCT_ID"/>
+      <viewAttribute id="AMOUNT"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CAC_B_ORDERS"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="DATE">
+    <viewAttributes>
+      <viewAttribute id="DATE_ID"/>
+      <viewAttribute id="CALENDAR_DATE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CAD_B_DATE"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="PRODUCTS">
+    <viewAttributes>
+      <viewAttribute id="PRODUCT_ID"/>
+      <viewAttribute id="CATEGORY"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CAD_B_PRODUCT"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_FACT_DIM_1" cardinality="CN_1" joinType="leftOuter" multiJoinNode="Join_FACT_DIM" multiJoinCentralTable="ORDERS" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+      <viewAttribute id="CATEGORY"/>
+      <viewAttribute id="DATE_ID"/>
+      <viewAttribute hidden="true" id="JOIN$PRODUCT_ID$PRODUCT_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="ORDERS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATE_ID" source="DATE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT_ID$PRODUCT_ID" source="PRODUCT_ID"/>
+    </input>
+    <input node="PRODUCTS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT_ID$PRODUCT_ID" source="PRODUCT_ID"/>
+    </input>
+    <joinAttribute name="JOIN$PRODUCT_ID$PRODUCT_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_FACT_DIM_2" cardinality="CN_1" joinType="leftOuter" multiJoinNode="Join_FACT_DIM" multiJoinCentralTable="ORDERS" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+      <viewAttribute id="CALENDAR_DATE"/>
+      <viewAttribute id="CATEGORY"/>
+      <viewAttribute hidden="true" id="JOIN$DATE_ID$DATE_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Join_FACT_DIM_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$DATE_ID$DATE_ID" source="DATE_ID"/>
+    </input>
+    <input node="DATE">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CALENDAR_DATE" source="CALENDAR_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$DATE_ID$DATE_ID" source="DATE_ID"/>
+    </input>
+    <joinAttribute name="JOIN$DATE_ID$DATE_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="FILTER" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="AMOUNT"/>
+      <viewAttribute id="CALENDAR_DATE"/>
+      <viewAttribute id="CATEGORY"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Join_FACT_DIM_2"/>
+    <filter>&quot;CALENDAR_DATE&quot; &gt;= '$$IP_DATE_FROM$$'
+AND &quot;CALENDAR_DATE&quot; &lt;= '$$IP_DATE_TO$$'
+AND &quot;AMOUNT&quot; &gt;= $$IP_MIN_AMOUNT$$
+AND &quot;CATEGORY&quot; in ($$IP_CATEGORIES$$)</filter>
+  </calculationView>
+</calculationViews>
+<logicalModel id="FILTER">
+  <attributes>
+    <attribute id="CALENDAR_DATE" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CALENDAR_DATE"/>
+      <keyMapping columnObjectName="FILTER" columnName="CALENDAR_DATE"/>
+    </attribute>
+    <attribute id="CATEGORY" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CATEGORY"/>
+      <keyMapping columnObjectName="FILTER" columnName="CATEGORY"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="AMOUNT" order="1" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="AMOUNT"/>
+      <measureMapping columnObjectName="FILTER" columnName="AMOUNT"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="541.1894489495048" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="ORDERS" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="302.0000000000002" y="531.9999976158142"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="DATE" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="722.0000000000001" y="531.9999976158142"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="PRODUCTS" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="512.0000000000001" y="531.9999976158142"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_FACT_DIM" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="482.13365599224335" y="341.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="ORDERS" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+    <shape modelObjectName="DATE" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+    <shape modelObjectName="PRODUCTS" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
+      <upperLeftCorner x="330" y="134"/>
+      <rectangleSize width="177.51667022705078"/>
+    </shape>
+    <shape expanded="true" modelObjectName="FILTER" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="482.13365599224335" y="236.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
