@@ -212,7 +212,7 @@ END</formula>
 <logicalModel id="MOM_CHANGES">
   <attributes>
     <attribute id="CATEGORY" order="2" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="CATEGORY"/>
+      <descriptions defaultDescription="Product Category"/>
       <keyMapping columnObjectName="MOM_CHANGES" columnName="CATEGORY"/>
     </attribute>
     <attribute id="YEAR" order="3" displayAttribute="false" attributeHierarchyActive="false">
@@ -227,37 +227,37 @@ END</formula>
   <calculatedAttributes/>
   <baseMeasures>
     <measure id="MONTHLY_SALES" order="1" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="AMOUNT"/>
+      <descriptions defaultDescription="Monthly Sales"/>
       <measureMapping columnObjectName="MOM_CHANGES" columnName="MONTHLY_SALES"/>
       <exceptionAggregationMetadata/>
     </measure>
     <measure id="SALES_RANK" order="5" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="SALES_RANK"/>
+      <descriptions defaultDescription="Annual Sales Rank"/>
       <measureMapping columnObjectName="MOM_CHANGES" columnName="SALES_RANK"/>
       <exceptionAggregationMetadata/>
     </measure>
     <measure id="RUNNING_TOTAL" order="6" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="RUNNING_TOTAL"/>
+      <descriptions defaultDescription="Cumulative Category Sales"/>
       <measureMapping columnObjectName="MOM_CHANGES" columnName="RUNNING_TOTAL"/>
       <exceptionAggregationMetadata/>
     </measure>
     <measure id="MOVING_AVG_3M" order="7" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="MOVING_AVG_3M"/>
+      <descriptions defaultDescription="3-Period Moving Average"/>
       <measureMapping columnObjectName="MOM_CHANGES" columnName="MOVING_AVG_3M"/>
       <exceptionAggregationMetadata/>
     </measure>
     <measure id="PREVIOUS_MONTH_SALES" order="8" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="PREVIOUS_MONTH_SALES"/>
+      <descriptions defaultDescription="Previous Available Period Sales"/>
       <measureMapping columnObjectName="MOM_CHANGES" columnName="PREVIOUS_MONTH_SALES"/>
       <exceptionAggregationMetadata/>
     </measure>
     <measure id="MOM_CHANGE" order="9" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="MOM_CHANGE"/>
+      <descriptions defaultDescription="Change vs Previous Available Period"/>
       <measureMapping columnObjectName="MOM_CHANGES" columnName="MOM_CHANGE"/>
       <exceptionAggregationMetadata/>
     </measure>
     <measure id="MOM_CHANGE_PCT" order="10" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="MOM_CHANGE_PCT"/>
+      <descriptions defaultDescription="Change vs Previous Available Period (%)"/>
       <measureMapping columnObjectName="MOM_CHANGES" columnName="MOM_CHANGE_PCT"/>
       <exceptionAggregationMetadata/>
     </measure>
@@ -269,55 +269,55 @@ END</formula>
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="409.28034636983335" y="112"/>
+      <upperLeftCorner x="409" y="112"/>
     
       <rectangleSize width="160"/>
     </shape>
   
     <shape expanded="true" modelObjectName="ORDERS" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="91.99999999999994" y="891.9999952316284"/>
+      <upperLeftCorner x="91" y="891"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="PRODUCTS" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="512" y="891.9999952316284"/>
+      <upperLeftCorner x="512" y="891"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="DATE" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="302" y="891.9999952316284"/>
+      <upperLeftCorner x="302" y="891"/>
       <rectangleSize height="30" width="160"/>
     </shape>
-    <shape expanded="true" modelObjectName="Join_FACT_and_DIM" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="285.5" y="736.9999964237213"/>
-      <rectangleSize height="30" width="193"/>
-    </shape>
-    <shape modelObjectName="ORDERS" modelObjectNameSpace="Join_FACT_and_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_and_DIM">
-      <upperLeftCorner x="261" y="39"/>
-      <rectangleSize width="177.51667022705078"/>
-    </shape>
-    <shape modelObjectName="PRODUCTS" modelObjectNameSpace="Join_FACT_and_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_and_DIM">
-      <upperLeftCorner x="33" y="94"/>
-      <rectangleSize width="177.51667022705078"/>
-    </shape>
-    <shape modelObjectName="DATE" modelObjectNameSpace="Join_FACT_and_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_and_DIM">
-      <upperLeftCorner x="484" y="72"/>
-      <rectangleSize width="151.6333351135254"/>
-    </shape>
     <shape expanded="true" modelObjectName="AGG_MONTHLY_SALES" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="357.5785268600868" y="611.9999976158142"/>
+      <upperLeftCorner x="357" y="611"/>
       <rectangleSize height="30" width="209"/>
     </shape>
     <shape expanded="true" modelObjectName="WIN_FUN_SALES_ANALYTICS" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="251.0785268600868" y="486.9999976158142"/>
-      <rectangleSize height="30" width="291.00000000000006"/>
+      <upperLeftCorner x="251" y="486"/>
+      <rectangleSize height="30" width="291"/>
     </shape>
     <shape expanded="true" modelObjectName="WIN_FUN_SALES_RANK" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="331.361960148377" y="341.9999988079071"/>
-      <rectangleSize height="30" width="234.99999999999994"/>
+      <upperLeftCorner x="331" y="341"/>
+      <rectangleSize height="30" width="234"/>
     </shape>
     <shape expanded="true" modelObjectName="MOM_CHANGES" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="406.361960148377" y="236.9999988079071"/>
+      <upperLeftCorner x="406" y="236"/>
       <rectangleSize height="30" width="160"/>
     </shape>
-  </shapes>
+  
+    <shape expanded="true" modelObjectName="Join_FACT_and_DIM" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="285" y="736"/>
+      <rectangleSize height="30" width="193"/>
+    </shape>
+    <shape modelObjectName="DATE" modelObjectNameSpace="Join_FACT_and_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_and_DIM">
+      <upperLeftCorner x="484" y="72"/>
+      <rectangleSize width="151"/>
+    </shape>
+    <shape modelObjectName="ORDERS" modelObjectNameSpace="Join_FACT_and_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_and_DIM">
+      <upperLeftCorner x="261" y="39"/>
+      <rectangleSize width="177"/>
+    </shape>
+    <shape modelObjectName="PRODUCTS" modelObjectNameSpace="Join_FACT_and_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_and_DIM">
+      <upperLeftCorner x="33" y="94"/>
+      <rectangleSize width="177"/>
+    </shape></shapes>
 </layout>
 </Calculation:scenario>
