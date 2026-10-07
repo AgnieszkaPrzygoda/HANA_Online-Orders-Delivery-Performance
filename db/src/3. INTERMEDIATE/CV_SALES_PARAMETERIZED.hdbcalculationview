@@ -137,45 +137,50 @@
       <viewAttribute id="CALENDAR_DATE"/>
       <viewAttribute id="CATEGORY"/>
     </viewAttributes>
-    <calculatedViewAttributes>
-      <calculatedViewAttribute id="SALES_VALUE_CATEGORY" datatype="NVARCHAR" length="20" expressionLanguage="SQL">
-        <descriptions>
-          <comment text="Sales value category"/>
-        </descriptions>
-        <formula>CASE
-   WHEN &quot;AMOUNT&quot; &gt;= $$IP_HIGH_VALUE_THRESHOLD$$ THEN 'HIGH VALUE'
-   ELSE 'STANDARD'
-END</formula>
-      </calculatedViewAttribute>
-    </calculatedViewAttributes>
+    <calculatedViewAttributes/>
     <input node="Join_FACT_DIM_2"/>
     <filter>&quot;CALENDAR_DATE&quot; &gt;= '$$IP_DATE_FROM$$'
 AND &quot;CALENDAR_DATE&quot; &lt;= '$$IP_DATE_TO$$'
 AND &quot;AMOUNT&quot; &gt;= $$IP_MIN_AMOUNT$$
 AND &quot;CATEGORY&quot; in ($$IP_CATEGORIES$$)</filter>
   </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <viewAttributes>
+      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+      <viewAttribute id="CALENDAR_DATE"/>
+      <viewAttribute id="CATEGORY"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="FILTER"/>
+  </calculationView>
 </calculationViews>
-<logicalModel id="FILTER">
+<logicalModel id="Aggregation_1">
   <attributes>
-    <attribute id="CALENDAR_DATE" order="2" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="CALENDAR_DATE" order="3" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="CALENDAR_DATE"/>
-      <keyMapping columnObjectName="FILTER" columnName="CALENDAR_DATE"/>
+      <keyMapping columnObjectName="Aggregation_1" columnName="CALENDAR_DATE"/>
     </attribute>
-    <attribute id="CATEGORY" order="3" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="CATEGORY" order="4" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="CATEGORY"/>
-      <keyMapping columnObjectName="FILTER" columnName="CATEGORY"/>
-    </attribute>
-  
-    <attribute id="SALES_VALUE_CATEGORY" order="4" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="SALES_VALUE_CATEGORY"/>
-      <keyMapping columnObjectName="FILTER" columnName="SALES_VALUE_CATEGORY"/>
+      <keyMapping columnObjectName="Aggregation_1" columnName="CATEGORY"/>
     </attribute>
   </attributes>
-  <calculatedAttributes/>
+  <calculatedAttributes>
+    <calculatedAttribute id="SALES_VALUE_CATEGORY" order="1" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Sales Value Category"/>
+      <keyCalculation datatype="NVARCHAR" expressionLanguage="SQL" length="20">
+        <formula>CASE
+   WHEN &quot;AMOUNT&quot; &gt;= $$IP_HIGH_VALUE_THRESHOLD$$ THEN 'HIGH VALUE'
+   ELSE 'STANDARD'
+END</formula>
+      </keyCalculation>
+    </calculatedAttribute>
+  </calculatedAttributes>
   <baseMeasures>
-    <measure id="AMOUNT" order="1" aggregationType="sum" measureType="simple">
+    <measure id="AMOUNT" order="2" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="AMOUNT"/>
-      <measureMapping columnObjectName="FILTER" columnName="AMOUNT"/>
+      <measureMapping columnObjectName="Aggregation_1" columnName="AMOUNT"/>
       <exceptionAggregationMetadata/>
     </measure>
   </baseMeasures>
@@ -186,30 +191,30 @@ AND &quot;CATEGORY&quot; in ($$IP_CATEGORIES$$)</filter>
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="541" y="112"/>
+      <upperLeftCorner x="398.0170968217191" y="112"/>
     
       <rectangleSize width="160"/>
     </shape>
   
     <shape expanded="true" modelObjectName="ORDERS" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="302" y="531"/>
+      <upperLeftCorner x="92.00000000000006" y="641.9999964237213"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="DATE" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="722" y="531"/>
+      <upperLeftCorner x="512" y="641.9999964237213"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="PRODUCTS" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="512" y="531"/>
+      <upperLeftCorner x="302.00000000000006" y="641.9999964237213"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="FILTER" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="482" y="236"/>
+      <upperLeftCorner x="380.64099613460075" y="341.9999988079071"/>
       <rectangleSize height="30" width="160"/>
     </shape>
   
     <shape expanded="true" modelObjectName="Join_FACT_DIM" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="482" y="341"/>
+      <upperLeftCorner x="302.00000000000006" y="486.9999976158142"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape modelObjectName="DATE" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
@@ -223,6 +228,11 @@ AND &quot;CATEGORY&quot; in ($$IP_CATEGORIES$$)</filter>
     <shape modelObjectName="PRODUCTS" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
       <upperLeftCorner x="330" y="134"/>
       <rectangleSize width="177"/>
-    </shape></shapes>
+    </shape>
+    <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="380.64099613460075" y="236.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
 </layout>
 </Calculation:scenario>
