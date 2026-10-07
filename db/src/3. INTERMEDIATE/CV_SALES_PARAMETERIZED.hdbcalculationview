@@ -42,6 +42,16 @@
       <selection multiLine="false" type="SingleValue"/>
     </variableProperties>
   </variable>
+
+  <variable id="IP_HIGH_VALUE_THRESHOLD" parameter="true">
+    <descriptions defaultDescription="High Value Threshold">
+      <comment text="Threshold used to classify sales as high or standard value"/>
+    </descriptions>
+    <variableProperties datatype="DECIMAL" length="10" scale="2" mandatory="false" defaultExpressionLanguage="SQL" defaultValue="300">
+      <valueDomain type="empty"/>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
 </localVariables>
 <variableMappings/>
 <dataSources>
@@ -127,7 +137,17 @@
       <viewAttribute id="CALENDAR_DATE"/>
       <viewAttribute id="CATEGORY"/>
     </viewAttributes>
-    <calculatedViewAttributes/>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="SALES_VALUE_CATEGORY" datatype="NVARCHAR" length="20" expressionLanguage="SQL">
+        <descriptions>
+          <comment text="Sales value category"/>
+        </descriptions>
+        <formula>CASE
+   WHEN &quot;AMOUNT&quot; &gt;= $$IP_HIGH_VALUE_THRESHOLD$$ THEN 'HIGH VALUE'
+   ELSE 'STANDARD'
+END</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
     <input node="Join_FACT_DIM_2"/>
     <filter>&quot;CALENDAR_DATE&quot; &gt;= '$$IP_DATE_FROM$$'
 AND &quot;CALENDAR_DATE&quot; &lt;= '$$IP_DATE_TO$$'
@@ -144,6 +164,11 @@ AND &quot;CATEGORY&quot; in ($$IP_CATEGORIES$$)</filter>
     <attribute id="CATEGORY" order="3" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="CATEGORY"/>
       <keyMapping columnObjectName="FILTER" columnName="CATEGORY"/>
+    </attribute>
+  
+    <attribute id="SALES_VALUE_CATEGORY" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SALES_VALUE_CATEGORY"/>
+      <keyMapping columnObjectName="FILTER" columnName="SALES_VALUE_CATEGORY"/>
     </attribute>
   </attributes>
   <calculatedAttributes/>
