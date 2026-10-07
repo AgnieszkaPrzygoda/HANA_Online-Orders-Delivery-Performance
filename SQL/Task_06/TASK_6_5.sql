@@ -54,3 +54,19 @@ FROM "CV_SALES_PARAMETERIZED"(
 )
 GROUP BY "CATEGORY"
 ORDER BY "TOTAL_SALES" DESC;
+
+
+-- Verifies that the input parameter dynamically controls sales value classification
+SELECT
+    "CALENDAR_DATE",
+    "CATEGORY",
+    "AMOUNT",
+    "SALES_VALUE_CATEGORY"
+FROM "CV_SALES_PARAMETERIZED"(
+    PLACEHOLDER."$$IP_DATE_FROM$$" => '2025-01-01',
+    PLACEHOLDER."$$IP_DATE_TO$$" => '2025-12-31',
+    PLACEHOLDER."$$IP_CATEGORIES$$" => '''Electronics'',''Furniture''',
+    PLACEHOLDER."$$IP_MIN_AMOUNT$$" => '100',
+    PLACEHOLDER."$$IP_HIGH_VALUE_THRESHOLD$$" => '300'
+)
+ORDER BY "AMOUNT";
