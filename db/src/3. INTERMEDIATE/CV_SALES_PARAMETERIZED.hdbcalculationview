@@ -37,7 +37,7 @@
     <descriptions defaultDescription="Minimum Sales Amount">
       <comment text="Minimum sales amount included in the analysis"/>
     </descriptions>
-    <variableProperties datatype="DECIMAL" length="10" scale="2" mandatory="false" defaultExpressionLanguage="SQL" defaultValue="0">
+    <variableProperties datatype="DECIMAL" length="10" scale="2" mandatory="false" defaultValue="0">
       <valueDomain type="empty"/>
       <selection multiLine="false" type="SingleValue"/>
     </variableProperties>
@@ -161,43 +161,43 @@ AND &quot;CATEGORY&quot; in ($$IP_CATEGORIES$$)</filter>
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="541.1894489495048" y="112"/>
+      <upperLeftCorner x="541" y="112"/>
     
       <rectangleSize width="160"/>
     </shape>
   
     <shape expanded="true" modelObjectName="ORDERS" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="302.0000000000002" y="531.9999976158142"/>
+      <upperLeftCorner x="302" y="531"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="DATE" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="722.0000000000001" y="531.9999976158142"/>
+      <upperLeftCorner x="722" y="531"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="PRODUCTS" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="512.0000000000001" y="531.9999976158142"/>
+      <upperLeftCorner x="512" y="531"/>
       <rectangleSize height="30" width="160"/>
     </shape>
+    <shape expanded="true" modelObjectName="FILTER" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="482" y="236"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
     <shape expanded="true" modelObjectName="Join_FACT_DIM" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="482.13365599224335" y="341.9999988079071"/>
+      <upperLeftCorner x="482" y="341"/>
       <rectangleSize height="30" width="160"/>
-    </shape>
-    <shape modelObjectName="ORDERS" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
-      <upperLeftCorner x="20" y="30"/>
-      <rectangleSize width="136"/>
     </shape>
     <shape modelObjectName="DATE" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
       <upperLeftCorner x="320" y="30"/>
       <rectangleSize width="136"/>
     </shape>
+    <shape modelObjectName="ORDERS" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
     <shape modelObjectName="PRODUCTS" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
       <upperLeftCorner x="330" y="134"/>
-      <rectangleSize width="177.51667022705078"/>
-    </shape>
-    <shape expanded="true" modelObjectName="FILTER" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="482.13365599224335" y="236.9999988079071"/>
-      <rectangleSize height="30" width="160"/>
-    </shape>
-  </shapes>
+      <rectangleSize width="177"/>
+    </shape></shapes>
 </layout>
 </Calculation:scenario>
