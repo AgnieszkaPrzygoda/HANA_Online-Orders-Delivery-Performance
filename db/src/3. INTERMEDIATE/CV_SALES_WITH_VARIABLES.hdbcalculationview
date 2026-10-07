@@ -16,21 +16,12 @@
     <descriptions defaultDescription="Year">
       <comment text="Filter sales by selected year"/>
     </descriptions>
-    <variableProperties datatype="INTEGER" scale="0" mandatory="true" defaultValue="" inputType="UserProvided">
+    <variableProperties datatype="INTEGER" scale="0" mandatory="true" inputType="UserProvided">
       <valueDomain type="AttributeValue">
     <attribute name="YEAR"/></valueDomain>
       <selection multiLine="false" type="SingleValue"/>
     </variableProperties>
-  </variable>
-
-  <variable id="VAR_1">
-    <descriptions defaultDescription=""/>
-    <variableProperties defaultValue="">
-      <valueDomain type="AttributeValue"/>
-      <selection type="SingleValue"/>
-    </variableProperties>
-  </variable>
-</localVariables>
+  </variable></localVariables>
 <variableMappings/>
 <dataSources>
   <DataSource id="CAC_B_ORDERS">
