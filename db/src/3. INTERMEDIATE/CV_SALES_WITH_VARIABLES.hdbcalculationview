@@ -35,6 +35,14 @@
       <defaultRange operator="BT" including="true"/>
     </variableProperties>
   </variable>
+
+  <variable id="IP_DISCOUNT_RATE" parameter="true">
+    <descriptions defaultDescription="Discount Rate"/>
+    <variableProperties datatype="DECIMAL" length="5" scale="2" mandatory="false" defaultExpressionLanguage="SQL" defaultValue="0">
+      <valueDomain type="empty"/>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
 </localVariables>
 <variableMappings/>
 <dataSources>
@@ -119,7 +127,7 @@
     <joinAttribute name="JOIN$DATE_ID$DATE_ID"/>
   </calculationView>
 </calculationViews>
-<logicalModel id="Join_FACT_DIM_2" filterExpressionLanguage="SQL">
+<logicalModel id="Join_FACT_DIM_2">
   <attributes>
     <attribute id="YEAR" order="2" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="YEAR"/>
@@ -140,12 +148,18 @@
   <calculatedAttributes/>
   <baseMeasures>
     <measure id="AMOUNT" order="1" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="AMOUNT"/>
+      <descriptions defaultDescription="Total Sales"/>
       <measureMapping columnObjectName="Join_FACT_DIM_2" columnName="AMOUNT"/>
       <exceptionAggregationMetadata/>
     </measure>
   </baseMeasures>
-  <calculatedMeasures/>
+  <calculatedMeasures>
+    <measure id="CC_SALES_AFTER_DISCOUNT" order="5" aggregationType="sum" measureType="simple" datatype="DECIMAL" length="10" scale="2" expressionLanguage="SQL">
+      <descriptions defaultDescription="Sales after discount"/>
+      <formula>&quot;AMOUNT&quot; * (1 - $$IP_DISCOUNT_RATE$$ / 100)</formula>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </calculatedMeasures>
   <restrictedMeasures/>
   <localDimensions/>
 </logicalModel>
