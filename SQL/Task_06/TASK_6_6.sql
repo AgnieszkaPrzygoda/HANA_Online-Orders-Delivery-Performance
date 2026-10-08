@@ -45,3 +45,22 @@ WHERE "YEAR" = 2025
   AND "CATEGORY" = 'Electronics'
   AND "CALENDAR_DATE" BETWEEN '2025-01-01' AND '2025-06-30'
 GROUP BY "YEAR", "CATEGORY";
+
+
+-- Verifies the discount calculation using an Input Parameter
+-- and sales filtering by year and category
+SELECT
+    "YEAR",
+    "CATEGORY",
+    "CALENDAR_DATE",
+    SUM("AMOUNT") AS "TOTAL_SALES",
+    SUM("CC_SALES_AFTER_DISCOUNT") AS "SALES_AFTER_DISCOUNT"
+FROM "CV_SALES_WITH_VARIABLES"
+    (PLACEHOLDER."$$IP_DISCOUNT_RATE$$" => '10')
+WHERE "YEAR" = 2026
+  AND "CATEGORY" = 'Electronics'
+GROUP BY
+    "YEAR",
+    "CATEGORY",
+    "CALENDAR_DATE"
+ORDER BY "CALENDAR_DATE";
