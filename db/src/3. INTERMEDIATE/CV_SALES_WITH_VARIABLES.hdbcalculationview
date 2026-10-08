@@ -2,26 +2,40 @@
 <Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_SALES_WITH_VARIABLES" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
 <descriptions defaultDescription="CV_SALES_WITH_VARIABLES"/>
 <localVariables>
-  <variable id="IP_YEAR" parameter="true">
-    <descriptions defaultDescription="Year">
-      <comment text="Year used for sales analysis"/>
-    </descriptions>
-    <variableProperties datatype="INTEGER" mandatory="true" defaultExpressionLanguage="SQL">
-      <valueDomain type="empty"/>
-      <selection multiLine="false" type="SingleValue"/>
-      <defaultExpression>Year(CURRENT_DATE)</defaultExpression>
-    </variableProperties>
-  </variable>
   <variable id="VAR_YEAR">
     <descriptions defaultDescription="Year">
       <comment text="Filter sales by selected year"/>
     </descriptions>
-    <variableProperties datatype="INTEGER" scale="0" mandatory="true" inputType="UserProvided">
+    <variableProperties datatype="INTEGER" scale="0" mandatory="true" inputType="UserProvided" defaultExpressionLanguage="SQL">
       <valueDomain type="AttributeValue">
     <attribute name="YEAR"/></valueDomain>
       <selection multiLine="false" type="SingleValue"/>
+      <defaultExpression>YEAR(CURRENT_DATE)</defaultExpression>
     </variableProperties>
-  </variable></localVariables>
+  </variable>
+  <variable id="VAR_CATEGORY">
+    <descriptions defaultDescription="Product Category">
+      <comment text="Filters sales by selected product categories"/>
+    </descriptions>
+    <variableProperties datatype="NVARCHAR" length="50" defaultValue="">
+      <valueDomain type="AttributeValue">
+    <attribute name="CATEGORY"/></valueDomain>
+      <selection multiLine="true" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+  <variable id="VAR_DATE_RANGE">
+    <descriptions defaultDescription="Date Range">
+      <comment text="Filters sales within the selected data range"/>
+    </descriptions>
+    <variableProperties datatype="DATE" length="10">
+      <valueDomain type="AttributeValue">
+    <attribute name="CALENDAR_DATE"/>
+  </valueDomain>
+      <selection type="Interval"/>
+      <defaultRange operator="BT" including="true"/>
+    </variableProperties>
+  </variable>
+</localVariables>
 <variableMappings/>
 <dataSources>
   <DataSource id="CAC_B_ORDERS">
@@ -105,7 +119,7 @@
     <joinAttribute name="JOIN$DATE_ID$DATE_ID"/>
   </calculationView>
 </calculationViews>
-<logicalModel id="Join_FACT_DIM_2">
+<logicalModel id="Join_FACT_DIM_2" filterExpressionLanguage="SQL">
   <attributes>
     <attribute id="YEAR" order="2" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="YEAR"/>
@@ -114,10 +128,12 @@
     </attribute>
     <attribute id="CATEGORY" order="3" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="CATEGORY"/>
+      <localVariable>VAR_CATEGORY</localVariable>
       <keyMapping columnObjectName="Join_FACT_DIM_2" columnName="CATEGORY"/>
     </attribute>
     <attribute id="CALENDAR_DATE" order="4" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="CALENDAR_DATE"/>
+      <localVariable>VAR_DATE_RANGE</localVariable>
       <keyMapping columnObjectName="Join_FACT_DIM_2" columnName="CALENDAR_DATE"/>
     </attribute>
   </attributes>
