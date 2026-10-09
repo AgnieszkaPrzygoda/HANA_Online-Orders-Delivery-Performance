@@ -61,7 +61,9 @@
   
     <attribute id="EXPECTED_DELIVERY_DATE" order="10" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="EXPECTED_DELIVERY_DATE"/>
+  
       <keyMapping columnObjectName="Projection_1" columnName="EXPECTED_DELIVERY_DATE"/>
+  
     </attribute>
   </attributes>
   <calculatedAttributes/>
