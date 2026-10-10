@@ -38,7 +38,7 @@
 
   <variable id="IP_DISCOUNT_RATE" parameter="true">
     <descriptions defaultDescription="Discount Rate"/>
-    <variableProperties datatype="DECIMAL" length="5" scale="2" mandatory="false" defaultExpressionLanguage="SQL" defaultValue="0">
+    <variableProperties datatype="DECIMAL" length="5" scale="2" mandatory="false" defaultValue="0">
       <valueDomain type="empty"/>
       <selection multiLine="false" type="SingleValue"/>
     </variableProperties>

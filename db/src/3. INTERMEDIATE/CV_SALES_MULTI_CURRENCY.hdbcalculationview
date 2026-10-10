@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_SALES_MULTI_CURRENCY" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CV_SALES_MULTI_CURRENCY"/>
+<localVariables>
+  <variable id="IP_TARGET_CURRENCY" parameter="true">
+    <descriptions defaultDescription="Target currency"/>
+    <variableProperties datatype="NVARCHAR" length="3" mandatory="true" defaultValue="USD">
+      <valueDomain type="empty"/>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CAC_B_ORDERS">
+    <resourceUri>CAC_B_ORDERS</resourceUri>
+  </DataSource>
+  <DataSource id="CAD_B_DATE">
+    <resourceUri>CAD_B_DATE</resourceUri>
+  </DataSource>
+  <DataSource id="CAD_B_EXCHANGE_RATES">
+    <resourceUri>CAD_B_EXCHANGE_RATES</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="ORDERS">
+    <viewAttributes>
+      <viewAttribute id="DATE_ID"/>
+      <viewAttribute id="AMOUNT"/>
+      <viewAttribute id="ORDER_ID"/>
+    
+      <viewAttribute id="LINE_ITEM_ID"/>
+      <viewAttribute id="CURRENCY"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CAC_B_ORDERS"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="DATE">
+    <viewAttributes>
+      <viewAttribute id="DATE_ID"/>
+      <viewAttribute id="CALENDAR_DATE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CAD_B_DATE"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="EXCHANGE_RATES" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="SOURCE_CURRENCY"/>
+      <viewAttribute id="TARGET_CURRENCY"/>
+      <viewAttribute id="VALID_FROM"/>
+      <viewAttribute id="RATE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CAD_B_EXCHANGE_RATES"/>
+    <filter>&quot;TARGET_CURRENCY&quot; = '$$IP_TARGET_CURRENCY$$'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_ORDERS_DATE" cardinality="CN_1" joinType="leftOuter">
+    <descriptions>
+      <comment text="Connects each order with its order date."/>
+    </descriptions>
+    <viewAttributes>
+      <viewAttribute id="DATE_ID" aggregationType="sum"/>
+      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+      <viewAttribute id="ORDER_ID" aggregationType="sum"/>
+      <viewAttribute id="CALENDAR_DATE"/>
+      <viewAttribute id="LINE_ITEM_ID" aggregationType="sum"/>
+      <viewAttribute id="CURRENCY"/>
+      <viewAttribute hidden="true" id="JOIN$DATE_ID$DATE_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="ORDERS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATE_ID" source="DATE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LINE_ITEM_ID" source="LINE_ITEM_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CURRENCY" source="CURRENCY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$DATE_ID$DATE_ID" source="DATE_ID"/>
+    </input>
+    <input node="DATE">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CALENDAR_DATE" source="CALENDAR_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$DATE_ID$DATE_ID" source="DATE_ID"/>
+    </input>
+    <joinAttribute name="JOIN$DATE_ID$DATE_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:NonEquiJoinView" id="Join_Historical_Rates" cardinality="CN_N" joinType="inner">
+    <descriptions>
+      <comment text="Matches exchange rates using source currency and order date. It excludes rates for other source currencies and future dates. Multiple historical rates may still match one order."/>
+    </descriptions>
+    <viewAttributes>
+      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+      <viewAttribute id="ORDER_ID" aggregationType="sum"/>
+      <viewAttribute id="CALENDAR_DATE"/>
+      <viewAttribute id="LINE_ITEM_ID" aggregationType="sum"/>
+      <viewAttribute id="CURRENCY"/>
+      <viewAttribute id="TARGET_CURRENCY"/>
+      <viewAttribute id="VALID_FROM"/>
+      <viewAttribute id="RATE" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Join_ORDERS_DATE">
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CALENDAR_DATE" source="CALENDAR_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LINE_ITEM_ID" source="LINE_ITEM_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CURRENCY" source="CURRENCY"/>
+    </input>
+    <input node="EXCHANGE_RATES">
+      <mapping xsi:type="Calculation:AttributeMapping" target="TARGET_CURRENCY" source="TARGET_CURRENCY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="VALID_FROM" source="VALID_FROM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="RATE" source="RATE"/>
+    </input>
+    <joinAttribute leftColumn="CURRENCY" rightColumn="SOURCE_CURRENCY" operator="EQ"/>
+    <joinAttribute leftColumn="CALENDAR_DATE" rightColumn="VALID_FROM" operator="GE"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:RankView" id="Rank_Latest_Rate">
+    <descriptions>
+      <comment text="Selects the latest available rate for each order line and target currency."/>
+    </descriptions>
+    <viewAttributes>
+      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+      <viewAttribute id="ORDER_ID" aggregationType="sum"/>
+      <viewAttribute id="CALENDAR_DATE"/>
+      <viewAttribute id="LINE_ITEM_ID" aggregationType="sum"/>
+      <viewAttribute id="CURRENCY"/>
+      <viewAttribute id="TARGET_CURRENCY"/>
+      <viewAttribute id="VALID_FROM"/>
+      <viewAttribute id="RATE" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Join_Historical_Rates"/>
+    <rankingFilter type="RANK" offsetReference="FRONT" dynamicPartitionAttributes="false">
+      <partitionViewAttributeName id="ORDER_ID"/>
+      <partitionViewAttributeName id="LINE_ITEM_ID"/>
+      <partitionViewAttributeName id="TARGET_CURRENCY"/>
+      <order byViewAttributeName="VALID_FROM" direction="DESC"/>
+      <rankThreshold>
+        <value>1</value>
+      </rankThreshold>
+    </rankingFilter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_Currency_Conversion">
+    <viewAttributes>
+      <viewAttribute id="AMOUNT"/>
+      <viewAttribute id="ORDER_ID"/>
+      <viewAttribute id="CALENDAR_DATE"/>
+      <viewAttribute id="LINE_ITEM_ID"/>
+      <viewAttribute id="CURRENCY"/>
+      <viewAttribute id="TARGET_CURRENCY"/>
+      <viewAttribute id="VALID_FROM"/>
+      <viewAttribute id="RATE"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="CONVERTED_AMOUNT" datatype="DECIMAL" length="15" scale="2" expressionLanguage="SQL">
+        <descriptions>
+          <comment text="Converted amount"/>
+        </descriptions>
+        <formula>ROUND(&quot;AMOUNT&quot; * &quot;RATE&quot;, 2)</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="Rank_Latest_Rate"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Projection_Currency_Conversion">
+  <attributes>
+    <attribute id="ORDER_ID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ORDER_ID"/>
+      <keyMapping columnObjectName="Projection_Currency_Conversion" columnName="ORDER_ID"/>
+    </attribute>
+    <attribute id="CALENDAR_DATE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CALENDAR_DATE"/>
+      <keyMapping columnObjectName="Projection_Currency_Conversion" columnName="CALENDAR_DATE"/>
+    </attribute>
+    <attribute id="LINE_ITEM_ID" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="LINE_ITEM_ID"/>
+      <keyMapping columnObjectName="Projection_Currency_Conversion" columnName="LINE_ITEM_ID"/>
+    </attribute>
+    <attribute id="CURRENCY" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CURRENCY"/>
+      <keyMapping columnObjectName="Projection_Currency_Conversion" columnName="CURRENCY"/>
+    </attribute>
+    <attribute id="TARGET_CURRENCY" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="TARGET_CURRENCY"/>
+      <keyMapping columnObjectName="Projection_Currency_Conversion" columnName="TARGET_CURRENCY"/>
+    </attribute>
+    <attribute id="VALID_FROM" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="VALID_FROM"/>
+      <keyMapping columnObjectName="Projection_Currency_Conversion" columnName="VALID_FROM"/>
+    </attribute>
+    <attribute id="RATE" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="RATE"/>
+      <keyMapping columnObjectName="Projection_Currency_Conversion" columnName="RATE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="AMOUNT" order="1" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="AMOUNT"/>
+      <measureMapping columnObjectName="Projection_Currency_Conversion" columnName="AMOUNT"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="CONVERTED_AMOUNT" order="9" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="CONVERTED_AMOUNT"/>
+      <measureMapping columnObjectName="Projection_Currency_Conversion" columnName="CONVERTED_AMOUNT"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="354.1425059957712" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="ORDERS" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="786.9999964237213"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="DATE" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="301.9999999999999" y="786.9999964237213"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="EXCHANGE_RATES" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="394.52719132990563" y="626.9999976158142"/>
+      <rectangleSize height="30" width="193"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_ORDERS_DATE" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="118.66666666666663" y="626.9999976158142"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="ORDERS" modelObjectNameSpace="Join_ORDERS_DATE" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+    <shape modelObjectName="DATE" modelObjectNameSpace="Join_ORDERS_DATE" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+  
+  
+    <shape expanded="false" modelObjectName="Join_Historical_Rates" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="273.2989787232185" y="466.9999988079071"/>
+      <rectangleSize height="30" width="270"/>
+    </shape>
+    <shape modelObjectName="Join_ORDERS_DATE" modelObjectNameSpace="Join_Historical_Rates" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="EXCHANGE_RATES" modelObjectNameSpace="Join_Historical_Rates" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Rank_Latest_Rate" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="284.7989787232185" y="341.9999988079071"/>
+      <rectangleSize height="30" width="247"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_Currency_Conversion" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="311.1425059957712" y="217"/>
+      <rectangleSize height="30" width="246"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
