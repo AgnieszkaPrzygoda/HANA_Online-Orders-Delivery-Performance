@@ -23,6 +23,9 @@
       <viewAttribute id="DELIVERY_STATUS"/>
     
       <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
+    
+      <viewAttribute id="LINE_ITEM_ID"/>
+      <viewAttribute id="CURRENCY"/>
     </viewAttributes>
     <calculatedViewAttributes/>
     <input node="FACT_ORDERS"/>
@@ -54,6 +57,10 @@
       <descriptions defaultDescription="DELIVERY_DATE"/>
       <keyMapping columnObjectName="Projection_1" columnName="DELIVERY_DATE"/>
     </attribute>
+    <attribute id="QUANTITY" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="QUANTITY"/>
+      <keyMapping columnObjectName="Projection_1" columnName="QUANTITY"/>
+    </attribute>
     <attribute id="DELIVERY_STATUS" order="9" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="DELIVERY_STATUS"/>
       <keyMapping columnObjectName="Projection_1" columnName="DELIVERY_STATUS"/>
@@ -65,14 +72,18 @@
       <keyMapping columnObjectName="Projection_1" columnName="EXPECTED_DELIVERY_DATE"/>
   
     </attribute>
+  
+    <attribute id="LINE_ITEM_ID" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="LINE_ITEM_ID"/>
+      <keyMapping columnObjectName="Projection_1" columnName="LINE_ITEM_ID"/>
+    </attribute>
+    <attribute id="CURRENCY" order="12" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CURRENCY"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CURRENCY"/>
+    </attribute>
   </attributes>
   <calculatedAttributes/>
   <baseMeasures>
-    <measure id="QUANTITY" order="7" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="QUANTITY"/>
-      <measureMapping columnObjectName="Projection_1" columnName="QUANTITY"/>
-      <exceptionAggregationMetadata/>
-    </measure>
     <measure id="AMOUNT" order="8" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="AMOUNT"/>
       <measureMapping columnObjectName="Projection_1" columnName="AMOUNT"/>
