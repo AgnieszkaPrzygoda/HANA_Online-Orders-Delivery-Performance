@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CAD_B_EXCHANGE_RATES" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Projection" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CAD_B_EXCHANGE_RATES"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="EXCHANGE_RATES$$$$EXCHANGE_RATES$$">
+    <resourceUri>EXCHANGE_RATES</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="EXCHANGE_RATES">
+    <viewAttributes>
+      <viewAttribute id="SOURCE_CURRENCY"/>
+      <viewAttribute id="TARGET_CURRENCY"/>
+      <viewAttribute id="VALID_FROM"/>
+      <viewAttribute id="RATE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="EXCHANGE_RATES$$$$EXCHANGE_RATES$$"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="EXCHANGE_RATES">
+  <attributes>
+    <attribute id="SOURCE_CURRENCY" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SOURCE_CURRENCY"/>
+      <keyMapping columnObjectName="EXCHANGE_RATES" columnName="SOURCE_CURRENCY"/>
+    </attribute>
+    <attribute id="TARGET_CURRENCY" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="TARGET_CURRENCY"/>
+      <keyMapping columnObjectName="EXCHANGE_RATES" columnName="TARGET_CURRENCY"/>
+    </attribute>
+    <attribute id="VALID_FROM" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="VALID_FROM"/>
+      <keyMapping columnObjectName="EXCHANGE_RATES" columnName="VALID_FROM"/>
+    </attribute>
+    <attribute id="RATE" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="RATE"/>
+      <keyMapping columnObjectName="EXCHANGE_RATES" columnName="RATE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="EXCHANGE_RATES" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="75" y="233"/>
+      <rectangleSize height="30" width="193"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
