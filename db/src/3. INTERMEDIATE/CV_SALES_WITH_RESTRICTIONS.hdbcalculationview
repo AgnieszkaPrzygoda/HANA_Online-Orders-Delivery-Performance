@@ -94,9 +94,10 @@
       <viewAttribute id="DELIVERY_DATE"/>
       <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
       <viewAttribute id="ORDER_ID" aggregationType="sum"/>
-      <viewAttribute id="CARRIER_NAME"/>
       <viewAttribute id="REGION"/>
+      <viewAttribute id="CARRIER_ID"/>
       <viewAttribute id="PRODUCT_ID"/>
+      <viewAttribute id="CARRIER_NAME"/>
       <viewAttribute hidden="true" id="JOIN$CARRIER_ID$CARRIER_ID"/>
     </viewAttributes>
     <calculatedViewAttributes/>
@@ -107,6 +108,7 @@
       <mapping xsi:type="Calculation:AttributeMapping" target="EXPECTED_DELIVERY_DATE" source="EXPECTED_DELIVERY_DATE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="REGION" source="REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CARRIER_ID" source="CARRIER_ID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CARRIER_ID$CARRIER_ID" source="CARRIER_ID"/>
     </input>
@@ -118,15 +120,17 @@
   </calculationView>
   <calculationView xsi:type="Calculation:JoinView" id="Join_FACT_DIM_3" cardinality="C1_N" joinType="rightOuter" multiJoinNode="Join_FACT_DIM" multiJoinCentralTable="PRODUCT" multiJoinOrder="Outside In">
     <viewAttributes>
-      <viewAttribute id="HANDLING_TYPE"/>
-      <viewAttribute id="PRODUCT_NAME"/>
       <viewAttribute id="AMOUNT" aggregationType="sum"/>
       <viewAttribute id="DELIVERY_STATUS"/>
       <viewAttribute id="DELIVERY_DATE"/>
       <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
       <viewAttribute id="ORDER_ID" aggregationType="sum"/>
-      <viewAttribute id="CARRIER_NAME"/>
       <viewAttribute id="REGION"/>
+      <viewAttribute id="CARRIER_ID"/>
+      <viewAttribute id="PRODUCT_ID"/>
+      <viewAttribute id="CARRIER_NAME"/>
+      <viewAttribute id="HANDLING_TYPE"/>
+      <viewAttribute id="PRODUCT_NAME"/>
       <viewAttribute hidden="true" id="JOIN$PRODUCT_ID$PRODUCT_ID"/>
     </viewAttributes>
     <calculatedViewAttributes/>
@@ -141,8 +145,10 @@
       <mapping xsi:type="Calculation:AttributeMapping" target="DELIVERY_DATE" source="DELIVERY_DATE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="EXPECTED_DELIVERY_DATE" source="EXPECTED_DELIVERY_DATE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="CARRIER_NAME" source="CARRIER_NAME"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="REGION" source="REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CARRIER_ID" source="CARRIER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CARRIER_NAME" source="CARRIER_NAME"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT_ID$PRODUCT_ID" source="PRODUCT_ID"/>
     </input>
     <joinAttribute name="JOIN$PRODUCT_ID$PRODUCT_ID"/>
@@ -221,41 +227,41 @@ AND &quot;DELIVERY_DATE&quot; &lt;=&quot;EXPECTED_DELIVERY_DATE&quot;</restricti
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="474.7377768962724" y="112"/>
+      <upperLeftCorner x="474" y="112"/>
     
       <rectangleSize width="160"/>
     </shape>
   
     <shape expanded="true" modelObjectName="ORDERS" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="722.0000000000001" y="406.9999988079071"/>
+      <upperLeftCorner x="722" y="406"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="CARRIER" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="512" y="406.9999988079071"/>
+      <upperLeftCorner x="512" y="406"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="PRODUCT" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="302.0000000000001" y="406.9999988079071"/>
+      <upperLeftCorner x="302" y="406"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="CUSTOMER" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="91.99999999999997" y="406.9999988079071"/>
+      <upperLeftCorner x="91" y="406"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="Join_FACT_DIM" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="474.73777689627235" y="217"/>
+      <upperLeftCorner x="474" y="217"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape modelObjectName="PRODUCT" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
       <upperLeftCorner x="20" y="30"/>
       <rectangleSize width="136"/>
     </shape>
-    <shape modelObjectName="ORDERS" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
-      <upperLeftCorner x="320" y="30"/>
-      <rectangleSize width="136"/>
-    </shape>
     <shape modelObjectName="CARRIER" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
       <upperLeftCorner x="620" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+    <shape modelObjectName="ORDERS" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
+      <upperLeftCorner x="320" y="30"/>
       <rectangleSize width="136"/>
     </shape>
     <shape modelObjectName="CUSTOMER" modelObjectNameSpace="Join_FACT_DIM" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_FACT_DIM">
