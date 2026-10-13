@@ -1,0 +1,66 @@
+-- Updates an order line from 'Shipped' to 'Delivered'
+-- when an actual delivery date is provided.
+-- Uses input parameters to identify the order line and delivery date.
+-- Returns the new status and a message about the result.
+-- Convert to stored procedure
+PROCEDURE "UPDATE_DELIVERY_STATUS"(
+    IN IN_ORDER_ID INTEGER,
+    IN IN_LINE_ITEM_ID INTEGER,
+    IN IN_DELIVERY_DATE DATE,
+    OUT OUT_NEW_STATUS NVARCHAR(50),
+    OUT OUT_MESSAGE NVARCHAR(200)
+)
+LANGUAGE SQLSCRIPT
+AS
+BEGIN
+    -- Declare variables
+    DECLARE v_current_status NVARCHAR(50);
+    DECLARE v_rows_updated INTEGER DEFAULT 0;
+    DECLARE v_order_exists INTEGER DEFAULT 0;
+
+    -- Check if order line exists
+    SELECT COUNT(*) INTO v_order_exists
+    FROM FACT_ORDERS
+    WHERE ORDER_ID = :IN_ORDER_ID
+      AND LINE_ITEM_ID = :IN_LINE_ITEM_ID;
+
+    IF :v_order_exists = 0 THEN
+        OUT_NEW_STATUS = NULL;
+        OUT_MESSAGE = 'Order not found';
+    ELSE
+        -- Get current order status
+        SELECT DELIVERY_STATUS INTO v_current_status
+        FROM FACT_ORDERS
+        WHERE ORDER_ID = :IN_ORDER_ID
+          AND LINE_ITEM_ID = :IN_LINE_ITEM_ID;
+
+        -- Determine new status
+        IF :v_current_status = 'Shipped'
+           AND :IN_DELIVERY_DATE IS NOT NULL THEN
+            OUT_NEW_STATUS = 'Delivered';
+        ELSEIF :v_current_status = 'Shipped' THEN
+            OUT_NEW_STATUS = 'Shipped';
+        ELSE
+            OUT_NEW_STATUS = :v_current_status;
+        END IF;
+
+        -- Update the delivery status and actual delivery date
+        UPDATE FACT_ORDERS
+        SET DELIVERY_STATUS = :OUT_NEW_STATUS,
+            DELIVERY_DATE = :IN_DELIVERY_DATE
+        WHERE ORDER_ID = :IN_ORDER_ID
+          AND LINE_ITEM_ID = :IN_LINE_ITEM_ID
+          AND DELIVERY_STATUS = 'Shipped'
+          AND :IN_DELIVERY_DATE IS NOT NULL;
+
+        v_rows_updated = ::ROWCOUNT;
+
+        -- Return message
+        IF :v_rows_updated = 1 THEN
+            OUT_MESSAGE = 'Order updated successfully';
+        ELSE
+            OUT_MESSAGE = 'No update needed';
+        END IF;
+    END IF;
+END;
+
