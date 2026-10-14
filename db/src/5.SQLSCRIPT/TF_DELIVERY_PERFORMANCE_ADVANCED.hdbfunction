@@ -1,0 +1,45 @@
+-- Advanced Table Function
+-- Function: TF_DELIVERY_PERFORMANCE_ADVANCED
+-- Rank carriers by their on-time delivery rate.
+-- Reuses TF_DELIVERY_PERFORMANCE to avoid duplicate calculations.
+-- Uses the RANK() window function for carrier performance analysis.
+
+FUNCTION "TF_DELIVERY_PERFORMANCE_ADVANCED"(
+    IN IN_START_DATE DATE,
+    IN IN_END_DATE DATE
+)
+RETURNS TABLE (
+    CARRIER_NAME NVARCHAR(100),
+    TOTAL_ORDERS INTEGER,
+    DELIVERED_ORDERS INTEGER,
+    ON_TIME_RATE DECIMAL(5,2),
+    AVG_DELAY_DAYS DECIMAL(10,2),
+    CARRIER_RANK INTEGER
+)
+LANGUAGE SQLSCRIPT
+AS
+BEGIN
+
+    -- Return delivery KPIs with an additional carrier ranking.
+    RETURN
+        SELECT
+            CARRIER_NAME,
+            TOTAL_ORDERS,
+            DELIVERED_ORDERS,
+            ON_TIME_RATE,
+            AVG_DELAY_DAYS,
+
+            -- Rank carriers from highest to lowest on-time rate.
+            -- Carriers with equal rates receive the same rank.
+            CAST(
+                RANK() OVER (ORDER BY ON_TIME_RATE DESC)
+                AS INTEGER
+            ) AS CARRIER_RANK
+
+        -- Reuse the existing table function and pass the date parameters.
+        FROM "TF_DELIVERY_PERFORMANCE"(
+            :IN_START_DATE,
+            :IN_END_DATE
+        );
+
+END;
