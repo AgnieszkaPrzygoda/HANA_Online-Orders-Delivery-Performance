@@ -1,0 +1,83 @@
+-- Table Function - Reporting & Analytics
+-- Function: TF_DELIVERY_PERFORMANCE
+
+-- Compare carrier delivery performance for a selected order period.
+-- Calculate on-time delivery rates and average delays.
+-- Uses the scalar function FN_DELIVERY_DELAY_DAYS from Task 1.
+
+FUNCTION "TF_DELIVERY_PERFORMANCE"(
+    IN IN_START_DATE DATE,   -- Start of the order date range
+    IN IN_END_DATE DATE      -- End of the order date range
+)
+RETURNS TABLE (
+    CARRIER_NAME NVARCHAR(50),
+    TOTAL_ORDERS INTEGER,         -- Number of unique orders
+    DELIVERED_ORDERS INTEGER,     -- Number of delivered orders
+    ON_TIME_RATE DECIMAL(5,2),    -- Percentage of on-time deliveries
+    AVG_DELAY_DAYS DECIMAL(10,2) -- Average delivery delay in days
+)
+LANGUAGE SQLSCRIPT
+AS  
+BEGIN
+-- Prepare order-level data and calculate carrier performance
+    lt_order_delays =
+        SELECT DISTINCT
+            o.ORDER_ID,
+            c.CARRIER_NAME,
+            o.DELIVERY_STATUS,
+
+            -- Scalar function from Task 1
+            "FN_DELIVERY_DELAY_DAYS"(
+                o.EXPECTED_DELIVERY_DATE,
+                o.DELIVERY_DATE
+            ) AS DELAY_DAYS
+
+        FROM FACT_ORDERS o
+        JOIN DIM_CARRIER c
+            ON o.CARRIER_ID = c.CARRIER_ID
+        JOIN DIM_DATE d
+            ON o.DATE_ID = d.DATE_ID
+        WHERE d.CALENDAR_DATE BETWEEN :IN_START_DATE AND :IN_END_DATE;
+
+    -- Calculate delivery performance by carrier
+    RETURN SELECT
+        CARRIER_NAME,
+        CAST(COUNT(*) AS INTEGER) AS TOTAL_ORDERS,
+
+        -- Count delivered orders
+        CAST(SUM(CASE
+            WHEN DELIVERY_STATUS = 'Delivered' THEN 1
+            ELSE 0
+        END) AS INTEGER) AS DELIVERED_ORDERS,
+
+        -- Percentage of on-time deliveries
+        CAST(
+            ROUND(
+                100.0 * SUM(CASE
+                    WHEN DELIVERY_STATUS = 'Delivered'
+                         AND DELAY_DAYS = 0 THEN 1
+                    ELSE 0
+                END)
+                / NULLIF(SUM(CASE
+                    WHEN DELIVERY_STATUS = 'Delivered' THEN 1
+                    ELSE 0
+                END), 0),
+                2
+            ) AS DECIMAL(5,2)
+        ) AS ON_TIME_RATE,
+
+        -- Average delay of delivered orders
+        CAST(
+            ROUND(
+                AVG(CASE
+                    WHEN DELIVERY_STATUS = 'Delivered'
+                    THEN DELAY_DAYS
+                END),
+                2
+            ) AS DECIMAL(10,2)
+        ) AS AVG_DELAY_DAYS
+
+    FROM :lt_order_delays
+    GROUP BY CARRIER_NAME;
+
+END;
