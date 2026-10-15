@@ -1,0 +1,19 @@
+{
+    "role": {
+        "name": "app_service_role",
+        "schema_privileges": [
+            {
+                "privileges": [
+                    "SELECT"
+                ]
+            }
+        ],
+        "object_privileges": [
+            {
+                "name": "CV_SALES_WITH_CALCULATIONS",
+                "type": "VIEW",
+                "privileges": [ "SELECT" ]
+            }
+        ]
+    }
+}
