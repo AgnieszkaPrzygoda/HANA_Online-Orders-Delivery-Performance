@@ -26,6 +26,8 @@
     
       <viewAttribute id="LINE_ITEM_ID"/>
       <viewAttribute id="CURRENCY"/>
+    
+      <viewAttribute id="CUSTOMER_RATING"/>
     </viewAttributes>
     <calculatedViewAttributes/>
     <input node="FACT_ORDERS"/>
@@ -75,11 +77,18 @@
   
     <attribute id="LINE_ITEM_ID" order="11" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="LINE_ITEM_ID"/>
+  
       <keyMapping columnObjectName="Projection_1" columnName="LINE_ITEM_ID"/>
+  
     </attribute>
     <attribute id="CURRENCY" order="12" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="CURRENCY"/>
       <keyMapping columnObjectName="Projection_1" columnName="CURRENCY"/>
+    </attribute>
+  
+    <attribute id="CUSTOMER_RATING" order="13" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTOMER_RATING"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CUSTOMER_RATING"/>
     </attribute>
   </attributes>
   <calculatedAttributes/>
