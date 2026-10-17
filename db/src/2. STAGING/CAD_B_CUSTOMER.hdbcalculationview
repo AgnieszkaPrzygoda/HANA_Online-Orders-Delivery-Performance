@@ -16,6 +16,8 @@
       <viewAttribute id="CUSTOMER_NAME"/>
       <viewAttribute id="REGION"/>
       <viewAttribute id="SEGMENT"/>
+    
+      <viewAttribute id="LOYALTY_TIER"/>
     </viewAttributes>
     <calculatedViewAttributes/>
     <input node="DIM_CUSTOMER"/>
@@ -38,6 +40,11 @@
     <attribute id="SEGMENT" order="4" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="SEGMENT"/>
       <keyMapping columnObjectName="Projection_1" columnName="SEGMENT"/>
+    </attribute>
+  
+    <attribute id="LOYALTY_TIER" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="LOYALTY_TIER"/>
+      <keyMapping columnObjectName="Projection_1" columnName="LOYALTY_TIER"/>
     </attribute>
   </attributes>
   <calculatedAttributes/>
