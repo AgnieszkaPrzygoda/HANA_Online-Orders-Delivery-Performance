@@ -65,6 +65,7 @@ ORDER BY REGION;
 
 -- If privilege filters for EMEA region, you should only see EMEA data
 -- Try to see all regions (this should still only show filtered data)
+-- Test 4: Distinct regions - try to see all regions
 SELECT DISTINCT REGION
 FROM "AGNIESZKASFINALPROJECT_HDI_DB_1"."CV_SALES_ANALYSIS"
 ORDER BY REGION;
