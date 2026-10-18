@@ -52,6 +52,14 @@ and &quot;AMOUNT&quot; &gt; 0</filter>
       <descriptions defaultDescription="DELIVERY_DATE"/>
       <keyMapping columnObjectName="Projection_1" columnName="DELIVERY_DATE"/>
     </attribute>
+    <attribute id="ORDER_ID" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ORDER_ID"/>
+      <keyMapping columnObjectName="Projection_1" columnName="ORDER_ID"/>
+    </attribute>
+    <attribute id="PRODUCT_ID" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT_ID"/>
+      <keyMapping columnObjectName="Projection_1" columnName="PRODUCT_ID"/>
+    </attribute>
   
     <attribute id="DATE_ID" order="9" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="DATE_ID"/>
@@ -76,20 +84,7 @@ and &quot;AMOUNT&quot; &gt; 0</filter>
       <descriptions defaultDescription="TOTAL_VALUE"/>
       <measureMapping columnObjectName="Projection_1" columnName="TOTAL_VALUE"/>
       <exceptionAggregationMetadata/>
-    </measure>
-  
-    <measure id="ORDER_ID" order="7" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="ORDER_ID"/>
-  
-      <measureMapping columnObjectName="Projection_1" columnName="ORDER_ID"/>
-      <exceptionAggregationMetadata/>
-    </measure>
-    <measure id="PRODUCT_ID" order="8" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="PRODUCT_ID"/>
-      <measureMapping columnObjectName="Projection_1" columnName="PRODUCT_ID"/>
-      <exceptionAggregationMetadata/>
-    </measure>
-  </baseMeasures>
+    </measure></baseMeasures>
   <calculatedMeasures/>
   <restrictedMeasures/>
   <localDimensions/>
