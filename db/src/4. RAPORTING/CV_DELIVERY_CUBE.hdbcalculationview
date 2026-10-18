@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_DELIVERY_CUBE" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" id="CV_DELIVERY_CUBE" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
 <descriptions defaultDescription="CV_DELIVERY_CUBE"/>
 <localVariables/>
 <variableMappings/>
@@ -47,7 +47,26 @@
       <viewAttribute id="ORDER_COUNT" aggregationType="count"/>
     </viewAttributes>
     <calculatedViewAttributes/>
-    <restrictedViewAttributes/>
+    <restrictedViewAttributes>
+      <restrictedViewAttribute id="ON_TIME_ORDERS" baseViewAttribute="ORDER_COUNT" restrictionExpressionLanguage="SQL">
+        <descriptions defaultDescription=""/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="SLA_STATUS" datatype="NVARCHAR">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="On Time"/>
+          </filter>
+          <attributeName>SLA_STATUS</attributeName>
+        </restriction>
+      </restrictedViewAttribute>
+      <restrictedViewAttribute id="DELIVERED_ORDERS" baseViewAttribute="ORDER_COUNT" restrictionExpressionLanguage="SQL">
+        <descriptions defaultDescription=""/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="SLA_STATUS" datatype="NVARCHAR">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="false" value="Not Delivered"/>
+          </filter>
+          <attributeName>SLA_STATUS</attributeName>
+        </restriction>
+      </restrictedViewAttribute>
+    </restrictedViewAttributes>
     <input node="PRJ_ORDER_ENRICHED">
       <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_COUNT" source="ORDER_ID"/>
     </input>
@@ -114,8 +133,25 @@
       <measureMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="ORDER_COUNT"/>
       <exceptionAggregationMetadata/>
     </measure>
+  
+    <measure id="ON_TIME_ORDERS" order="12" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="ON_TIME_ORDERS"/>
+      <measureMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="ON_TIME_ORDERS"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="DELIVERED_ORDERS" order="13" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="DELIVERED_ORDERS"/>
+      <measureMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="DELIVERED_ORDERS"/>
+      <exceptionAggregationMetadata/>
+    </measure>
   </baseMeasures>
-  <calculatedMeasures/>
+  <calculatedMeasures>
+    <measure id="ON_TIME_DELIVERY_RATE" order="14" aggregationType="sum" measureType="simple" datatype="DECIMAL" length="5" scale="2" expressionLanguage="SQL">
+      <descriptions defaultDescription="On-Time Delivery Rate (%)"/>
+      <formula>(&quot;ON_TIME_ORDERS&quot; * 100) / NULLIF(&quot;DELIVERED_ORDERS&quot;, 0)</formula>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </calculatedMeasures>
   <restrictedMeasures/>
   <localDimensions/>
   <sharedDimensions>
@@ -162,17 +198,17 @@
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="161" y="112"/>
+      <upperLeftCorner x="161.5537252684016" y="112"/>
     
       <rectangleSize width="160"/>
     </shape>
   
     <shape expanded="true" modelObjectName="PRJ_ORDER_ENRICHED" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="92" y="386"/>
+      <upperLeftCorner x="92.00000000000003" y="386.9999988079071"/>
       <rectangleSize height="30" width="259"/>
     </shape>
     <shape expanded="true" modelObjectName="AGG_DELIVERY_METRICS" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="111" y="281"/>
+      <upperLeftCorner x="111.00000000000006" y="281.9999988079071"/>
       <rectangleSize height="30" width="221"/>
     </shape>
     <shape modelObjectName="AGG_DELIVERY_METRICS" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
