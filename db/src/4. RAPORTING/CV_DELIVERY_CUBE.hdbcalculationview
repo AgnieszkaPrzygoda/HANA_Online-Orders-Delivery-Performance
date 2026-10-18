@@ -10,7 +10,7 @@
 </dataSources>
 <snapshotProcedures/>
 <calculationViews>
-  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+  <calculationView xsi:type="Calculation:ProjectionView" id="PRJ_ORDER_ENRICHED">
     <viewAttributes>
       <viewAttribute id="ORDER_ID"/>
       <viewAttribute id="CUSTOMER_ID"/>
@@ -29,7 +29,7 @@
     <calculatedViewAttributes/>
     <input node="CV_ORDER_ENRICHED"/>
   </calculationView>
-  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+  <calculationView xsi:type="Calculation:AggregationView" id="AGG_DELIVERY_METRICS">
     <viewAttributes>
       <viewAttribute id="ORDER_ID"/>
       <viewAttribute id="CUSTOMER_ID"/>
@@ -48,70 +48,70 @@
     </viewAttributes>
     <calculatedViewAttributes/>
     <restrictedViewAttributes/>
-    <input node="Projection_1">
+    <input node="PRJ_ORDER_ENRICHED">
       <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_COUNT" source="ORDER_ID"/>
     </input>
   </calculationView>
 </calculationViews>
-<logicalModel id="Aggregation_1">
+<logicalModel id="AGG_DELIVERY_METRICS">
   <attributes>
     <attribute id="ORDER_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="ORDER_ID"/>
-      <keyMapping columnObjectName="Aggregation_1" columnName="ORDER_ID"/>
+      <keyMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="ORDER_ID"/>
     </attribute>
     <attribute id="ORDER_DATE" order="2" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="ORDER_DATE"/>
-      <keyMapping columnObjectName="Aggregation_1" columnName="ORDER_DATE"/>
+      <keyMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="ORDER_DATE"/>
     </attribute>
     <attribute id="EXPECTED_DELIVERY_DATE" order="3" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="EXPECTED_DELIVERY_DATE"/>
-      <keyMapping columnObjectName="Aggregation_1" columnName="EXPECTED_DELIVERY_DATE"/>
+      <keyMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="EXPECTED_DELIVERY_DATE"/>
     </attribute>
     <attribute id="DELIVERY_DATE" order="4" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="DELIVERY_DATE"/>
-      <keyMapping columnObjectName="Aggregation_1" columnName="DELIVERY_DATE"/>
+      <keyMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="DELIVERY_DATE"/>
     </attribute>
     <attribute id="DELIVERY_STATUS" order="5" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="DELIVERY_STATUS"/>
-      <keyMapping columnObjectName="Aggregation_1" columnName="DELIVERY_STATUS"/>
+      <keyMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="DELIVERY_STATUS"/>
     </attribute>
     <attribute id="CUSTOMER_RATING" order="6" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="CUSTOMER_RATING"/>
-      <keyMapping columnObjectName="Aggregation_1" columnName="CUSTOMER_RATING"/>
+      <keyMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="CUSTOMER_RATING"/>
     </attribute>
     <attribute id="CURRENCY" order="7" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="CURRENCY"/>
-      <keyMapping columnObjectName="Aggregation_1" columnName="CURRENCY"/>
+      <keyMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="CURRENCY"/>
     </attribute>
     <attribute id="SLA_STATUS" order="10" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="SLA_STATUS"/>
-      <keyMapping columnObjectName="Aggregation_1" columnName="SLA_STATUS"/>
+      <descriptions defaultDescription="Delivery SLA Status"/>
+      <keyMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="SLA_STATUS"/>
     </attribute>
     <attribute id="CARRIER_ID$local">
-      <keyMapping columnObjectName="Aggregation_1" columnName="CARRIER_ID"/>
+      <keyMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="CARRIER_ID"/>
     </attribute>
     <attribute id="CUSTOMER_ID$local">
-      <keyMapping columnObjectName="Aggregation_1" columnName="CUSTOMER_ID"/>
+      <keyMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="CUSTOMER_ID"/>
     </attribute>
     <attribute id="DATE_ID$local">
-      <keyMapping columnObjectName="Aggregation_1" columnName="DATE_ID"/>
+      <keyMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="DATE_ID"/>
     </attribute>
   </attributes>
   <calculatedAttributes/>
   <baseMeasures>
     <measure id="ORDER_VALUE" order="8" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="ORDER_VALUE"/>
-      <measureMapping columnObjectName="Aggregation_1" columnName="ORDER_VALUE"/>
+      <descriptions defaultDescription="Total Order Value (EUR)"/>
+      <measureMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="ORDER_VALUE"/>
       <exceptionAggregationMetadata/>
     </measure>
     <measure id="DELIVERY_DAYS" order="9" aggregationType="avg" measureType="simple">
-      <descriptions defaultDescription="DELIVERY_DAYS"/>
-      <measureMapping columnObjectName="Aggregation_1" columnName="DELIVERY_DAYS"/>
+      <descriptions defaultDescription="Average Delivery Time (Days)"/>
+      <measureMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="DELIVERY_DAYS"/>
       <exceptionAggregationMetadata/>
     </measure>
     <measure id="ORDER_COUNT" order="11" aggregationType="count" measureType="simple">
-      <descriptions defaultDescription="ORDER_ID"/>
-      <measureMapping columnObjectName="Aggregation_1" columnName="ORDER_COUNT"/>
+      <descriptions defaultDescription="Number of Orders"/>
+      <measureMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="ORDER_COUNT"/>
       <exceptionAggregationMetadata/>
     </measure>
   </baseMeasures>
@@ -162,36 +162,36 @@
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="92" y="112"/>
+      <upperLeftCorner x="161" y="112"/>
     
       <rectangleSize width="160"/>
     </shape>
   
-    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="92" y="322"/>
-      <rectangleSize height="30" width="160"/>
+    <shape expanded="true" modelObjectName="PRJ_ORDER_ENRICHED" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="386"/>
+      <rectangleSize height="30" width="259"/>
     </shape>
-    <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="92" y="217"/>
-      <rectangleSize height="30" width="160"/>
+    <shape expanded="true" modelObjectName="AGG_DELIVERY_METRICS" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="111" y="281"/>
+      <rectangleSize height="30" width="221"/>
     </shape>
-    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+    <shape modelObjectName="AGG_DELIVERY_METRICS" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
       <upperLeftCorner x="20" y="30"/>
       <rectangleSize width="250"/>
     </shape>
   
     <shape modelObjectName="CAD_B_CARRIER" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
       <upperLeftCorner x="356" y="164"/>
-      <rectangleSize width="194.43333435058594"/>
+      <rectangleSize width="194"/>
     </shape>
   
     <shape modelObjectName="CAD_B_CUSTOMER" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
       <upperLeftCorner x="356" y="14"/>
-      <rectangleSize width="206.6500015258789"/>
+      <rectangleSize width="206"/>
     </shape>
     <shape modelObjectName="CAD_B_DATE" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
       <upperLeftCorner x="356" y="288"/>
-      <rectangleSize width="200.5500030517578"/>
+      <rectangleSize width="200"/>
     </shape>
   </shapes>
 </layout>
