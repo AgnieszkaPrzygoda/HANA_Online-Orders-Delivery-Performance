@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_ORDERS_ORDER_LEVEL" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CV_ORDERS_ORDER_LEVEL"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CAC_B_ORDERS">
+    <resourceUri>CAC_B_ORDERS</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="ORDER_ID"/>
+      <viewAttribute id="DATE_ID"/>
+      <viewAttribute id="CUSTOMER_ID"/>
+      <viewAttribute id="CARRIER_ID"/>
+      <viewAttribute id="DELIVERY_DATE"/>
+      <viewAttribute id="AMOUNT"/>
+      <viewAttribute id="DELIVERY_STATUS"/>
+      <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
+      <viewAttribute id="CURRENCY"/>
+      <viewAttribute id="CUSTOMER_RATING"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CAC_B_ORDERS"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Projection_1">
+  <attributes>
+    <attribute id="ORDER_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ORDER_ID"/>
+      <keyMapping columnObjectName="Projection_1" columnName="ORDER_ID"/>
+    </attribute>
+    <attribute id="DATE_ID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DATE_ID"/>
+      <keyMapping columnObjectName="Projection_1" columnName="DATE_ID"/>
+    </attribute>
+    <attribute id="CUSTOMER_ID" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTOMER_ID"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CUSTOMER_ID"/>
+    </attribute>
+    <attribute id="CARRIER_ID" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CARRIER_ID"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CARRIER_ID"/>
+    </attribute>
+    <attribute id="DELIVERY_DATE" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DELIVERY_DATE"/>
+      <keyMapping columnObjectName="Projection_1" columnName="DELIVERY_DATE"/>
+    </attribute>
+    <attribute id="DELIVERY_STATUS" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DELIVERY_STATUS"/>
+      <keyMapping columnObjectName="Projection_1" columnName="DELIVERY_STATUS"/>
+    </attribute>
+    <attribute id="EXPECTED_DELIVERY_DATE" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="EXPECTED_DELIVERY_DATE"/>
+      <keyMapping columnObjectName="Projection_1" columnName="EXPECTED_DELIVERY_DATE"/>
+    </attribute>
+    <attribute id="CURRENCY" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CURRENCY"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CURRENCY"/>
+    </attribute>
+    <attribute id="CUSTOMER_RATING" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTOMER_RATING"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CUSTOMER_RATING"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="AMOUNT" order="6" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="AMOUNT"/>
+      <measureMapping columnObjectName="Projection_1" columnName="AMOUNT"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
