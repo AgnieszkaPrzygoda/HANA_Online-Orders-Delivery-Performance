@@ -39,7 +39,7 @@
       <viewAttribute id="EXPECTED_DELIVERY_DATE"/>
       <viewAttribute id="DELIVERY_DATE"/>
       <viewAttribute id="DELIVERY_STATUS"/>
-      <viewAttribute id="CUSTOMER_RATING"/>
+      <viewAttribute id="CUSTOMER_RATING" aggregationType="avg"/>
       <viewAttribute id="CURRENCY"/>
       <viewAttribute id="ORDER_VALUE" aggregationType="sum"/>
       <viewAttribute id="DELIVERY_DAYS" aggregationType="avg"/>
@@ -94,10 +94,6 @@
       <descriptions defaultDescription="DELIVERY_STATUS"/>
       <keyMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="DELIVERY_STATUS"/>
     </attribute>
-    <attribute id="CUSTOMER_RATING" order="6" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="CUSTOMER_RATING"/>
-      <keyMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="CUSTOMER_RATING"/>
-    </attribute>
     <attribute id="CURRENCY" order="7" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="CURRENCY"/>
       <keyMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="CURRENCY"/>
@@ -118,6 +114,11 @@
   </attributes>
   <calculatedAttributes/>
   <baseMeasures>
+    <measure id="CUSTOMER_RATING" order="6" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="Average Customer Rating (1–5)"/>
+      <measureMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="CUSTOMER_RATING"/>
+      <exceptionAggregationMetadata/>
+    </measure>
     <measure id="ORDER_VALUE" order="8" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="Total Order Value (EUR)"/>
       <measureMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="ORDER_VALUE"/>
@@ -136,6 +137,7 @@
   
     <measure id="ON_TIME_ORDERS" order="12" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="ON_TIME_ORDERS"/>
+  
       <measureMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="ON_TIME_ORDERS"/>
       <exceptionAggregationMetadata/>
     </measure>
@@ -198,17 +200,17 @@
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="161.5537252684016" y="112"/>
+      <upperLeftCorner x="161" y="112"/>
     
       <rectangleSize width="160"/>
     </shape>
   
     <shape expanded="true" modelObjectName="PRJ_ORDER_ENRICHED" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="92.00000000000003" y="386.9999988079071"/>
+      <upperLeftCorner x="92" y="386"/>
       <rectangleSize height="30" width="259"/>
     </shape>
     <shape expanded="true" modelObjectName="AGG_DELIVERY_METRICS" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="111.00000000000006" y="281.9999988079071"/>
+      <upperLeftCorner x="111" y="281"/>
       <rectangleSize height="30" width="221"/>
     </shape>
     <shape modelObjectName="AGG_DELIVERY_METRICS" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
