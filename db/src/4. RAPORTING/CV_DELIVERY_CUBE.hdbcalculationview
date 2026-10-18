@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" id="CV_DELIVERY_CUBE" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
 <descriptions defaultDescription="CV_DELIVERY_CUBE"/>
-<localVariables/>
+<localVariables>
+  <variable id="VAR_ORDER_DATE_RANGE">
+    <descriptions defaultDescription="Order Date Range"/>
+    <variableProperties datatype="DATE" length="10">
+      <valueDomain type="AttributeValue">
+    <attribute name="ORDER_DATE"/></valueDomain>
+      <selection type="Interval"/>
+      <defaultRange operator="BT" including="true"/>
+    </variableProperties>
+  </variable>
+</localVariables>
 <variableMappings/>
 <dataSources>
   <DataSource id="CV_ORDER_ENRICHED">
@@ -80,6 +90,7 @@
     </attribute>
     <attribute id="ORDER_DATE" order="2" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="ORDER_DATE"/>
+      <localVariable>VAR_ORDER_DATE_RANGE</localVariable>
       <keyMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="ORDER_DATE"/>
     </attribute>
     <attribute id="EXPECTED_DELIVERY_DATE" order="3" displayAttribute="false" attributeHierarchyActive="false">
