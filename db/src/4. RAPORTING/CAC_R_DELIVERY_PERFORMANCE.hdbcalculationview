@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" id="CV_DELIVERY_CUBE" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" id="CAC_R_DELIVERY_PERFORMANCE" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
 <descriptions defaultDescription="CV_DELIVERY_CUBE"/>
 <localVariables>
   <variable id="VAR_ORDER_DATE_RANGE">
@@ -14,8 +14,8 @@
 </localVariables>
 <variableMappings/>
 <dataSources>
-  <DataSource id="CV_ORDER_ENRICHED">
-    <resourceUri>CV_ORDER_ENRICHED</resourceUri>
+  <DataSource id="V_I_ORDER_ENRICHED">
+    <resourceUri>V_I_ORDER_ENRICHED</resourceUri>
   </DataSource>
 </dataSources>
 <snapshotProcedures/>
@@ -37,7 +37,7 @@
       <viewAttribute id="SLA_STATUS"/>
     </viewAttributes>
     <calculatedViewAttributes/>
-    <input node="CV_ORDER_ENRICHED"/>
+    <input node="V_I_ORDER_ENRICHED"/>
   </calculationView>
   <calculationView xsi:type="Calculation:AggregationView" id="AGG_DELIVERY_METRICS">
     <viewAttributes>
@@ -61,7 +61,7 @@
       <restrictedViewAttribute id="ON_TIME_ORDERS" baseViewAttribute="ORDER_COUNT" restrictionExpressionLanguage="SQL">
         <descriptions defaultDescription=""/>
         <restriction logicalOperator="AND">
-          <filter xsi:type="Privilege:AttributeFilter" attributeName="SLA_STATUS" datatype="NVARCHAR">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="SLA_STATUS">
             <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="On Time"/>
           </filter>
           <attributeName>SLA_STATUS</attributeName>
@@ -70,7 +70,7 @@
       <restrictedViewAttribute id="DELIVERED_ORDERS" baseViewAttribute="ORDER_COUNT" restrictionExpressionLanguage="SQL">
         <descriptions defaultDescription=""/>
         <restriction logicalOperator="AND">
-          <filter xsi:type="Privilege:AttributeFilter" attributeName="SLA_STATUS" datatype="NVARCHAR">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="SLA_STATUS">
             <valueFilter xsi:type="AccessControl:SingleValueFilter" including="false" value="Not Delivered"/>
           </filter>
           <attributeName>SLA_STATUS</attributeName>
