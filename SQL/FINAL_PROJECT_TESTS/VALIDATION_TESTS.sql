@@ -77,3 +77,24 @@ SELECT
 FROM CV_DELIVERY_CUBE
 GROUP BY REGION, YEAR
 ORDER BY YEAR, REGION;
+
+
+-- Orders Exceeding SLA (Late Deliveries)
+-- Business Purpose:
+-- Identify orders delivered after the expected delivery date.
+-- Show the number of delay days and the order value.
+-- This helps identify the most delayed orders.
+SELECT
+    ORDER_ID,
+    ORDER_DATE,
+    EXPECTED_DELIVERY_DATE,
+    DELIVERY_DATE,
+    SLA_STATUS,
+    DAYS_BETWEEN(
+        EXPECTED_DELIVERY_DATE,
+        DELIVERY_DATE
+    ) AS DELAY_DAYS,
+    ORDER_VALUE
+FROM "CV_ORDER_ENRICHED"
+WHERE SLA_STATUS = 'Late'
+ORDER BY DELAY_DAYS DESC;
