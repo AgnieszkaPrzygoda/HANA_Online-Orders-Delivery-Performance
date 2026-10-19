@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CAC_R_CARRIER_RANKING" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CAC_R_CARRIER_RANKING"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CAC_R_DELIVERY_PERFORMANCE">
+    <resourceUri>CAC_R_DELIVERY_PERFORMANCE</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="CARRIER_NAME"/>
+      <viewAttribute id="REGION"/>
+      <viewAttribute id="ON_TIME_ORDERS"/>
+      <viewAttribute id="DELIVERED_ORDERS"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CAC_R_DELIVERY_PERFORMANCE"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <viewAttributes>
+      <viewAttribute id="CARRIER_NAME"/>
+      <viewAttribute id="REGION"/>
+      <viewAttribute id="ON_TIME_ORDERS" aggregationType="sum"/>
+      <viewAttribute id="DELIVERED_ORDERS" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="ON_TIME_DELIVERY_RATE" datatype="DECIMAL" length="5" scale="2" expressionLanguage="SQL">
+        <formula>CASE
+    WHEN &quot;DELIVERED_ORDERS&quot; = 0 THEN NULL
+    ELSE (&quot;ON_TIME_ORDERS&quot; * 100.0) / &quot;DELIVERED_ORDERS&quot;
+END</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+    <input node="Projection_1"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:RankView" id="Rank_1" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="CARRIER_NAME"/>
+      <viewAttribute id="REGION"/>
+      <viewAttribute id="ON_TIME_ORDERS" aggregationType="sum"/>
+      <viewAttribute id="DELIVERED_ORDERS" aggregationType="sum"/>
+      <viewAttribute id="ON_TIME_DELIVERY_RATE" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Aggregation_1"/>
+    <rankingFilter type="DENSE_RANK" offset="0" offsetReference="FRONT" dynamicPartitionAttributes="false">
+      <partitionViewAttributeName id="REGION"/>
+      <order byViewAttributeName="ON_TIME_DELIVERY_RATE" direction="DESC"/>
+      <rankThreshold>
+        <value>4</value>
+      </rankThreshold>
+      <rankViewAttributeName>CARRIER_RANK</rankViewAttributeName>
+    </rankingFilter>
+    <filter>&quot;DELIVERED_ORDERS&quot; &gt; 0</filter>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Rank_1" filterExpressionLanguage="SQL">
+  <attributes>
+    <attribute id="CARRIER_NAME" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CARRIER_NAME"/>
+      <keyMapping columnObjectName="Rank_1" columnName="CARRIER_NAME"/>
+    </attribute>
+    <attribute id="REGION" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REGION"/>
+      <keyMapping columnObjectName="Rank_1" columnName="REGION"/>
+    </attribute>
+    <attribute id="CARRIER_RANK" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CARRIER_RANK"/>
+      <keyMapping columnObjectName="Rank_1" columnName="CARRIER_RANK"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="ON_TIME_ORDERS" order="3" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="ON_TIME_ORDERS"/>
+      <measureMapping columnObjectName="Rank_1" columnName="ON_TIME_ORDERS"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="DELIVERED_ORDERS" order="4" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="DELIVERED_ORDERS"/>
+      <measureMapping columnObjectName="Rank_1" columnName="DELIVERED_ORDERS"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="ON_TIME_DELIVERY_RATE" order="5" aggregationType="max" measureType="simple">
+      <descriptions defaultDescription="ON_TIME_DELIVERY_RATE"/>
+      <measureMapping columnObjectName="Rank_1" columnName="ON_TIME_DELIVERY_RATE"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="447"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Rank_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="342"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
