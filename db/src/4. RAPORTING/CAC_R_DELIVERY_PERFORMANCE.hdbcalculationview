@@ -35,6 +35,8 @@
       <viewAttribute id="ORDER_VALUE"/>
       <viewAttribute id="DELIVERY_DAYS"/>
       <viewAttribute id="SLA_STATUS"/>
+    
+      <viewAttribute id="DELAY_DAYS"/>
     </viewAttributes>
     <calculatedViewAttributes/>
     <input node="V_I_ORDER_ENRICHED"/>
@@ -55,13 +57,15 @@
       <viewAttribute id="DELIVERY_DAYS" aggregationType="avg"/>
       <viewAttribute id="SLA_STATUS"/>
       <viewAttribute id="ORDER_COUNT" aggregationType="count"/>
+    
+      <viewAttribute id="DELAY_DAYS" aggregationType="sum"/>
     </viewAttributes>
     <calculatedViewAttributes/>
     <restrictedViewAttributes>
       <restrictedViewAttribute id="ON_TIME_ORDERS" baseViewAttribute="ORDER_COUNT" restrictionExpressionLanguage="SQL">
         <descriptions defaultDescription=""/>
         <restriction logicalOperator="AND">
-          <filter xsi:type="Privilege:AttributeFilter" attributeName="SLA_STATUS">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="SLA_STATUS" datatype="NVARCHAR">
             <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="On Time"/>
           </filter>
           <attributeName>SLA_STATUS</attributeName>
@@ -70,7 +74,7 @@
       <restrictedViewAttribute id="DELIVERED_ORDERS" baseViewAttribute="ORDER_COUNT" restrictionExpressionLanguage="SQL">
         <descriptions defaultDescription=""/>
         <restriction logicalOperator="AND">
-          <filter xsi:type="Privilege:AttributeFilter" attributeName="SLA_STATUS">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="SLA_STATUS" datatype="NVARCHAR">
             <valueFilter xsi:type="AccessControl:SingleValueFilter" including="false" value="Not Delivered"/>
           </filter>
           <attributeName>SLA_STATUS</attributeName>
@@ -155,6 +159,12 @@
     <measure id="DELIVERED_ORDERS" order="13" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="DELIVERED_ORDERS"/>
       <measureMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="DELIVERED_ORDERS"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  
+    <measure id="DELAY_DAYS" order="15" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="Average Delivery Delay (Days)"/>
+      <measureMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="DELAY_DAYS"/>
       <exceptionAggregationMetadata/>
     </measure>
   </baseMeasures>
