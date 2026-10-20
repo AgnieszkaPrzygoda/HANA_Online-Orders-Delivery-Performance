@@ -4,11 +4,11 @@
 <localVariables>
   <variable id="VAR_ORDER_DATE_RANGE">
     <descriptions defaultDescription="Order Date Range"/>
-    <variableProperties datatype="DATE" length="10">
+    <variableProperties datatype="DATE" length="10" defaultExpressionLanguage="SQL">
       <valueDomain type="AttributeValue">
     <attribute name="ORDER_DATE"/></valueDomain>
       <selection type="Interval"/>
-      <defaultRange operator="BT" including="true"/>
+      <defaultRange operator="BT" including="true" lowValue="ADD_DAYS(CURRENT_DATE, -30)" highValue="CURRENT_DATE" lowExpression="true" highExpression="true"/>
     </variableProperties>
   </variable>
 </localVariables>
@@ -164,6 +164,7 @@
   
     <measure id="DELAY_DAYS" order="15" aggregationType="avg" measureType="simple">
       <descriptions defaultDescription="Average Delivery Delay (Days)"/>
+  
       <measureMapping columnObjectName="AGG_DELIVERY_METRICS" columnName="DELAY_DAYS"/>
       <exceptionAggregationMetadata/>
     </measure>
