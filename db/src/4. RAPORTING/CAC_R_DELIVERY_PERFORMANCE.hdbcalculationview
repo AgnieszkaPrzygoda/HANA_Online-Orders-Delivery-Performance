@@ -215,6 +215,7 @@
       <associatedAttributeFeatures>
         <attributeReference alias="DATE_ID_1" attributeName="DATE_ID" hidden="true"/>
         <attributeReference attributeName="DAY" hidden="true"/>
+        <attributeReference attributeName="CALENDAR_DATE" hidden="true"/>
       </associatedAttributeFeatures>
     </logicalJoin>
   </sharedDimensions>
