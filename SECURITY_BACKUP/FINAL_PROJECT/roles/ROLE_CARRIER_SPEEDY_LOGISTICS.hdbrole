@@ -1,0 +1,17 @@
+{
+  "role": {
+    "name": "ROLE_CARRIER_SPEEDY_LOGISTICS",
+    "object_privileges": [
+      {
+        "name": "CAC_R_DELIVERY_PERFORMANCE",
+        "type": "VIEW",
+        "privileges": ["SELECT"]
+      }
+    ],
+    "schema_analytic_privileges": [
+      {
+        "privileges": ["Speedy_Logistics_privilege"]
+      }
+    ]
+  }
+}

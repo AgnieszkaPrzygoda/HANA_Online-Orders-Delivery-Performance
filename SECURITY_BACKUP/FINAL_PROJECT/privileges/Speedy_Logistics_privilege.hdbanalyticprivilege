@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Privilege:analyticPrivilege xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" id="Speedy_Logistics_privilege" privilegeType="SQL_ANALYTIC_PRIVILEGE" schemaVersion="1.1">
+<descriptions defaultDescription="Speedy_Logistics_privilege"/>
+<securedModels>
+  <modelUri>CAC_R_DELIVERY_PERFORMANCE</modelUri>
+</securedModels>
+<whereSql>&quot;CARRIER_NAME&quot; = 'Speedy Logistics'</whereSql>
+</Privilege:analyticPrivilege>

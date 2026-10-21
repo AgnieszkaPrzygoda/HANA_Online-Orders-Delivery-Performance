@@ -1,0 +1,17 @@
+{
+  "role": {
+    "name": "ROLE_CARRIER_ECODELIVERY",
+    "object_privileges": [
+      {
+        "name": "CAC_R_DELIVERY_PERFORMANCE",
+        "type": "VIEW",
+        "privileges": ["SELECT"]
+      }
+    ],
+    "schema_analytic_privileges": [
+      {
+        "privileges": ["EcoDelivery_privilege"]
+      }
+    ]
+  }
+}
