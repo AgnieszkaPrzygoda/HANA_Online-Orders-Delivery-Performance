@@ -125,13 +125,13 @@ END</formula>
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="91.99999999999999" y="112"/>
+      <upperLeftCorner x="91" y="112"/>
     
       <rectangleSize width="187"/>
     </shape>
   
     <shape expanded="true" modelObjectName="ORDERS_TABLE" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="105.49999999999997" y="262"/>
+      <upperLeftCorner x="105" y="262"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape modelObjectName="ORDERS_TABLE" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
