@@ -21,6 +21,9 @@
     <input node="CAC_R_DELIVERY_PERFORMANCE"/>
   </calculationView>
   <calculationView xsi:type="Calculation:AggregationView" id="AGG_CARRIER_METRICS">
+    <descriptions>
+      <comment text="Aggregates delivery metrics by carrier and region"/>
+    </descriptions>
     <viewAttributes>
       <viewAttribute id="CARRIER_NAME"/>
       <viewAttribute id="REGION"/>
@@ -39,6 +42,9 @@ END</formula>
     <input node="PRJ_CARRIER_DATA"/>
   </calculationView>
   <calculationView xsi:type="Calculation:RankView" id="RNK_CARRIER_PERFORMANCE" filterExpressionLanguage="SQL">
+    <descriptions>
+      <comment text="Ranks carriers by on-time delivery rate within each region. Includes only groups with delivered orders"/>
+    </descriptions>
     <viewAttributes>
       <viewAttribute id="CARRIER_NAME"/>
       <viewAttribute id="REGION"/>
@@ -99,22 +105,22 @@ END</formula>
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="143" y="112"/>
+      <upperLeftCorner x="143.95418378375558" y="112"/>
     
       <rectangleSize width="160"/>
     </shape>
   
     <shape expanded="true" modelObjectName="PRJ_CARRIER_DATA" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="114" y="486"/>
+      <upperLeftCorner x="114.5" y="506.9999976158142"/>
       <rectangleSize height="30" width="191"/>
     </shape>
     <shape expanded="true" modelObjectName="AGG_CARRIER_METRICS" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="92" y="381"/>
+      <upperLeftCorner x="92" y="381.9999976158142"/>
       <rectangleSize height="30" width="236"/>
     </shape>
   
     <shape expanded="true" modelObjectName="RNK_CARRIER_PERFORMANCE" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="93" y="237"/>
+      <upperLeftCorner x="93.09764926996459" y="236.9999988079071"/>
       <rectangleSize height="30" width="242"/>
     </shape></shapes>
 </layout>
