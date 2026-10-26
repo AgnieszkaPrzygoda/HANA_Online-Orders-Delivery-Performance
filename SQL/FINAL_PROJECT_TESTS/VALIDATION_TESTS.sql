@@ -3,8 +3,7 @@
 -- Order-Level Aggregation
 -- Purpose: Compare line items and unique orders.
 -- Check that total sales remain unchanged after aggregation.
--- Expected result: 77 line items, 66 unique orders,
--- and total sales of 25,700.82 EUR in both sources.
+-- Expected result: 77 line items, 66 unique orders and total sales of 25,700.82 EUR in both sources.
 SELECT
     (SELECT COUNT(*)
      FROM FACT_ORDERS) AS TOTAL_LINE_ITEMS,
@@ -39,10 +38,8 @@ ORDER BY SLA_STATUS;
 
 
 -- Overall Delivery KPIs
--- Purpose: Check the total number of orders, total order value,
--- and average delivery time in CV_DELIVERY_CUBE.
--- Expected result: 66 orders, 25,700.82 EUR,
--- and an average delivery time of about 4.23 days.
+-- Purpose: Check the total number of orders, total order value and average delivery time in CAC_R_DELIVERY_PERFORMANCE.
+-- Expected result: 66 orders, 25,700.82 EUR and an average delivery time of about 4.23 days.
 SELECT
     SUM(ORDER_COUNT) AS TOTAL_ORDERS,
     SUM(ORDER_VALUE) AS TOTAL_ORDER_VALUE,
@@ -51,10 +48,8 @@ FROM CAC_R_DELIVERY_PERFORMANCE;
 
 
 -- Carrier Performance
--- Purpose: Check order count, total order value,
--- and average delivery time for each carrier.
--- Expected result: 4 carriers, 66 orders in total,
--- and total order value of 25,700.82 EUR.
+-- Purpose: Check order count, total order value and average delivery time for each carrier.
+-- Expected result: 4 carriers, 66 orders in total and total order value of 25,700.82 EUR
 SELECT
     CARRIER_NAME,
     SUM(ORDER_COUNT) AS TOTAL_ORDERS,
@@ -66,8 +61,7 @@ ORDER BY CARRIER_NAME;
 
 
 -- Region and Year Analysis
--- Purpose: Check if the Cube can analyze orders
--- by customer region and order year.
+-- Purpose: Check if the Cube can analyze orders by customer region and order year.
 -- Expected result: Data grouped by region and year.
 SELECT
     REGION,
