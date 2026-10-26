@@ -79,22 +79,56 @@ GROUP BY REGION, YEAR
 ORDER BY YEAR, REGION;
 
 
--- Orders Exceeding SLA (Late Deliveries)
--- Business Purpose:
--- Identify orders delivered after the expected delivery date.
--- Show the number of delay days and the order value.
--- This helps identify the most delayed orders.
+-- Key KPI Queries
+
+-- Key Query 1: On-Time Delivery Rate by Carrier (Last 30 Days)
+-- Purpose: Compare carrier performance for recent orders.
+
+SELECT
+    CARRIER_NAME,
+    SUM(ON_TIME_ORDERS) AS ON_TIME_ORDERS,
+    SUM(DELIVERED_ORDERS) AS DELIVERED_ORDERS,
+    ROUND(
+        100.0 * SUM(ON_TIME_ORDERS)
+        / NULLIF(SUM(DELIVERED_ORDERS), 0),
+        2
+    ) AS ON_TIME_DELIVERY_RATE
+FROM CAC_R_DELIVERY_PERFORMANCE
+WHERE ORDER_DATE >= ADD_DAYS(CURRENT_DATE, -30)
+  AND ORDER_DATE <= CURRENT_DATE
+GROUP BY CARRIER_NAME
+ORDER BY ON_TIME_DELIVERY_RATE DESC;
+
+-- Key Query 2: Average Delivery Time by Service Level
+-- Purpose: Compare average delivery time across service levels.
+SELECT
+    SERVICE_LEVEL,
+    SUM(ORDER_COUNT) AS TOTAL_ORDERS,
+    ROUND(AVG(DELIVERY_DAYS), 2) AS AVG_DELIVERY_DAYS
+FROM CAC_R_DELIVERY_PERFORMANCE
+GROUP BY SERVICE_LEVEL
+ORDER BY AVG_DELIVERY_DAYS;
+
+-- Key Query 3: Top 5 Orders Exceeding SLA (Late Deliveries)
+-- Purpose: Identify late deliveries and their delay days.
 SELECT
     ORDER_ID,
     ORDER_DATE,
     EXPECTED_DELIVERY_DATE,
     DELIVERY_DATE,
-    SLA_STATUS,
-    DAYS_BETWEEN(
-        EXPECTED_DELIVERY_DATE,
-        DELIVERY_DATE
-    ) AS DELAY_DAYS,
+    DELAY_DAYS,
     ORDER_VALUE
-FROM "V_I_ORDER_ENRICHED"
+FROM V_I_ORDER_ENRICHED
 WHERE SLA_STATUS = 'Late'
-ORDER BY DELAY_DAYS DESC;
+ORDER BY DELAY_DAYS DESC
+LIMIT 5;
+
+-- Key Query 4: Carrier Performance Ranking by Region
+-- Purpose: Rank carriers by on-time delivery rate in each region.
+SELECT
+    REGION,
+    CARRIER_NAME,
+    ON_TIME_DELIVERY_RATE,
+    CARRIER_RANK
+FROM CAC_R_CARRIER_RANKING
+ORDER BY REGION, CARRIER_RANK, CARRIER_NAME;
