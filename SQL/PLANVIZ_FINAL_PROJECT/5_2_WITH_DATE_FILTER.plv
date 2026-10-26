@@ -1,0 +1,1504 @@
+<?Version 38?>
+<Plan ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_0" xmlns="http://www.sap.com/ndb/planviz" Type="Executed" PlanType="QoExec">
+<SQL><![CDATA[SELECT
+    "ORDER_DATE",
+    SUM("ORDER_VALUE") AS "TOTAL_ORDER_VALUE"
+FROM "CAC_R_DELIVERY_PERFORMANCE"
+WHERE "ORDER_DATE" >= DATE'2026-10-01'
+  AND "ORDER_DATE" < DATE'2026-11-01'
+GROUP BY "ORDER_DATE"
+ORDER BY "ORDER_DATE"]]></SQL>
+<SystemVersion><![CDATA[{"Version":"4.00.000.00.1791475825","CompileType":"rel","USER_NAME":"Capturing USER_NAME is disabled","SCHEMA_NAME":"APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1"}]]></SystemVersion>
+<RecompileState><![CDATA[INITIAL_STATE]]></RecompileState>
+<SessionVariables><![CDATA[{"ABAPVARCHARMODE":"FALSE","APPLICATION":"SAP_HANARuntimeTools_HRA","APPLICATIONUSER":"Capturing APPLICATIONUSER is disabled","APPLICATIONVERSION":"4.0.261008-1792066541-7d34f69","DRIVERVERSION":"2.30.27","OS_USER":"Capturing OS_USER is disabled","PROTOCOL_VERSION":"4.1 (6, 10)","SPATIAL_OUTPUT_REPRESENTATION":"EWKB","VIRTUAL_TABLE_REPLICA":"TRUE"}]]></SessionVariables>
+<ProjectedColsWithDatatype><![CDATA[ORDER_DATE(DATE), TOTAL_ORDER_VALUE(DECIMAL(18, 2))]]></ProjectedColsWithDatatype>
+<CompileTime>
+	<Start Unit="us">1792953079940123</Start>
+	<End Unit="us">1792953079940163</End>
+</CompileTime>
+<StmtStats><![CDATA[]]></StmtStats>
+<StmtMemStats><![CDATA[[{"Allocated Count":4658,"Allocated Size":3054440,"Allocator Name":"Connection/2139748/Statement/9190147689616915","Count in Use":4655,"Deallocated Count":2775,"Deallocated Size":2574480,"Depth":3,"Max Allocation Size (estimate)":1048576,"Max Single Allocation Size":1048576,"Size in Use":479688},{"Allocated Count":4,"Allocated Size":2496,"Allocator Name":"Connection/2139748/Statement/9190147689616915/Pool/RowEngine/QueryExecution/SearchAlloc","Count in Use":4,"Deallocated Count":0,"Deallocated Size":0,"Depth":4,"Max Allocation Size (estimate)":2496,"Max Single Allocation Size":1048,"Size in Use":2496},{"Allocated Count":4681,"Allocated Size":3055184,"Allocator Name":"Connection/2139748/Statement/9190147689616915/IMPLICIT","Count in Use":4678,"Deallocated Count":2776,"Deallocated Size":2574520,"Depth":4,"Max Allocation Size (estimate)":1048576,"Max Single Allocation Size":1048576,"Size in Use":480392}]]]></StmtMemStats>
+<CompileSummary><![CDATA[{}]]></CompileSummary>
+	<RootRelation ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_0" TypeName="PROJECT" Status="Finished">
+		<Name>HEX Search</Name>
+		<ExecutionTime>
+			<Exclusive Unit="us">0</Exclusive>
+			<Inclusive Unit="us">967</Inclusive>
+		</ExecutionTime>
+		<MemoryUsage>
+			<Max>0</Max>
+		</MemoryUsage>
+		<Child ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1" >
+			<ExecutedOutputCardinality>7</ExecutedOutputCardinality>
+			<FetchCallCount>1</FetchCallCount>
+		</Child>
+	</RootRelation>
+	<Relation ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1" TypeName="HEX_SEARCH" InternalBufferId="0" Status="Finished">
+		<Name>HEX Search</Name>
+		<ExecutionType>HEX</ExecutionType>
+		<Summary><![CDATA[DIM_DATE.ORDER_DATE, TOTAL_ORDER_VALUE]]></Summary>
+		<Location>123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040</Location>
+		<EstimatedCost>
+			<Inclusive Unit="us">20.8521</Inclusive>
+		</EstimatedCost>
+		<EstimatedOutputCardinality>5.18495</EstimatedOutputCardinality>
+		<ExecutionTime>
+			<Start Unit="us">1792953079944597</Start>
+			<End Unit="us">1792953079945564</End>
+			<Exclusive Unit="us">888</Exclusive>
+			<Inclusive Unit="us">967</Inclusive>
+			<Timestamps>[{"Open": [{"start":1792953079944597,"end":1792953079944626,"thread":6519},{"start":1792953079944635,"end":1792953079945421,"thread":6519}]},{"Fetch": [{"start":1792953079945479,"end":1792953079945542,"thread":6519}]},{"Close": [{"start":1792953079945554,"end":1792953079945564,"thread":6519}]}]</Timestamps>
+		</ExecutionTime>
+		<MemoryUsage>
+			<Max>0</Max>
+		</MemoryUsage>
+		<KernelCPUTime Unit="ms">0.000</KernelCPUTime>
+		<UserCPUTime Unit="ms">0.500</UserCPUTime>
+		<Details><![CDATA[{"Projected Cols":"DIM_DATE.ORDER_DATE, TOTAL_ORDER_VALUE"}]]></Details>
+		<InnerPlans>
+			<Plan ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1_1" Type="Estimated" PlanType="Logical">
+				<RootRelation ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1_1" TypeName="PROJECT">
+					<Name>PROJECT</Name>
+					<Summary><![CDATA[DIM_DATE.ORDER_DATE, TOTAL_ORDER_VALUE]]></Summary>
+					<Property><![CDATA[PHYSICAL_ENUM_BY: HEX_PROJECT]]></Property>
+					<Location>123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040</Location>
+					<EstimatedCost>
+						<Exclusive Unit="us">-1000000</Exclusive>
+						<Inclusive Unit="us">20.8521</Inclusive>
+					</EstimatedCost>
+					<EstimatedOutputCardinality>5.18495</EstimatedOutputCardinality>
+					<Details><![CDATA[{"Projected Cols":"DIM_DATE.ORDER_DATE, TOTAL_ORDER_VALUE"}]]></Details>
+					<Child ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1_2">
+					</Child>
+				</RootRelation>
+				<Relation ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1_2" TypeName="ORDER_BY">
+					<Name>ORDER BY</Name>
+					<Summary><![CDATA[DIM_DATE.ORDER_DATE ASC]]></Summary>
+					<Property><![CDATA[PHYSICAL_ENUM_BY: HEX_ORDER_BY]]></Property>
+					<Location>123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040</Location>
+					<EstimatedCost>
+						<Exclusive Unit="us">-1000000</Exclusive>
+						<Inclusive Unit="us">20.8521</Inclusive>
+					</EstimatedCost>
+					<EstimatedOutputCardinality>5.18495</EstimatedOutputCardinality>
+					<Details><![CDATA[{"Sort Cols":"DIM_DATE.ORDER_DATE ASC"}]]></Details>
+					<Child ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1_3">
+					</Child>
+				</Relation>
+				<Relation ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1_3" TypeName="GROUP_BY">
+					<Name>AGGREGATION</Name>
+					<Summary><![CDATA[GROUPING: DIM_DATE.CALENDAR_DATE, AGGREGATION: SUM(TO_DECIMAL(SUM(FACT_ORDERS.AMOUNT), 10, 2))]]></Summary>
+					<Property><![CDATA[VALUE_ID GROUPING, PERFECT_HASH, PHYSICAL_ENUM_BY: HEX_AGGR]]></Property>
+					<Location>123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040</Location>
+					<EstimatedCost>
+						<Exclusive Unit="us">-1000000</Exclusive>
+						<Inclusive Unit="us">20.0901</Inclusive>
+					</EstimatedCost>
+					<EstimatedOutputCardinality>5.18495</EstimatedOutputCardinality>
+					<Details><![CDATA[{"Grouping Cols":"DIM_DATE.CALENDAR_DATE, ","Aggregation Cols":"SUM(TO_DECIMAL(SUM(FACT_ORDERS.AMOUNT), 10, 2))"}]]></Details>
+					<Child ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1_4">
+					</Child>
+				</Relation>
+				<Relation ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1_4" TypeName="JOIN">
+					<Name>HASH JOIN</Name>
+					<Summary><![CDATA[MANY-TO-ONE HASH CONDITION: FACT_ORDERS.DATE_ID = DIM_DATE.DATE_ID, HASH SIZE: 7]]></Summary>
+					<Property><![CDATA[ENUM_BY: AGGR_THRU_JOIN, PHYSICAL_ENUM_BY: HEX_HASH_JOIN]]></Property>
+					<Location>123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040</Location>
+					<EstimatedCost>
+						<Exclusive Unit="us">-1000000</Exclusive>
+						<Inclusive Unit="us">18.3646</Inclusive>
+					</EstimatedCost>
+					<EstimatedOutputCardinality>8.55</EstimatedOutputCardinality>
+					<Details><![CDATA[{"Hash Condition":"FACT_ORDERS.DATE_ID = DIM_DATE.DATE_ID, HASH SIZE: 7"}]]></Details>
+					<Child ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1_5">
+					</Child>
+					<Child ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1_7" />
+				</Relation>
+				<Relation ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1_5" TypeName="GROUP_BY">
+					<Name>AGGREGATION</Name>
+					<Summary><![CDATA[GROUPING: FACT_ORDERS.ORDER_ID, FACT_ORDERS.CUSTOMER_ID, FACT_ORDERS.CARRIER_ID, FACT_ORDERS.DELIVERY_DATE, FACT_ORDERS.DELIVERY_STATUS, FACT_ORDERS.EXPECTED_DELIVERY_DATE, FACT_ORDERS.CURRENCY, FACT_ORDERS.CUSTOMER_RATING, FACT_ORDERS.DATE_ID, AGGREGATION: SUM(FACT_ORDERS.AMOUNT)]]></Summary>
+					<Property><![CDATA[VALUE_ID GROUPING, ENUM_BY: AGGR_THRU_JOIN, PHYSICAL_ENUM_BY: HEX_AGGR]]></Property>
+					<Location>123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040</Location>
+					<EstimatedCost>
+						<Exclusive Unit="us">-1000000</Exclusive>
+						<Inclusive Unit="us">15.568</Inclusive>
+					</EstimatedCost>
+					<EstimatedOutputCardinality>8.54999</EstimatedOutputCardinality>
+					<Details><![CDATA[{"Grouping Cols":"FACT_ORDERS.ORDER_ID, FACT_ORDERS.CUSTOMER_ID, FACT_ORDERS.CARRIER_ID, FACT_ORDERS.DELIVERY_DATE, FACT_ORDERS.DELIVERY_STATUS, FACT_ORDERS.EXPECTED_DELIVERY_DATE, FACT_ORDERS.CURRENCY, FACT_ORDERS.CUSTOMER_RATING, FACT_ORDERS.DATE_ID, ","Aggregation Cols":"SUM(FACT_ORDERS.AMOUNT)"}]]></Details>
+					<Child ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1_6">
+					</Child>
+				</Relation>
+				<Relation ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1_6" TypeName="JOIN">
+					<Name>TABLE SCAN SEMI JOIN</Name>
+					<Summary><![CDATA[JOIN CONDITION: FACT_ORDERS.DATE_ID = DIM_DATE.DATE_ID]]></Summary>
+					<Schema><![CDATA[APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1]]></Schema>
+					<TableType><![CDATA[COLUMN TABLE]]></TableType>
+					<ObjectName><![CDATA[FACT_ORDERS]]></ObjectName>
+					<Property><![CDATA[ENUM_BY: SEMI_JOIN_REDUCTION, PHYSICAL_ENUM_BY: HEX_TABLE_SCAN_SEMI_JOIN]]></Property>
+					<Location>123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040</Location>
+					<EstimatedCost>
+						<Exclusive Unit="us">-1000000</Exclusive>
+						<Inclusive Unit="us">0.103309</Inclusive>
+					</EstimatedCost>
+					<EstimatedOutputCardinality>9</EstimatedOutputCardinality>
+					<Details><![CDATA[{"Join Condition":"FACT_ORDERS.DATE_ID = DIM_DATE.DATE_ID"}]]></Details>
+					<Child ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1_7">
+					</Child>
+				</Relation>
+				<Relation ID="ID_2139748_3637FD460DBED54BAD5B3B49067FF2F6_1_7" TypeName="TABLE">
+					<Name>TABLE SCAN</Name>
+					<Summary><![CDATA[FILTER CONDITION: DIM_DATE.CALENDAR_DATE < '2026-11-01' AND DIM_DATE.CALENDAR_DATE >= '2026-10-01' (DETAIL: ([SCAN] DIM_DATE.CALENDAR_DATE BETWEEN '2026-10-01' AND '2026-11-01' EXCL))]]></Summary>
+					<Schema><![CDATA[APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1]]></Schema>
+					<TableType><![CDATA[COLUMN TABLE]]></TableType>
+					<ObjectName><![CDATA[DIM_DATE]]></ObjectName>
+					<Property><![CDATA[PHYSICAL_ENUM_BY: HEX_TABLE_SCAN]]></Property>
+					<Location>123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040</Location>
+					<EstimatedCost>
+						<Exclusive Unit="us">-1000000</Exclusive>
+						<Inclusive Unit="us">0.0688193</Inclusive>
+					</EstimatedCost>
+					<EstimatedOutputCardinality>7</EstimatedOutputCardinality>
+					<Details><![CDATA[{"Filter":"DIM_DATE.CALENDAR_DATE < '2026-11-01' AND DIM_DATE.CALENDAR_DATE >= '2026-10-01' (DETAIL: ([SCAN] DIM_DATE.CALENDAR_DATE BETWEEN '2026-10-01' AND '2026-11-01' EXCL))"}]]></Details>
+				</Relation>
+			</Plan>
+			<Plan ID="5211_group10" Type="Executed" PlanType="Column">
+				<RootRelation ID="5211_group10_node" Status="Finished" Physical="True" TypeName="HEX PROJECT">
+					<Name><![CDATA[PROJECT]]></Name>
+					<Summary><![CDATA[DIM_DATE.ORDER_DATE, TOTAL_ORDER_VALUE]]></Summary>
+					<ExecutionTime>
+						<Timestamps>[{"Pop":[{"start":1792953079945415,"end":1792953079945520}]}]</Timestamps>
+					</ExecutionTime>
+					<UserCPUTime Unit="ms">0.008</UserCPUTime>
+					<Details><![CDATA[{"max numUsedLocalContexts":"1","Estimated Output Cardinality":"5","Memory Allocated":"0.000 MiB","Output Spec":"ORDER_DATE DATE, TOTAL_ORDER_VALUE FIXED8(18, 2)"}]]></Details>
+					<InnerPlans>
+						<Plan ID="5212_op96" Type="Executed" PlanType="Column">
+							<RootRelation ID="5212_op96_node" Status="NotStarted" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[OrderedProjectFetchOp]]></Name>
+								<Summary><![CDATA[Fetch buffered result rows]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<UserCPUTime Unit="ms">0.000</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"0","calls":"0","pipeline 19":"numUsedLocalContexts 0, CPUTime 0.000 ms, CPUWaitTime 0.000 ms, calls 0","operatorId":"96"}]]></Details>
+								<Child ID="5213_op95_node">
+									<Details><![CDATA[{"ConnectionType":"Logical"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5213_op95" Type="Executed" PlanType="Column">
+							<RootRelation ID="5213_op95_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[OrderedProjectBufferOp]]></Name>
+								<Summary><![CDATA[Buffer result rows if required]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945415,"end":1792953079945418},{"start":1792953079945515,"end":1792953079945520}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.008</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 17":"numUsedLocalContexts 1, CPUTime 0.003 ms, CPUWaitTime 0.000 ms, calls 0","pipeline 18":"numUsedLocalContexts 1, CPUTime 0.005 ms, CPUWaitTime 0.000 ms, calls 1","Init CPUTime":"0.002 ms","Init CPUWaitTime":"0.000 ms","InitLocal CPUTime":"0.001 ms","InitLocal CPUWaitTime":"0.000 ms","Memory Allocated":"0.000 MiB","operatorId":"95"}]]></Details>
+								<Child ID="5214_op94_node">
+									<ExecutedOutputCardinality>7</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+					</InnerPlans>
+				</RootRelation>
+			</Plan>
+			<Plan ID="5215_group11" Type="Executed" PlanType="Column">
+				<RootRelation ID="5215_group11_node" Status="Finished" Physical="True" TypeName="HEX ORDER BY">
+					<Name><![CDATA[ORDER BY]]></Name>
+					<Summary><![CDATA[DIM_DATE.ORDER_DATE ASC]]></Summary>
+					<ExecutionTime>
+						<Timestamps>[{"Pop":[{"start":1792953079945316,"end":1792953079945402}]}]</Timestamps>
+					</ExecutionTime>
+					<UserCPUTime Unit="ms">0.059</UserCPUTime>
+					<Details><![CDATA[{"max numUsedLocalContexts":"1","Estimated Output Cardinality":"5","Memory Allocated":"0.001 MiB","Output Spec":"[Value] TOTAL_ORDER_VALUE FIXED8(18, 2), [DocId] ORDER_DATE DATE","sort strategy":"ByValue"}]]></Details>
+					<InnerPlans>
+						<Plan ID="5216_op85" Type="Executed" PlanType="Column">
+							<RootRelation ID="5216_op85_node" Status="NotStarted" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[MergeSortedInputsScheduleOp]]></Name>
+								<Summary><![CDATA[Schedule MergeSortedInputs Tasks]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<UserCPUTime Unit="ms">0.000</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"0","calls":"0","pipeline 17":"numUsedLocalContexts 0, CPUTime 0.000 ms, CPUWaitTime 0.000 ms, calls 0","operatorId":"85"}]]></Details>
+								<Child ID="5217_op84_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5217_op84" Type="Executed" PlanType="Column">
+							<RootRelation ID="5217_op84_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[MergeSortedInputsControlOp_AllParts]]></Name>
+								<Summary><![CDATA[Setup input for and trigger MergeSortedInputs for all vectors (per value)]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945494,"end":1792953079945496}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.002</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 17":"numUsedLocalContexts 1, CPUTime 0.002 ms, CPUWaitTime 0.000 ms, calls 1","operatorId":"84"}]]></Details>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5218_op82" Type="Executed" PlanType="Column">
+							<RootRelation ID="5218_op82_node" Status="NotStarted" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[KeepBufferAliveOpT<SortedPartVectors>]]></Name>
+								<Summary><![CDATA[]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<UserCPUTime Unit="ms">0.000</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"0","calls":"0","pipeline 16":"numUsedLocalContexts 0, CPUTime 0.000 ms, CPUWaitTime 0.000 ms, calls 0","operatorId":"82"}]]></Details>
+								<Child ID="5219_op81_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5220_op74" Type="Executed" PlanType="Column">
+							<RootRelation ID="5220_op74_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[SortControlOp]]></Name>
+								<Summary><![CDATA[Controls Sort Tasks]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945371,"end":1792953079945384}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.001</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 14":"numUsedLocalContexts 0, CPUTime 0.000 ms, CPUWaitTime 0.000 ms, calls 0","pipeline 15":"numUsedLocalContexts 1, CPUTime 0.001 ms, CPUWaitTime 0.000 ms, calls 1","TaskStats from op: 105":"count = 0, parentOpId: 4294967295","TaskStats from op: 106":"count = 0, parentOpId: 4294967295","operatorId":"74"}]]></Details>
+								<Child ID="5221_op73_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+								<Child ID="5222_op79_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5223_op76" Type="Executed" PlanType="Column">
+							<RootRelation ID="5223_op76_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangNoDataOperator]]></Name>
+								<Summary><![CDATA[<Sort via IntroSort>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945323,"end":1792953079945324},{"start":1792953079945372,"end":1792953079945384}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.013</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","JIT wait time":"0.010 ms","pipeline 14":"numUsedLocalContexts 1, CPUTime 0.001 ms, CPUWaitTime 0.000 ms, calls 0","pipeline 15":"numUsedLocalContexts 1, CPUTime 0.012 ms, CPUWaitTime 0.000 ms, calls 1","InitLocal CPUTime":"0.001 ms","InitLocal CPUWaitTime":"0.000 ms","FieldToHeader":"1000016","HeaderToField":"1000016","JIT cache hit":"no","JIT compile status":"Compiled (Policy: MediumCardinality)","JIT effective line count":"257","JIT opt level":"O2","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","hashtable lookup key":"FACT_ORDERS.DATE_ID (INT)","operatorId":"76","rowWidth":"24"}]]></Details>
+								<Child ID="5220_op74_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5222_op79" Type="Executed" PlanType="Column">
+							<RootRelation ID="5222_op79_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[PostCollectSortScheduleOp]]></Name>
+								<Summary><![CDATA[Consolidates and schedules sort tasks after the collection phase]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945368,"end":1792953079945384}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.003</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 15":"numUsedLocalContexts 1, CPUTime 0.003 ms, CPUWaitTime 0.000 ms, calls 1","operatorId":"79"}]]></Details>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5214_op94" Type="Executed" PlanType="Column">
+							<RootRelation ID="5214_op94_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangOutOperator]]></Name>
+								<Summary><![CDATA[<Produce result of MergeSortedInputs>; <Registers fields as sources>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945413,"end":1792953079945414},{"start":1792953079945513,"end":1792953079945521}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.004</UserCPUTime>
+								<EstimatedOutputCardinality>5</EstimatedOutputCardinality>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 17":"numUsedLocalContexts 1, CPUTime 0.001 ms, CPUWaitTime 0.000 ms, calls 0","pipeline 18":"numUsedLocalContexts 1, CPUTime 0.003 ms, CPUWaitTime 0.000 ms, calls 1","InitLocal CPUTime":"0.001 ms","InitLocal CPUWaitTime":"0.000 ms","Estimated Output Cardinality":"5","FieldToHeader":"1000016","HeaderToField":"1000016","JIT cache hit":"yes","JIT compile status":"Compiled (Policy: MediumCardinality)","JIT effective line count":"38","JIT opt level":"O2","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","TaskStats from op: 109":"count = 0, parentOpId: 4294967295\u000aSampling: \u000aSampling interrupted or no sampling took place for opId: 89. SampleSize: 16 rangeSize: 7 maxSampleSize: 4294967295 earlyExit: 0 hasRunOutOfTime: 0 isCostGettingWorse: 0 forceParallelization: 0\u000acalculated cost: 0 for op: 89 taskSize: 18446744073709551615 will run in seq: 1 forceParallelization: 0 totalRowCount: 7\u000a","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","hashtable lookup key":"FACT_ORDERS.DATE_ID (INT)","operatorId":"94","rowWidth":"24"}]]></Details>
+								<Child ID="5224_op89_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5225_op90" Type="Executed" PlanType="Column">
+							<RootRelation ID="5225_op90_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[ProduceSortedOutputGlobalAdapterOp]]></Name>
+								<Summary><![CDATA[]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945504,"end":1792953079945521}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.001</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 18":"numUsedLocalContexts 1, CPUTime 0.001 ms, CPUWaitTime 0.000 ms, calls 1","operatorId":"90"}]]></Details>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5226_op88" Type="Executed" PlanType="Column">
+							<RootRelation ID="5226_op88_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[ProduceSortedOutputTaskAdapterOp]]></Name>
+								<Summary><![CDATA[]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945505,"end":1792953079945521}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.002</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 17":"numUsedLocalContexts 0, CPUTime 0.000 ms, CPUWaitTime 0.000 ms, calls 0","pipeline 18":"numUsedLocalContexts 1, CPUTime 0.002 ms, CPUWaitTime 0.000 ms, calls 1","TaskStats from op: 110":"count = 0, parentOpId: 4294967295","operatorId":"88"}]]></Details>
+								<Child ID="5227_op87_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+								<Child ID="5225_op90_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5224_op89" Type="Executed" PlanType="Column">
+							<RootRelation ID="5224_op89_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[ProduceSortedOutputScheduleOpT<ProduceSortedOutputLocalRangeBase>]]></Name>
+								<Summary><![CDATA[Produce sorted results]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945507,"end":1792953079945521}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.005</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 17":"numUsedLocalContexts 0, CPUTime 0.000 ms, CPUWaitTime 0.000 ms, calls 0","pipeline 18":"numUsedLocalContexts 1, CPUTime 0.005 ms, CPUWaitTime 0.000 ms, calls 1","operatorId":"89"}]]></Details>
+								<Child ID="5226_op88_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5227_op87" Type="Executed" PlanType="Column">
+							<RootRelation ID="5227_op87_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangNoDataOperator]]></Name>
+								<Summary><![CDATA[<Merge sorted inputs>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945410,"end":1792953079945411}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.001</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"0","pipeline 17":"numUsedLocalContexts 1, CPUTime 0.001 ms, CPUWaitTime 0.000 ms, calls 0","InitLocal CPUTime":"0.001 ms","InitLocal CPUWaitTime":"0.000 ms","FieldToHeader":"1000016","HeaderToField":"1000016","JIT cache hit":"no","JIT compile status":"Compiling (interpreting while compiling) (Policy: MediumCardinality)","JIT effective line count":"206","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","TaskStats from op: 108":"count = 0, parentOpId: 4294967295","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","hashtable lookup key":"FACT_ORDERS.DATE_ID (INT)","operatorId":"87","rowWidth":"24"}]]></Details>
+								<Child ID="5216_op85_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5221_op73" Type="Executed" PlanType="Column">
+							<RootRelation ID="5221_op73_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[SortIfSaturatedScheduleOp]]></Name>
+								<Summary><![CDATA[Schedules a Sort Task as soon as the scheduler is saturated]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945318,"end":1792953079945351}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.003</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 14":"numUsedLocalContexts 1, CPUTime 0.003 ms, CPUWaitTime 0.000 ms, calls 1","Init CPUTime":"0.001 ms","Init CPUWaitTime":"0.000 ms","InitLocal CPUTime":"0.001 ms","InitLocal CPUWaitTime":"0.000 ms","Memory Allocated":"0.001 MiB","operatorId":"73"}]]></Details>
+								<Child ID="5228_op72_node">
+									<ExecutedOutputCardinality>7</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5228_op72" Type="Executed" PlanType="Column">
+							<RootRelation ID="5228_op72_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangOutOperator]]></Name>
+								<Summary><![CDATA[<Materialize VectorGroupBy Results>; <Materialize: DIM_DATE.CALENDAR_DATE (DATE NOT NULL)>; <Materialize SortChunkFormat>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945316,"end":1792953079945351}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.020</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","JIT wait time":"0.014 ms","pipeline 14":"numUsedLocalContexts 1, CPUTime 0.020 ms, CPUWaitTime 0.000 ms, calls 1","InitLocal CPUTime":"0.001 ms","InitLocal CPUWaitTime":"0.000 ms","FieldToHeader":"1000016","HeaderToField":"1000016","JIT cache hit":"no","JIT compile status":"Compiled (Policy: MediumCardinality)","JIT effective line count":"138","JIT opt level":"O2","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","hashtable lookup key":"FACT_ORDERS.DATE_ID (INT)","operatorId":"72","rowWidth":"24"}]]></Details>
+								<Child ID="5229_op72_node">
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5219_op81" Type="Executed" PlanType="Column">
+							<RootRelation ID="5219_op81_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangNoDataOperator]]></Name>
+								<Summary><![CDATA[<Merge sorted inputs>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945397,"end":1792953079945399}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.002</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"0","pipeline 16":"numUsedLocalContexts 1, CPUTime 0.002 ms, CPUWaitTime 0.000 ms, calls 0","InitLocal CPUTime":"0.002 ms","InitLocal CPUWaitTime":"0.000 ms","FieldToHeader":"1000016","HeaderToField":"1000016","JIT cache hit":"no","JIT compile status":"Compiling (interpreting while compiling) (Policy: MediumCardinality)","JIT effective line count":"206","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","TaskStats from op: 107":"count = 0, parentOpId: 4294967295","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","hashtable lookup key":"FACT_ORDERS.DATE_ID (INT)","operatorId":"81","rowWidth":"24"}]]></Details>
+								<Child ID="5230_op80_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5230_op80" Type="Executed" PlanType="Column">
+							<RootRelation ID="5230_op80_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[MergeReduceScheduleOp]]></Name>
+								<Summary><![CDATA[Schedule tasks for merge reduce (level 1)]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945400,"end":1792953079945402}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.002</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 16":"numUsedLocalContexts 1, CPUTime 0.002 ms, CPUWaitTime 0.000 ms, calls 1","operatorId":"80"}]]></Details>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5229_op72" Type="Executed" PlanType="Column">
+							<RootRelation ID="5229_op72_node" Status="NotStarted" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangOutOperator]]></Name>
+								<Summary><![CDATA[Code-generated operator across relations <see next op>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<UserCPUTime Unit="ms">0.000</UserCPUTime>
+								<EstimatedOutputCardinality>5</EstimatedOutputCardinality>
+								<Details><![CDATA[{"max numUsedLocalContexts":"0","calls":"0","Estimated Output Cardinality":"5","FieldToHeader":"1000016","HeaderToField":"1000016","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","hashtable lookup key":"FACT_ORDERS.DATE_ID (INT)","rowWidth":"24"}]]></Details>
+								<Child ID="5231_op72_node">
+									<Details><![CDATA[{"ConnectionType":"Logical"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+					</InnerPlans>
+				</RootRelation>
+			</Plan>
+			<Plan ID="5232_group12" Type="Executed" PlanType="Column">
+				<RootRelation ID="5232_group12_node" Status="Finished" Physical="True" TypeName="HEX AGGREGATION">
+					<Name><![CDATA[AGGREGATION]]></Name>
+					<Summary><![CDATA[GROUPING: DIM_DATE.CALENDAR_DATE, AGGREGATION: SUM(TO_DECIMAL(SUM(FACT_ORDERS.AMOUNT), 10, 2))]]></Summary>
+					<ExecutionTime>
+						<Timestamps>[{"Pop":[{"start":1792953079945192,"end":1792953079945351}]}]</Timestamps>
+					</ExecutionTime>
+					<UserCPUTime Unit="ms">0.049</UserCPUTime>
+					<Details><![CDATA[{"max numUsedLocalContexts":"1","BitwiseValueBlender":"BitwiseValueBlender{ typeDefs: [VALUEID NOT NULL], min: [0], shift: [0], mask: [0x3f] }","Estimated Output Cardinality":"5","Estimated Output Cardinality_1":"9","HashColumn(0)":"DIM_DATE.CALENDAR_DATE (VALUEID NOT NULL)","Memory Allocated":"0.003 MiB","Output Spec":"[Value] TOTAL_ORDER_VALUE FIXED8(18, 2), [DocId] ORDER_DATE DATE","agg(0)":"Sum(1000027.30000000 (FIXED8(10, 2))) -> 1000009.10000000 (FIXED8(18, 2))","rowWidth":"16"}]]></Details>
+					<InnerPlans>
+						<Plan ID="5233_op59" Type="Executed" PlanType="Column">
+							<RootRelation ID="5233_op59_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[PartVidGroupingOffsetsInitOp]]></Name>
+								<Summary><![CDATA[InitOp for PartValueId grouping offsets]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945207,"end":1792953079945247}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.001</UserCPUTime>
+								<EstimatedOutputCardinality>5</EstimatedOutputCardinality>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 13":"numUsedLocalContexts 1, CPUTime 0.001 ms, CPUWaitTime 0.000 ms, calls 1","Estimated Output Cardinality":"5","TaskStats from op: 101":"count = 0, parentOpId: 4294967295","operatorId":"59"}]]></Details>
+								<Child ID="5234_op50_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5235_op61" Type="Executed" PlanType="Column">
+							<RootRelation ID="5235_op61_node" Status="NotStarted" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangOperatorWithRetry<LlangNoDataOperator>]]></Name>
+								<Summary><![CDATA[Code-generated operator across relations <see next op>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<UserCPUTime Unit="ms">0.000</UserCPUTime>
+								<EstimatedOutputCardinality>9</EstimatedOutputCardinality>
+								<Details><![CDATA[{"max numUsedLocalContexts":"0","calls":"0","Estimated Output Cardinality":"9","FieldToHeader":"1000016","HeaderToField":"1000016","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","hashtable lookup key":"FACT_ORDERS.DATE_ID (INT)","rowWidth":"24"}]]></Details>
+								<Child ID="5236_op61_node">
+									<Details><![CDATA[{"ConnectionType":"Logical"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5237_op64" Type="Executed" PlanType="Column">
+							<RootRelation ID="5237_op64_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[EnforceCompilationByThresholdOpT<>]]></Name>
+								<Summary><![CDATA[]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945326,"end":1792953079945327}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.001</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 14":"numUsedLocalContexts 1, CPUTime 0.001 ms, CPUWaitTime 0.000 ms, calls 1","TaskStats from op: 104":"count = 0, parentOpId: 4294967295","operatorId":"64"}]]></Details>
+								<Child ID="5238_op63_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5238_op63" Type="Executed" PlanType="Column">
+							<RootRelation ID="5238_op63_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[VectorGroupByMergeScheduler]]></Name>
+								<Summary><![CDATA[VectorGroupBy Scheduler [Merge Phase]]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945325,"end":1792953079945353}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.004</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 14":"numUsedLocalContexts 1, CPUTime 0.004 ms, CPUWaitTime 0.000 ms, calls 1","Number of Tasks produced":"1","operatorId":"63"}]]></Details>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5239_op61" Type="Executed" PlanType="Column">
+							<RootRelation ID="5239_op61_node" Status="NotStarted" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangOperatorWithRetry<LlangNoDataOperator>]]></Name>
+								<Summary><![CDATA[Code-generated operator across relations <see next op>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<UserCPUTime Unit="ms">0.000</UserCPUTime>
+								<EstimatedOutputCardinality>9</EstimatedOutputCardinality>
+								<Details><![CDATA[{"max numUsedLocalContexts":"0","calls":"0","Estimated Output Cardinality":"9","FieldToHeader":"1000016","HeaderToField":"1000016","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","hashtable lookup key":"FACT_ORDERS.DATE_ID (INT)","rowWidth":"24"}]]></Details>
+								<Child ID="5235_op61_node">
+									<Details><![CDATA[{"ConnectionType":"Logical"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5240_op67" Type="Executed" PlanType="Column">
+							<RootRelation ID="5240_op67_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangNoDataOperator]]></Name>
+								<Summary><![CDATA[<Vector GroupBy [Merge Phase]>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945310,"end":1792953079945351}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.003</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 14":"numUsedLocalContexts 1, CPUTime 0.003 ms, CPUWaitTime 0.000 ms, calls 1","InitLocal CPUTime":"0.001 ms","InitLocal CPUWaitTime":"0.000 ms","FieldToHeader":"1000016","HeaderToField":"1000016","JIT cache hit":"yes","JIT compile status":"Compiled (Policy: MediumCardinality)","JIT effective line count":"121","JIT opt level":"O2","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","TaskStats from op: 103":"count = 0, parentOpId: 4294967295","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","hashtable lookup key":"FACT_ORDERS.DATE_ID (INT)","operatorId":"67","rowWidth":"24"}]]></Details>
+								<Child ID="5238_op63_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5241_op61" Type="Executed" PlanType="Column">
+							<RootRelation ID="5241_op61_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangOperatorWithRetry<LlangNoDataOperator>]]></Name>
+								<Summary><![CDATA[<Merge part result, calculate post aggregations and materialize rows>; <Materialize: FACT_ORDERS.DATE_ID (INT), to_fixed64_nocheck(1000014.10000000 (FIXED8(18, 2)), Int[10], Int[2]) alias 1000027.30000000 (FIXED8(10, 2))>; <Lookup rows in HashMap>; <Materialize>; <Materialize: DIM_DATE.CALENDAR_DATE (VALUEID NOT NULL)>; <Vector GroupBy [Insert Phase]>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945192,"end":1792953079945247}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.040</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","JIT wait time":"0.028 ms","pipeline 13":"numUsedLocalContexts 1, CPUTime 0.040 ms, CPUWaitTime 0.000 ms, calls 1","InitLocal CPUTime":"0.001 ms","InitLocal CPUWaitTime":"0.000 ms","FieldToHeader":"1000016","HeaderToField":"1000016","JIT cache hit":"no","JIT compile status":"Compiled (Policy: MediumCardinality)","JIT effective line count":"1235","JIT opt level":"O2","Memory Allocated":"0.003 MiB","NumResizedCoalMaps":"0","Number of PayloadHandlers: ":"4","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","Rows per PayloadHandler: ":"64","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","hashtable lookup key":"FACT_ORDERS.DATE_ID (INT)","operatorId":"61","rowWidth":"24"}]]></Details>
+								<Child ID="5242_op24_node">
+									<Details><![CDATA[{"ConnectionType":"Logical"}]]></Details>
+								</Child>
+								<Child ID="5239_op61_node">
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5231_op72" Type="Executed" PlanType="Column">
+							<RootRelation ID="5231_op72_node" Status="NotStarted" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangOutOperator]]></Name>
+								<Summary><![CDATA[Code-generated operator across relations <see next op>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<UserCPUTime Unit="ms">0.000</UserCPUTime>
+								<EstimatedOutputCardinality>5</EstimatedOutputCardinality>
+								<Details><![CDATA[{"max numUsedLocalContexts":"0","calls":"0","Estimated Output Cardinality":"5","FieldToHeader":"1000016","HeaderToField":"1000016","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","hashtable lookup key":"FACT_ORDERS.DATE_ID (INT)","rowWidth":"24"}]]></Details>
+								<Child ID="5240_op67_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+					</InnerPlans>
+				</RootRelation>
+			</Plan>
+			<Plan ID="5243_group13" Type="Executed" PlanType="Column">
+				<RootRelation ID="5243_group13_node" Status="Finished" Physical="True" TypeName="HEX HASH JOIN">
+					<Name><![CDATA[HASH JOIN]]></Name>
+					<Summary><![CDATA[MANY-TO-ONE HASH CONDITION: FACT_ORDERS.DATE_ID = DIM_DATE.DATE_ID, HASH SIZE: 7]]></Summary>
+					<ExecutionTime>
+						<Timestamps>[{"Pop":[{"start":1792953079944813,"end":1792953079944938}]}]</Timestamps>
+					</ExecutionTime>
+					<UserCPUTime Unit="ms">0.049</UserCPUTime>
+					<Details><![CDATA[{"max numUsedLocalContexts":"1","Est. Intermediate Cardinality":"0.99935","Est. Left Side Input Cardinality":"7","Est. Output Cardinality":"8.55","Est. Right Side Input Cardinality":"8.54999","Estimated Output Cardinality":"9","Estimated Output Cardinality_1":"7","Memory Allocated":"0.015 MiB","Output Spec":"[DocId] ORDER_DATE DATE, to_fixed64_nocheck(...) FIXED8(10, 2)","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","hashtable lookup key":"FACT_ORDERS.DATE_ID (INT)"}]]></Details>
+					<InnerPlans>
+						<Plan ID="5236_op61" Type="Executed" PlanType="Column">
+							<RootRelation ID="5236_op61_node" Status="NotStarted" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangOperatorWithRetry<LlangNoDataOperator>]]></Name>
+								<Summary><![CDATA[Code-generated operator across relations <see next op>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<UserCPUTime Unit="ms">0.000</UserCPUTime>
+								<EstimatedOutputCardinality>9</EstimatedOutputCardinality>
+								<Details><![CDATA[{"max numUsedLocalContexts":"0","calls":"0","Estimated Output Cardinality":"9","FieldToHeader":"1000016","HeaderToField":"1000016","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","hashtable lookup key":"FACT_ORDERS.DATE_ID (INT)","rowWidth":"24"}]]></Details>
+								<Child ID="5244_op61_node">
+									<Details><![CDATA[{"ConnectionType":"Logical"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5245_op21" Type="Executed" PlanType="Column">
+							<RootRelation ID="5245_op21_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangInOperator]]></Name>
+								<Summary><![CDATA[<Materialize>; <Partition Input>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079944813,"end":1792953079944863}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.010</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 5":"numUsedLocalContexts 1, CPUTime 0.010 ms, CPUWaitTime 0.000 ms, calls 1","InitLocal CPUTime":"0.004 ms","InitLocal CPUWaitTime":"0.000 ms","HeaderToField":"1000016","JIT cache hit":"yes","JIT compile status":"Compiled (Policy: MediumCardinality)","JIT effective line count":"68","JIT opt level":"O2","Statistics (0)":"HashPartitionsState(numChunks: 5, numRows: 7, totalInserts: 7, compressionRatio: 1, chunksPerPartition: [1, 0, 1, 1, 0, 1, 0, 1])","operatorId":"21"}]]></Details>
+								<Child ID="5246_op21_node">
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5246_op21" Type="Executed" PlanType="Column">
+							<RootRelation ID="5246_op21_node" Status="NotStarted" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangInOperator]]></Name>
+								<Summary><![CDATA[Code-generated operator across relations <see next op>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<UserCPUTime Unit="ms">0.000</UserCPUTime>
+								<EstimatedOutputCardinality>7</EstimatedOutputCardinality>
+								<Details><![CDATA[{"max numUsedLocalContexts":"0","calls":"0","Estimated Output Cardinality":"7","HeaderToField":"1000016"}]]></Details>
+								<Child ID="5247_op19_node">
+									<ExecutedOutputCardinality>7</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5248_op23" Type="Executed" PlanType="Column">
+							<RootRelation ID="5248_op23_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[EnforceCompilationByThresholdOpT<>]]></Name>
+								<Summary><![CDATA[]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079944927,"end":1792953079944928}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.001</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 6":"numUsedLocalContexts 1, CPUTime 0.001 ms, CPUWaitTime 0.000 ms, calls 1","TaskStats from op: 99":"count = 0, parentOpId: 4294967295","operatorId":"23"}]]></Details>
+								<Child ID="5249_op22_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5242_op24" Type="Executed" PlanType="Column">
+							<RootRelation ID="5242_op24_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[HashPartitionsCollectOp<PartitionedHashJoinTargetMap<(unsignedchar)3,false>,HashPartitionsJoinPolicy,false>]]></Name>
+								<Summary><![CDATA[]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079944898,"end":1792953079944962}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.010</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 6":"numUsedLocalContexts 1, CPUTime 0.010 ms, CPUWaitTime 0.000 ms, calls 1","InitLocal CPUTime":"0.003 ms","InitLocal CPUWaitTime":"0.000 ms","Finish CPUTime":"0.001 ms","Finish CPUWaitTime":"0.000 ms","BloomFilter":"IsNotSet","CoalMapCapacities":"[10, 3, 10, 10, 3, 10, 3, 10]","CoalMapSizes":"[1, 0, 2, 1, 0, 2, 0, 1]","HeaderToField":"1000016","JIT cache hit":"yes","JIT compile status":"Compiled (Policy: MediumCardinality)","JIT effective line count":"140","JIT opt level":"O2","MarkLeft":"False","Memory Allocated":"0.015 MiB","Partitions":"8","TaskStats from op: 98":"count = 0, parentOpId: 4294967295","TotalCoalMapCapacity":"59","TotalInsertedDuplicateRows":"0","TotalInsertedRows":"7","TotalResizes":"0","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","operatorId":"24"}]]></Details>
+								<Child ID="5249_op22_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5249_op22" Type="Executed" PlanType="Column">
+							<RootRelation ID="5249_op22_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[HashPartitionsScheduleCollectOp<PartitionedHashJoinTargetMap<(unsignedchar)3,false>,HashPartitionsJoinPolicy>]]></Name>
+								<Summary><![CDATA[Schedule partitioned hash join collect jobs]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079944902,"end":1792953079944938}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.028</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 6":"numUsedLocalContexts 1, CPUTime 0.028 ms, CPUWaitTime 0.000 ms, calls 1","EstimatedElements":"19","Partitions":"8","operatorId":"22"}]]></Details>
+								<Child ID="5245_op21_node">
+									<Details><![CDATA[{"ConnectionType":"Logical"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+					</InnerPlans>
+				</RootRelation>
+			</Plan>
+			<Plan ID="5250_group14" Type="Executed" PlanType="Column">
+				<RootRelation ID="5250_group14_node" Status="Finished" Physical="True" TypeName="HEX AGGREGATION">
+					<Name><![CDATA[AGGREGATION]]></Name>
+					<Summary><![CDATA[GROUPING: FACT_ORDERS.ORDER_ID, FACT_ORDERS.CUSTOMER_ID, FACT_ORDERS.CARRIER_ID, FACT_ORDERS.DELIVERY_DATE, FACT_ORDERS.DELIVERY_STATUS, FACT_ORDERS.EXPECTED_DELIVERY_DATE, FACT_ORDERS.CURRENCY, FACT_ORDERS.CUSTOMER_RATING, FACT_ORDERS.DATE_ID, AGGREGATION: SUM(FACT_ORDERS.AMOUNT)]]></Summary>
+					<ExecutionTime>
+						<Timestamps>[{"Pop":[{"start":1792953079945117,"end":1792953079945204}]}]</Timestamps>
+					</ExecutionTime>
+					<UserCPUTime Unit="ms">0.034</UserCPUTime>
+					<Details><![CDATA[{"max numUsedLocalContexts":"1","Estimated Output Cardinality":"9","Memory Allocated":"0.001 MiB","Output Spec":"[DocId, ValueId, Value] DATE_ID INT, to_fixed64_nocheck(...) FIXED8(10, 2)","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","rowWidth":"24"}]]></Details>
+					<InnerPlans>
+						<Plan ID="5251_op61" Type="Executed" PlanType="Column">
+							<RootRelation ID="5251_op61_node" Status="NotStarted" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangOperatorWithRetry<LlangNoDataOperator>]]></Name>
+								<Summary><![CDATA[Code-generated operator across relations <see next op>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<UserCPUTime Unit="ms">0.000</UserCPUTime>
+								<EstimatedOutputCardinality>9</EstimatedOutputCardinality>
+								<Details><![CDATA[{"max numUsedLocalContexts":"0","calls":"0","Estimated Output Cardinality":"9","FieldToHeader":"1000016","HeaderToField":"1000016","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","hashtable lookup key":"FACT_ORDERS.DATE_ID (INT)","rowWidth":"24"}]]></Details>
+								<Child ID="5233_op59_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5244_op61" Type="Executed" PlanType="Column">
+							<RootRelation ID="5244_op61_node" Status="NotStarted" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangOperatorWithRetry<LlangNoDataOperator>]]></Name>
+								<Summary><![CDATA[Code-generated operator across relations <see next op>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<UserCPUTime Unit="ms">0.000</UserCPUTime>
+								<EstimatedOutputCardinality>9</EstimatedOutputCardinality>
+								<Details><![CDATA[{"max numUsedLocalContexts":"0","calls":"0","Estimated Output Cardinality":"9","FieldToHeader":"1000016","HeaderToField":"1000016","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","hashtable lookup key":"FACT_ORDERS.DATE_ID (INT)","rowWidth":"24"}]]></Details>
+								<Child ID="5251_op61_node">
+									<Details><![CDATA[{"ConnectionType":"Logical"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5252_op49" Type="Executed" PlanType="Column">
+							<RootRelation ID="5252_op49_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangOperatorWithRetry<LlangInOperator>]]></Name>
+								<Summary><![CDATA[<Materialize: FACT_ORDERS.ORDER_ID (VALUEID), FACT_ORDERS.DATE_ID (VALUEID), FACT_ORDERS.CUSTOMER_ID (VALUEID), FACT_ORDERS.CARRIER_ID (VALUEID), FACT_ORDERS.DELIVERY_DATE (VALUEID), FACT_ORDERS.DELIVERY_STATUS (VALUEID), FACT_ORDERS.AMOUNT (FIXED8(10, 2)), FACT_ORDERS.CURRENCY (VALUEID), FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), FACT_ORDERS.CUSTOMER_RATING (VALUEID)>; <Collect rows in a CoalMap and compute aggregates>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945117,"end":1792953079945158}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.019</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 12":"numUsedLocalContexts 1, CPUTime 0.019 ms, CPUWaitTime 0.000 ms, calls 1","InitLocal CPUTime":"0.002 ms","InitLocal CPUWaitTime":"0.000 ms","HeaderToField":"1000016","JIT cache hit":"yes","JIT compile status":"Compiled (Policy: MediumCardinality)","JIT effective line count":"757","JIT opt level":"O2","Memory Allocated":"0.001 MiB","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","operatorId":"49","rowWidth":"24"}]]></Details>
+								<Child ID="5253_op49_node">
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5254_op46" Type="Executed" PlanType="Column">
+							<RootRelation ID="5254_op46_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[PartVidGroupingOffsetsInitOp]]></Name>
+								<Summary><![CDATA[InitOp for PartValueId grouping offsets]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945138,"end":1792953079945158}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.003</UserCPUTime>
+								<EstimatedOutputCardinality>9</EstimatedOutputCardinality>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 12":"numUsedLocalContexts 1, CPUTime 0.003 ms, CPUWaitTime 0.000 ms, calls 1","Estimated Output Cardinality":"9","operatorId":"46"}]]></Details>
+								<Child ID="5255_op35_node">
+									<ExecutedOutputCardinality>9</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5234_op50" Type="Executed" PlanType="Column">
+							<RootRelation ID="5234_op50_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[MergeCoalMapsSchedulingOp<GroupByPayloadHandler>]]></Name>
+								<Summary><![CDATA[Schedule tasks to merge CoalMapArrays into final result]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945193,"end":1792953079945247}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.011</UserCPUTime>
+								<EstimatedOutputCardinality>9</EstimatedOutputCardinality>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 13":"numUsedLocalContexts 1, CPUTime 0.011 ms, CPUWaitTime 0.000 ms, calls 1","Estimated Output Cardinality":"9","InputNumLocalStates":"1","NumMaps":"1","NumScheduledStates":"2","context0 avgFillRate":"70","context0 avgNumBits":"3","context0 estimatedDistinctCount":"0","context0 maxNumBits":"3","context0 numBits":"3","context0 numCoalMaps":"1","context0 numInserts":"9","context0 numParts":"2","context0 size":"7","operatorId":"50"}]]></Details>
+								<Child ID="5252_op49_node">
+									<Details><![CDATA[{"ConnectionType":"Logical"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5256_op51" Type="Executed" PlanType="Column">
+							<RootRelation ID="5256_op51_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[EnforceCompilationByThresholdOpT<>]]></Name>
+								<Summary><![CDATA[]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945203,"end":1792953079945204}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.001</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 13":"numUsedLocalContexts 1, CPUTime 0.001 ms, CPUWaitTime 0.000 ms, calls 1","TaskStats from op: 102":"count = 0, parentOpId: 4294967295","operatorId":"51"}]]></Details>
+								<Child ID="5234_op50_node">
+									<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+					</InnerPlans>
+				</RootRelation>
+			</Plan>
+			<Plan ID="5257_group15" Type="Executed" PlanType="Column">
+				<RootRelation ID="5257_group15_node" Status="Finished" Physical="True" TypeName="HEX TABLE SCAN SEMI JOIN">
+					<Name><![CDATA[TABLE SCAN SEMI JOIN]]></Name>
+					<Summary><![CDATA[JOIN CONDITION: FACT_ORDERS.DATE_ID = DIM_DATE.DATE_ID]]></Summary>
+					<TableType><![CDATA[COLUMN TABLE]]></TableType>
+					<Schema><![CDATA[APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1]]></Schema>
+					<ObjectName><![CDATA[FACT_ORDERS]]></ObjectName>
+					<ExecutionTime>
+						<Timestamps>[{"Pop":[{"start":1792953079944807,"end":1792953079945025}]}]</Timestamps>
+					</ExecutionTime>
+					<UserCPUTime Unit="ms">0.126</UserCPUTime>
+					<Details><![CDATA[{"max numUsedLocalContexts":"1","Active Table Fragments":"FACT_ORDERS~main","Table Constraints":"FACT_ORDERS.CARRIER_ID[MinMax(0, 6, ValueId)], FACT_ORDERS.CURRENCY[MinMax(0, 0, ValueId)], FACT_ORDERS.CUSTOMER_ID[MinMax(0, 30, ValueId)], FACT_ORDERS.CUSTOMER_RATING[MinMax(0, 6, ValueId)], FACT_ORDERS.DATE_ID[MinMax(0, 62, ValueId)], FACT_ORDERS.DELIVERY_DATE[MinMax(0, 62, ValueId)], FACT_ORDERS.DELIVERY_STATUS[MinMax(0, 2, ValueId)], FACT_ORDERS.EXPECTED_DELIVERY_DATE[MinMax(0, 62, ValueId)], FACT_ORDERS.ORDER_ID[MinMax(0, 126, ValueId)]","Estimated Output Cardinality":"9","Filter":"ValueIdList(DIM_DATE.DATE_ID (INT NOT NULL), FACT_ORDERS.DATE_ID (INT))","Operator Specific Partition Info":"{\"Table Logical Partition Info\": (empty)}","Output Spec":"[DocId, ValueId] ORDER_ID INT, [DocId, ValueId] DATE_ID INT, [DocId, ValueId] CUSTOMER_ID INT, [DocId, ValueId] CARRIER_ID INT, [DocId, ValueId] DELIVERY_DATE DATE, [DocId, ValueId] DELIVERY_STATUS NVARCHAR(50), [DocId, Value] AMOUNT FIXED8(10, 2), [DocId, ValueId] CURRENCY NVARCHAR(3), [DocId, ValueId] EXPECTED_DELIVERY_DATE DATE, [DocId, ValueId] CUSTOMER_RATING INT","Runtime constant condition":"<empty>"}]]></Details>
+					<InnerPlans>
+						<Plan ID="5258_group5" Type="Executed" PlanType="Column">
+							<RootRelation ID="5258_group5_node" Status="Finished" Physical="True" TypeName="HEX GROUP">
+								<Name><![CDATA[TableScanControl]]></Name>
+								<Summary><![CDATA[]]></Summary>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945054,"end":1792953079945158}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.031</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","Table Constraints":"FACT_ORDERS.CARRIER_ID[MinMax(0, 6, ValueId)], FACT_ORDERS.CURRENCY[MinMax(0, 0, ValueId)], FACT_ORDERS.CUSTOMER_ID[MinMax(0, 30, ValueId)], FACT_ORDERS.CUSTOMER_RATING[MinMax(0, 6, ValueId)], FACT_ORDERS.DATE_ID[MinMax(0, 62, ValueId)], FACT_ORDERS.DELIVERY_DATE[MinMax(0, 62, ValueId)], FACT_ORDERS.DELIVERY_STATUS[MinMax(0, 2, ValueId)], FACT_ORDERS.EXPECTED_DELIVERY_DATE[MinMax(0, 62, ValueId)], FACT_ORDERS.ORDER_ID[MinMax(0, 126, ValueId)]","LogicalGroupId":"5"}]]></Details>
+								<InnerPlans>
+									<Plan ID="5259_op29" Type="Executed" PlanType="Column">
+										<RootRelation ID="5259_op29_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+											<Name><![CDATA[OpenFragmentsOp<0u>]]></Name>
+											<Summary><![CDATA[Open Fragments APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.FACT_ORDERS~main, ~delta1, ~delta2]]></Summary>
+											<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+											<ExecutionTime>
+												<Timestamps>[{"Pop":[{"start":1792953079945057,"end":1792953079945058}]}]</Timestamps>
+											</ExecutionTime>
+											<UserCPUTime Unit="ms">0.001</UserCPUTime>
+											<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 9":"numUsedLocalContexts 1, CPUTime 0.001 ms, CPUWaitTime 0.000 ms, calls 1","Table Constraints":"FACT_ORDERS.ORDER_ID[MinMax(0, 126, ValueId)], FACT_ORDERS.DATE_ID[MinMax(0, 62, ValueId)], FACT_ORDERS.CUSTOMER_ID[MinMax(0, 30, ValueId)], FACT_ORDERS.CARRIER_ID[MinMax(0, 6, ValueId)], FACT_ORDERS.DELIVERY_DATE[MinMax(0, 62, ValueId)], FACT_ORDERS.DELIVERY_STATUS[MinMax(0, 2, ValueId)], FACT_ORDERS.CURRENCY[MinMax(0, 0, ValueId)], FACT_ORDERS.EXPECTED_DELIVERY_DATE[MinMax(0, 62, ValueId)], FACT_ORDERS.CUSTOMER_RATING[MinMax(0, 6, ValueId)]","operatorId":"29"}]]></Details>
+											<Child ID="5260_op28_node">
+												<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+												<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+											</Child>
+										</RootRelation>
+									</Plan>
+									<Plan ID="5260_op28" Type="Executed" PlanType="Column">
+										<RootRelation ID="5260_op28_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+											<Name><![CDATA[OpenFragmentsControlOp]]></Name>
+											<Summary><![CDATA[]]></Summary>
+											<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+											<ExecutionTime>
+												<Timestamps>[{"Pop":[{"start":1792953079945054,"end":1792953079945058}]}]</Timestamps>
+											</ExecutionTime>
+											<UserCPUTime Unit="ms">0.003</UserCPUTime>
+											<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 9":"numUsedLocalContexts 1, CPUTime 0.003 ms, CPUWaitTime 0.000 ms, calls 1","operatorId":"28"}]]></Details>
+										</RootRelation>
+									</Plan>
+									<Plan ID="5261_op30" Type="Executed" PlanType="Column">
+										<RootRelation ID="5261_op30_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+											<Name><![CDATA[TableScanInitScheduleOp]]></Name>
+											<Summary><![CDATA[Schedule table scan initialization tasks on APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.FACT_ORDERS of group 5]]></Summary>
+											<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+											<ExecutionTime>
+												<Timestamps>[{"Pop":[{"start":1792953079945068,"end":1792953079945088}]}]</Timestamps>
+											</ExecutionTime>
+											<UserCPUTime Unit="ms">0.003</UserCPUTime>
+											<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 10":"numUsedLocalContexts 1, CPUTime 0.003 ms, CPUWaitTime 0.000 ms, calls 1","operatorId":"30"}]]></Details>
+										</RootRelation>
+									</Plan>
+									<Plan ID="5262_op31" Type="Executed" PlanType="Column">
+										<RootRelation ID="5262_op31_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+											<Name><![CDATA[TableScanIndexLookupScheduleOp]]></Name>
+											<Summary><![CDATA[Schedule table scan index lookup tasks on APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.FACT_ORDERS]]></Summary>
+											<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+											<ExecutionTime>
+												<Timestamps>[{"Pop":[{"start":1792953079945093,"end":1792953079945101}]}]</Timestamps>
+											</ExecutionTime>
+											<UserCPUTime Unit="ms">0.002</UserCPUTime>
+											<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 11":"numUsedLocalContexts 1, CPUTime 0.002 ms, CPUWaitTime 0.000 ms, calls 1","operatorId":"31"}]]></Details>
+										</RootRelation>
+									</Plan>
+									<Plan ID="5263_op32" Type="Executed" PlanType="Column">
+										<RootRelation ID="5263_op32_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+											<Name><![CDATA[TableScanScheduleOp]]></Name>
+											<Summary><![CDATA[Schedule table scan tasks on APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.FACT_ORDERS of group 5]]></Summary>
+											<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+											<ExecutionTime>
+												<Timestamps>[{"Pop":[{"start":1792953079945103,"end":1792953079945158}]}]</Timestamps>
+											</ExecutionTime>
+											<UserCPUTime Unit="ms">0.022</UserCPUTime>
+											<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 12":"numUsedLocalContexts 1, CPUTime 0.022 ms, CPUWaitTime 0.000 ms, calls 1","InitLocal CPUTime":"0.019 ms","InitLocal CPUWaitTime":"0.000 ms","operatorId":"32"}]]></Details>
+										</RootRelation>
+									</Plan>
+								</InnerPlans>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5264_group6" Type="Executed" PlanType="Column">
+							<RootRelation ID="5264_group6_node" Status="Finished" Physical="True" TypeName="HEX GROUP">
+								<Name><![CDATA[FACT_ORDERS[~main, ~delta1, ~delta2]]]></Name>
+								<Summary><![CDATA[ValueIdList(DIM_DATE.DATE_ID (INT NOT NULL), FACT_ORDERS.DATE_ID (INT))]]></Summary>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079945071,"end":1792953079945100}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.034</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","Active Table Fragments":"FACT_ORDERS~main","LogicalGroupId":"6"}]]></Details>
+								<InnerPlans>
+									<Plan ID="5265_group7" Type="Executed" PlanType="Column">
+										<RootRelation ID="5265_group7_node" Status="Finished" Physical="True" TypeName="HEX GROUP">
+											<Name><![CDATA[FragmentScan]]></Name>
+											<Summary><![CDATA[]]></Summary>
+											<ExecutionTime>
+												<Timestamps>[{"Pop":[{"start":1792953079945071,"end":1792953079945158}]}]</Timestamps>
+											</ExecutionTime>
+											<UserCPUTime Unit="ms">0.006</UserCPUTime>
+											<Details><![CDATA[{"max numUsedLocalContexts":"1","Active Table Fragments":"FACT_ORDERS~main","LogicalGroupId":"7"}]]></Details>
+											<InnerPlans>
+												<Plan ID="5266_op33" Type="Executed" PlanType="Column">
+													<RootRelation ID="5266_op33_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[FragmentScanInitOp]]></Name>
+														<Summary><![CDATA[Operate init pipeline for APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.FACT_ORDERS~main, ~delta1, ~delta2 of group 7]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079945071,"end":1792953079945088}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.003</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 10":"numUsedLocalContexts 1, CPUTime 0.003 ms, CPUWaitTime 0.000 ms, calls 1","StateAfterRun (~main)":"{InitPipelineState: {AllowedToSkipDictScan: false, DictScanSkipped: false, RowCountEstimation: {calculated 9 rows, not more than 14 rows}, ChunkCapacityBound: NO_BOUND, LargestIntermediateResult: 0}, Fragment Cardinality: 77 rows}","operatorId":"33"}]]></Details>
+														<Child ID="5261_op30_node">
+															<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+														</Child>
+														<Child ID="5267_op36_node">
+															<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Reversed"}]]></Details>
+														</Child>
+													</RootRelation>
+												</Plan>
+												<Plan ID="5268_op34" Type="Executed" PlanType="Column">
+													<RootRelation ID="5268_op34_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[FragmentScanIndexLookupOp]]></Name>
+														<Summary><![CDATA[Operate index lookup pipeline for APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.FACT_ORDERS~main, ~delta1, ~delta2 of group 7]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079945095,"end":1792953079945101}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.002</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 11":"numUsedLocalContexts 1, CPUTime 0.002 ms, CPUWaitTime 0.000 ms, calls 1","StateAfterRun (~main)":"{IndexLookupResult: n/a}","operatorId":"34"}]]></Details>
+														<Child ID="5262_op31_node">
+															<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+														</Child>
+														<Child ID="5269_op37_node">
+															<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Reversed"}]]></Details>
+														</Child>
+													</RootRelation>
+												</Plan>
+												<Plan ID="5255_op35" Type="Executed" PlanType="Column">
+													<RootRelation ID="5255_op35_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[FragmentScanOp_RpRp]]></Name>
+														<Summary><![CDATA[Operate evaluation pipeline for APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.FACT_ORDERS~main, ~delta1, ~delta2 of group 7]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079945128,"end":1792953079945158}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.001</UserCPUTime>
+														<EstimatedOutputCardinality>9</EstimatedOutputCardinality>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 12":"numUsedLocalContexts 1, CPUTime 0.001 ms, CPUWaitTime 0.000 ms, calls 1","Estimated Output Cardinality":"9","TaskStats from op: 100":"count = 0, parentOpId: 4294967295\u000aSampling: \u000aSampling interrupted or no sampling took place for opId: 32. SampleSize: 255 rangeSize: 77 maxSampleSize: 8192 earlyExit: 0 hasRunOutOfTime: 0 isCostGettingWorse: 0 forceParallelization: 0\u000acalculated cost: 0 for op: 32 taskSize: 18446744073709551615 will run in seq: 1 forceParallelization: 0 totalRowCount: 77\u000a","operatorId":"35"}]]></Details>
+														<Child ID="5263_op32_node">
+															<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+														</Child>
+														<Child ID="5270_op38_node">
+															<ExecutedOutputCardinality>9</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Reversed"}]]></Details>
+														</Child>
+													</RootRelation>
+												</Plan>
+											</InnerPlans>
+										</RootRelation>
+									</Plan>
+									<Plan ID="5271_group9" Type="Executed" PlanType="Column">
+										<RootRelation ID="5271_group9_node" Status="Finished" Physical="True" TypeName="HEX GROUP">
+											<Name><![CDATA[ValueIdList(DIM_DATE.DATE_ID (INT NOT NULL), FACT_ORDERS.DATE_ID (INT))]]></Name>
+											<Summary><![CDATA[]]></Summary>
+											<ExecutionTime>
+												<Timestamps>[{"Pop":[{"start":1792953079945076,"end":1792953079945134}]}]</Timestamps>
+											</ExecutionTime>
+											<UserCPUTime Unit="ms">0.012</UserCPUTime>
+											<Details><![CDATA[{"max numUsedLocalContexts":"1","LogicalGroupId":"9"}]]></Details>
+											<InnerPlans>
+												<Plan ID="5272_op39" Type="Executed" PlanType="Column">
+													<RootRelation ID="5272_op39_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[SemiJoinReductionToDataVectorScanAdapterOp]]></Name>
+														<Summary><![CDATA[Converts ValueIdSets into Predicate State Maps of group 9]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079945076,"end":1792953079945082}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.006</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 10":"numUsedLocalContexts 1, CPUTime 0.006 ms, CPUWaitTime 0.000 ms, calls 1","StateBeforeFinish (~main)":"{ValueIdSet: ValueIdSet(kind=Range isSorted=Yes size=7 [39, 46)), RowCountEstimation: {approx. 9 rows, not more than 14 rows}, Uses: 1}","operatorId":"39"}]]></Details>
+														<Child ID="5273_op26_node">
+															<Details><![CDATA[{"ConnectionType":"Logical"}]]></Details>
+														</Child>
+													</RootRelation>
+												</Plan>
+												<Plan ID="5274_op40" Type="Executed" PlanType="Column">
+													<RootRelation ID="5274_op40_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[PredicateOp]]></Name>
+														<Summary><![CDATA[Data vector scan/lookup on APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.FACT_ORDERS~main, ~delta1, ~delta2.DATE_ID of group 9]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079945120,"end":1792953079945134}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.006</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 12":"numUsedLocalContexts 1, CPUTime 0.006 ms, CPUWaitTime 0.000 ms, calls 1","Init CPUTime":"0.001 ms","Init CPUWaitTime":"0.000 ms","InitLocal CPUTime":"0.001 ms","InitLocal CPUWaitTime":"0.000 ms","StateBeforeFinish (~main)":"Cardinality: 9 rows, PredInitState: ValueIdSet: ValueIdSet(kind=Range isSorted=Yes size=7 [39, 46)), RowCountEstimation: {approx. 9 rows, not more than 14 rows}, Uses: 1","operatorId":"40"}]]></Details>
+													</RootRelation>
+												</Plan>
+											</InnerPlans>
+										</RootRelation>
+									</Plan>
+									<Plan ID="5275_group8" Type="Executed" PlanType="Column">
+										<RootRelation ID="5275_group8_node" Status="Finished" Physical="True" TypeName="HEX GROUP">
+											<Name><![CDATA[Visibility]]></Name>
+											<Summary><![CDATA[Postfilter]]></Summary>
+											<ExecutionTime>
+												<Timestamps>[{"Pop":[{"start":1792953079945072,"end":1792953079945100}]}]</Timestamps>
+											</ExecutionTime>
+											<UserCPUTime Unit="ms">0.016</UserCPUTime>
+											<Details><![CDATA[{"max numUsedLocalContexts":"1","LogicalGroupId":"8"}]]></Details>
+											<InnerPlans>
+												<Plan ID="5276_op41" Type="Executed" PlanType="Column">
+													<RootRelation ID="5276_op41_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[VisibilityFilterEstimationOp]]></Name>
+														<Summary><![CDATA[Estimate transactional visibility check on APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.FACT_ORDERS~main, ~delta1, ~delta2 of group 8]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079945073,"end":1792953079945083}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.004</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"2","pipeline 10":"numUsedLocalContexts 1, CPUTime 0.004 ms, CPUWaitTime 0.000 ms, calls 2","StateAfterRun (~main)":"{InitPipelineState: {AllowedToSkipDictScan: false, DictScanSkipped: false, RowCountEstimation: {approx. 77 rows}, ChunkCapacityBound: NO_BOUND, LargestIntermediateResult: 0}}","operatorId":"41"}]]></Details>
+													</RootRelation>
+												</Plan>
+												<Plan ID="5267_op36" Type="Executed" PlanType="Column">
+													<RootRelation ID="5267_op36_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[PostFilterConjInitOp]]></Name>
+														<Summary><![CDATA[Operate init pipeline for postfilter of group 8]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079945072,"end":1792953079945086}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.004</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 10":"numUsedLocalContexts 1, CPUTime 0.004 ms, CPUWaitTime 0.000 ms, calls 1","StateAfterRun (~main)":"{InitPipelineState: {AllowedToSkipDictScan: false, DictScanSkipped: false, RowCountEstimation: {calculated 9 rows, not more than 14 rows}, ChunkCapacityBound: NO_BOUND, LargestIntermediateResult: 0}}","operatorId":"36"}]]></Details>
+														<Child ID="5276_op41_node">
+															<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Reversed"}]]></Details>
+														</Child>
+														<Child ID="5272_op39_node">
+															<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Reversed"}]]></Details>
+														</Child>
+													</RootRelation>
+												</Plan>
+												<Plan ID="5277_op42" Type="Executed" PlanType="Column">
+													<RootRelation ID="5277_op42_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[VisibilityFilterOp]]></Name>
+														<Summary><![CDATA[Check transactional visibility on APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.FACT_ORDERS~main, ~delta1, ~delta2 of group 8]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079945134,"end":1792953079945138}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.004</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 12":"numUsedLocalContexts 1, CPUTime 0.004 ms, CPUWaitTime 0.000 ms, calls 1","operatorId":"42"}]]></Details>
+													</RootRelation>
+												</Plan>
+												<Plan ID="5270_op38" Type="Executed" PlanType="Column">
+													<RootRelation ID="5270_op38_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[PostFilterConjOp]]></Name>
+														<Summary><![CDATA[Operate evaluation pipeline for postfilter of group 8]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079945129,"end":1792953079945138}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.001</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 12":"numUsedLocalContexts 1, CPUTime 0.001 ms, CPUWaitTime 0.000 ms, calls 1","operatorId":"38"}]]></Details>
+														<Child ID="5277_op42_node">
+															<ExecutedOutputCardinality>9</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Reversed"}]]></Details>
+														</Child>
+														<Child ID="5274_op40_node">
+															<ExecutedOutputCardinality>9</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Reversed"}]]></Details>
+														</Child>
+													</RootRelation>
+												</Plan>
+												<Plan ID="5269_op37" Type="Executed" PlanType="Column">
+													<RootRelation ID="5269_op37_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[PostFilterConjIndexLookupOp]]></Name>
+														<Summary><![CDATA[Operate index lookup pipeline for postfilter of group 8]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079945096,"end":1792953079945100}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.003</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 11":"numUsedLocalContexts 1, CPUTime 0.003 ms, CPUWaitTime 0.000 ms, calls 1","StateAfterRun (~main)":"{IndexLookupResult: n/a}","operatorId":"37"}]]></Details>
+													</RootRelation>
+												</Plan>
+											</InnerPlans>
+										</RootRelation>
+									</Plan>
+								</InnerPlans>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5253_op49" Type="Executed" PlanType="Column">
+							<RootRelation ID="5253_op49_node" Status="NotStarted" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[LlangOperatorWithRetry<LlangInOperator>]]></Name>
+								<Summary><![CDATA[Code-generated operator across relations <see next op>]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<UserCPUTime Unit="ms">0.000</UserCPUTime>
+								<EstimatedOutputCardinality>9</EstimatedOutputCardinality>
+								<Details><![CDATA[{"max numUsedLocalContexts":"0","calls":"0","Estimated Output Cardinality":"9","HeaderToField":"1000016","PackedHashColumn(0)":"FACT_ORDERS.ORDER_ID (VALUEID), no output","PackedHashColumn(1)":"FACT_ORDERS.CUSTOMER_ID (VALUEID), no output","PackedHashColumn(2)":"FACT_ORDERS.CARRIER_ID (VALUEID), no output","PackedHashColumn(3)":"FACT_ORDERS.DELIVERY_DATE (VALUEID), no output","PackedHashColumn(4)":"FACT_ORDERS.DELIVERY_STATUS (VALUEID), no output","PackedHashColumn(5)":"FACT_ORDERS.EXPECTED_DELIVERY_DATE (VALUEID), no output","PackedHashColumn(6)":"FACT_ORDERS.CURRENCY (VALUEID), no output","PackedHashColumn(7)":"FACT_ORDERS.CUSTOMER_RATING (VALUEID), no output","PackedHashColumn(8)":"FACT_ORDERS.DATE_ID (VALUEID)","agg(0)":"Sum(FACT_ORDERS.AMOUNT (FIXED8(10, 2))) -> 1000014.10000000 (FIXED8(18, 2))","hashtable collect key":"DIM_DATE.DATE_ID (INT NOT NULL)","rowWidth":"24"}]]></Details>
+								<Child ID="5254_op46_node">
+									<ExecutedOutputCardinality>9</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5278_op25" Type="Executed" PlanType="Column">
+							<RootRelation ID="5278_op25_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[SemiJoinReductionCollectOp]]></Name>
+								<Summary><![CDATA[SemiJoinReduction Collection]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079944807,"end":1792953079944865}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.003</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 5":"numUsedLocalContexts 1, CPUTime 0.003 ms, CPUWaitTime 0.000 ms, calls 1","InitLocal CPUTime":"0.001 ms","InitLocal CPUWaitTime":"0.000 ms","operatorId":"25"}]]></Details>
+								<Child ID="5247_op19_node">
+									<ExecutedOutputCardinality>7</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5273_op26" Type="Executed" PlanType="Column">
+							<RootRelation ID="5273_op26_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[SemiJoinReductionMergeOp]]></Name>
+								<Summary><![CDATA[Merge SemiJoinReduction values]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079944967,"end":1792953079945025}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.058</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 7":"numUsedLocalContexts 1, CPUTime 0.058 ms, CPUWaitTime 0.000 ms, calls 1","Table Constraints":"FACT_ORDERS.ORDER_ID[MinMax(0, 126, ValueId)], FACT_ORDERS.DATE_ID[MinMax(0, 62, ValueId)], FACT_ORDERS.CUSTOMER_ID[MinMax(0, 30, ValueId)], FACT_ORDERS.CARRIER_ID[MinMax(0, 6, ValueId)], FACT_ORDERS.DELIVERY_DATE[MinMax(0, 62, ValueId)], FACT_ORDERS.DELIVERY_STATUS[MinMax(0, 2, ValueId)], FACT_ORDERS.CURRENCY[MinMax(0, 0, ValueId)], FACT_ORDERS.EXPECTED_DELIVERY_DATE[MinMax(0, 62, ValueId)], FACT_ORDERS.CUSTOMER_RATING[MinMax(0, 6, ValueId)]","ValueCol#0 (frag=0)":"ValueIdSet(kind=Range isSorted=Yes size=7 [39, 46))","ValueCol#0 (frag=1)":"ValueIdSet(kind=Range isSorted=Yes size=0 [0, 0))","ValueCol#0 (frag=2)":"ValueIdSet(kind=Range isSorted=Yes size=0 [0, 0))","numCols":"1","numLocalStates":"1","operatorId":"26"}]]></Details>
+								<Child ID="5278_op25_node">
+									<Details><![CDATA[{"ConnectionType":"Logical"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+					</InnerPlans>
+				</RootRelation>
+			</Plan>
+			<Plan ID="5279_group16" Type="Executed" PlanType="Column">
+				<RootRelation ID="5279_group16_node" Status="Finished" Physical="True" TypeName="HEX Shared Sub-Plan">
+					<Name><![CDATA[Shared Sub-Plan]]></Name>
+					<Summary><![CDATA[]]></Summary>
+					<ExecutionTime>
+						<Timestamps>[{"Pop":[{"start":1792953079944856,"end":1792953079944865}]}]</Timestamps>
+					</ExecutionTime>
+					<UserCPUTime Unit="ms">0.001</UserCPUTime>
+					<Details><![CDATA[{"max numUsedLocalContexts":"1","Estimated Output Cardinality":"7","References":"Ref(0, breaker: false), Ref(1, breaker: false)","RelationMode":"Retain Original Fields"}]]></Details>
+					<InnerPlans>
+						<Plan ID="5247_op19" Type="Executed" PlanType="Column">
+							<RootRelation ID="5247_op19_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[RepeaterOp]]></Name>
+								<Summary><![CDATA[]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079944856,"end":1792953079944865}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.001</UserCPUTime>
+								<EstimatedOutputCardinality>7</EstimatedOutputCardinality>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 5":"numUsedLocalContexts 1, CPUTime 0.001 ms, CPUWaitTime 0.000 ms, calls 1","Estimated Output Cardinality":"7","operatorId":"19"}]]></Details>
+								<Child ID="5280_op18_node">
+									<ExecutedOutputCardinality>7</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+					</InnerPlans>
+				</RootRelation>
+			</Plan>
+			<Plan ID="5281_group17" Type="Executed" PlanType="Column">
+				<RootRelation ID="5281_group17_node" Status="Finished" Physical="True" TypeName="HEX TABLE SCAN">
+					<Name><![CDATA[TABLE SCAN]]></Name>
+					<Summary><![CDATA[FILTER CONDITION: DIM_DATE.CALENDAR_DATE < '2026-11-01' AND DIM_DATE.CALENDAR_DATE >= '2026-10-01' (DETAIL: ([SCAN] DIM_DATE.CALENDAR_DATE BETWEEN '2026-10-01' AND '2026-11-01' EXCL))]]></Summary>
+					<TableType><![CDATA[COLUMN TABLE]]></TableType>
+					<Schema><![CDATA[APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1]]></Schema>
+					<ObjectName><![CDATA[DIM_DATE]]></ObjectName>
+					<ExecutionTime>
+						<Timestamps>[{"Pop":[{"start":1792953079944661,"end":1792953079944865}]}]</Timestamps>
+					</ExecutionTime>
+					<UserCPUTime Unit="ms">0.174</UserCPUTime>
+					<Details><![CDATA[{"max numUsedLocalContexts":"1","Active Table Fragments":"DIM_DATE~main","Table Constraints":"DIM_DATE.CALENDAR_DATE[MinMax(0, 63, ValueId), NotNull], DIM_DATE.DATE_ID[NotNull]","Estimated Output Cardinality":"7","Filter":"DIM_DATE.CALENDAR_DATE (DATE) BETWEEN Daydate[739892] AND Daydate[739923] EXCL","Output Spec":"[DocId, Value] DATE_ID INT, [DocId] ORDER_DATE DATE","Runtime constant condition":"<empty>"}]]></Details>
+					<InnerPlans>
+						<Plan ID="5282_group0" Type="Executed" PlanType="Column">
+							<RootRelation ID="5282_group0_node" Status="Finished" Physical="True" TypeName="HEX GROUP">
+								<Name><![CDATA[TableScanControl]]></Name>
+								<Summary><![CDATA[]]></Summary>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079944661,"end":1792953079944866}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.093</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","Table Constraints":"DIM_DATE.CALENDAR_DATE[MinMax(0, 63, ValueId), NotNull], DIM_DATE.DATE_ID[NotNull]","LogicalGroupId":"0"}]]></Details>
+								<InnerPlans>
+									<Plan ID="5283_op6" Type="Executed" PlanType="Column">
+										<RootRelation ID="5283_op6_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+											<Name><![CDATA[TableScanIndexLookupScheduleOp]]></Name>
+											<Summary><![CDATA[Schedule table scan index lookup tasks on APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.DIM_DATE]]></Summary>
+											<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+											<ExecutionTime>
+												<Timestamps>[{"Pop":[{"start":1792953079944788,"end":1792953079944797}]}]</Timestamps>
+											</ExecutionTime>
+											<UserCPUTime Unit="ms">0.001</UserCPUTime>
+											<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 4":"numUsedLocalContexts 1, CPUTime 0.001 ms, CPUWaitTime 0.000 ms, calls 1","operatorId":"6"}]]></Details>
+										</RootRelation>
+									</Plan>
+									<Plan ID="5284_op7" Type="Executed" PlanType="Column">
+										<RootRelation ID="5284_op7_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+											<Name><![CDATA[TableScanScheduleOp]]></Name>
+											<Summary><![CDATA[Schedule table scan tasks on APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.DIM_DATE of group 0]]></Summary>
+											<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+											<ExecutionTime>
+												<Timestamps>[{"Pop":[{"start":1792953079944799,"end":1792953079944866}]}]</Timestamps>
+											</ExecutionTime>
+											<UserCPUTime Unit="ms">0.031</UserCPUTime>
+											<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 5":"numUsedLocalContexts 1, CPUTime 0.031 ms, CPUWaitTime 0.000 ms, calls 1","InitLocal CPUTime":"0.023 ms","InitLocal CPUWaitTime":"0.000 ms","operatorId":"7"}]]></Details>
+										</RootRelation>
+									</Plan>
+									<Plan ID="5285_op5" Type="Executed" PlanType="Column">
+										<RootRelation ID="5285_op5_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+											<Name><![CDATA[TableScanInitScheduleOp]]></Name>
+											<Summary><![CDATA[Schedule table scan initialization tasks on APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.DIM_DATE of group 0]]></Summary>
+											<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+											<ExecutionTime>
+												<Timestamps>[{"Pop":[{"start":1792953079944738,"end":1792953079944784}]}]</Timestamps>
+											</ExecutionTime>
+											<UserCPUTime Unit="ms">0.003</UserCPUTime>
+											<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 3":"numUsedLocalContexts 1, CPUTime 0.003 ms, CPUWaitTime 0.000 ms, calls 1","operatorId":"5"}]]></Details>
+										</RootRelation>
+									</Plan>
+									<Plan ID="5286_op4" Type="Executed" PlanType="Column">
+										<RootRelation ID="5286_op4_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+											<Name><![CDATA[OpenFragmentsOp<0u>]]></Name>
+											<Summary><![CDATA[Open Fragments APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.DIM_DATE~main, ~delta1, ~delta2]]></Summary>
+											<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+											<ExecutionTime>
+												<Timestamps>[{"Pop":[{"start":1792953079944667,"end":1792953079944719}]}]</Timestamps>
+											</ExecutionTime>
+											<UserCPUTime Unit="ms">0.052</UserCPUTime>
+											<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 2":"numUsedLocalContexts 1, CPUTime 0.052 ms, CPUWaitTime 0.000 ms, calls 1","Table Constraints":"DIM_DATE.DATE_ID[NotNull], DIM_DATE.CALENDAR_DATE[MinMax(0, 63, ValueId), NotNull]","operatorId":"4"}]]></Details>
+											<Child ID="5287_op3_node">
+												<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+												<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+											</Child>
+										</RootRelation>
+									</Plan>
+									<Plan ID="5287_op3" Type="Executed" PlanType="Column">
+										<RootRelation ID="5287_op3_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+											<Name><![CDATA[OpenFragmentsControlOp]]></Name>
+											<Summary><![CDATA[]]></Summary>
+											<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+											<ExecutionTime>
+												<Timestamps>[{"Pop":[{"start":1792953079944661,"end":1792953079944719}]}]</Timestamps>
+											</ExecutionTime>
+											<UserCPUTime Unit="ms">0.006</UserCPUTime>
+											<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 2":"numUsedLocalContexts 1, CPUTime 0.006 ms, CPUWaitTime 0.000 ms, calls 1","operatorId":"3"}]]></Details>
+										</RootRelation>
+									</Plan>
+								</InnerPlans>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5288_group1" Type="Executed" PlanType="Column">
+							<RootRelation ID="5288_group1_node" Status="Finished" Physical="True" TypeName="HEX GROUP">
+								<Name><![CDATA[DIM_DATE[~main, ~delta1, ~delta2]]]></Name>
+								<Summary><![CDATA[DIM_DATE.CALENDAR_DATE (DATE) BETWEEN Daydate[739892] AND Daydate[739923] EXCL]]></Summary>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079944741,"end":1792953079944842}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.074</UserCPUTime>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","Active Table Fragments":"DIM_DATE~main","LogicalGroupId":"1"}]]></Details>
+								<InnerPlans>
+									<Plan ID="5289_group3" Type="Executed" PlanType="Column">
+										<RootRelation ID="5289_group3_node" Status="Finished" Physical="True" TypeName="HEX GROUP">
+											<Name><![CDATA[Visibility]]></Name>
+											<Summary><![CDATA[Postfilter]]></Summary>
+											<ExecutionTime>
+												<Timestamps>[{"Pop":[{"start":1792953079944743,"end":1792953079944850}]}]</Timestamps>
+											</ExecutionTime>
+											<UserCPUTime Unit="ms">0.030</UserCPUTime>
+											<Details><![CDATA[{"max numUsedLocalContexts":"1","LogicalGroupId":"3"}]]></Details>
+											<InnerPlans>
+												<Plan ID="5290_op11" Type="Executed" PlanType="Column">
+													<RootRelation ID="5290_op11_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[PostFilterConjInitOp]]></Name>
+														<Summary><![CDATA[Operate init pipeline for postfilter of group 3]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079944743,"end":1792953079944779}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.004</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 3":"numUsedLocalContexts 1, CPUTime 0.004 ms, CPUWaitTime 0.000 ms, calls 1","StateAfterRun (~main)":"{InitPipelineState: {AllowedToSkipDictScan: false, DictScanSkipped: false, RowCountEstimation: {calculated 7 rows, not more than 7 rows}, ChunkCapacityBound: 7, LargestIntermediateResult: 0}}","operatorId":"11"}]]></Details>
+														<Child ID="5291_op14_node">
+															<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Reversed"}]]></Details>
+														</Child>
+														<Child ID="5292_op16_node">
+															<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Reversed"}]]></Details>
+														</Child>
+													</RootRelation>
+												</Plan>
+												<Plan ID="5293_op12" Type="Executed" PlanType="Column">
+													<RootRelation ID="5293_op12_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[PostFilterConjIndexLookupOp]]></Name>
+														<Summary><![CDATA[Operate index lookup pipeline for postfilter of group 3]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079944791,"end":1792953079944795}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.004</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 4":"numUsedLocalContexts 1, CPUTime 0.004 ms, CPUWaitTime 0.000 ms, calls 1","StateAfterRun (~main)":"{IndexLookupResult: n/a}","operatorId":"12"}]]></Details>
+													</RootRelation>
+												</Plan>
+												<Plan ID="5292_op16" Type="Executed" PlanType="Column">
+													<RootRelation ID="5292_op16_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[VisibilityFilterEstimationOp]]></Name>
+														<Summary><![CDATA[Estimate transactional visibility check on APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.DIM_DATE~main, ~delta1, ~delta2 of group 3]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079944745,"end":1792953079944777}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.012</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"2","pipeline 3":"numUsedLocalContexts 1, CPUTime 0.012 ms, CPUWaitTime 0.000 ms, calls 2","StateAfterRun (~main)":"{InitPipelineState: {AllowedToSkipDictScan: false, DictScanSkipped: false, RowCountEstimation: {approx. 47 rows}, ChunkCapacityBound: NO_BOUND, LargestIntermediateResult: 0}}","operatorId":"16"}]]></Details>
+													</RootRelation>
+												</Plan>
+												<Plan ID="5294_op13" Type="Executed" PlanType="Column">
+													<RootRelation ID="5294_op13_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[PostFilterConjOp]]></Name>
+														<Summary><![CDATA[Operate evaluation pipeline for postfilter of group 3]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079944833,"end":1792953079944850}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.003</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 5":"numUsedLocalContexts 1, CPUTime 0.003 ms, CPUWaitTime 0.000 ms, calls 1","operatorId":"13"}]]></Details>
+														<Child ID="5295_op17_node">
+															<ExecutedOutputCardinality>7</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Reversed"}]]></Details>
+														</Child>
+														<Child ID="5296_op15_node">
+															<ExecutedOutputCardinality>7</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Reversed"}]]></Details>
+														</Child>
+													</RootRelation>
+												</Plan>
+												<Plan ID="5295_op17" Type="Executed" PlanType="Column">
+													<RootRelation ID="5295_op17_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[VisibilityFilterOp]]></Name>
+														<Summary><![CDATA[Check transactional visibility on APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.DIM_DATE~main, ~delta1, ~delta2 of group 3]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079944843,"end":1792953079944850}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.007</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 5":"numUsedLocalContexts 1, CPUTime 0.007 ms, CPUWaitTime 0.000 ms, calls 1","operatorId":"17"}]]></Details>
+													</RootRelation>
+												</Plan>
+											</InnerPlans>
+										</RootRelation>
+									</Plan>
+									<Plan ID="5297_group4" Type="Executed" PlanType="Column">
+										<RootRelation ID="5297_group4_node" Status="Finished" Physical="True" TypeName="HEX GROUP">
+											<Name><![CDATA[DIM_DATE.CALENDAR_DATE (DATE) BETWEEN Daydate[739892] AND Daydate[739923] EXCL]]></Name>
+											<Summary><![CDATA[Scan]]></Summary>
+											<ExecutionTime>
+												<Timestamps>[{"Pop":[{"start":1792953079944755,"end":1792953079944842}]}]</Timestamps>
+											</ExecutionTime>
+											<UserCPUTime Unit="ms">0.031</UserCPUTime>
+											<Details><![CDATA[{"max numUsedLocalContexts":"1","Estimated costs ds&dvs":"4471.817282933973","Estimated costs dvl&dl":"1009.5271595553191","Estimated distinct count":"47","Estimated exclusive output size":"7","Estimated exclusive selectivity":"0.14893617021276595","Estimated inclusive output size":"7","Estimated inclusive selectivity":"0.14893617021276595","Estimated kurtosis":"Flat","Estimated null count":"0","Estimated previous output size":"47","Estimated previous selectivity":"1","Estimated row count":"47","Estimated top value counts":"[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]","Estimation assumption":"WorstCase","LogicalGroupId":"4","Predicate order":"Free"}]]></Details>
+											<InnerPlans>
+												<Plan ID="5291_op14" Type="Executed" PlanType="Column">
+													<RootRelation ID="5291_op14_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[GreaterEqualAndLessThanDictScanOp]]></Name>
+														<Summary><![CDATA[Dictionary scan on APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.DIM_DATE~main, ~delta1, ~delta2.CALENDAR_DATE of group 4]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079944755,"end":1792953079944775}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.020</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 3":"numUsedLocalContexts 1, CPUTime 0.020 ms, CPUWaitTime 0.000 ms, calls 1","StateAfterRun (~main)":"{PredInitState: ValueIdSet: ValueIdSet(kind=Range isSorted=Yes size=7 [40, 47)), RowCountEstimation: {exactly 7 rows}, Uses: 1, InitPipelineState: {AllowedToSkipDictScan: false, DictScanSkipped: false, RowCountEstimation: {exactly 7 rows}, ChunkCapacityBound: 7, LargestIntermediateResult: 0}}","operatorId":"14"}]]></Details>
+													</RootRelation>
+												</Plan>
+												<Plan ID="5296_op15" Type="Executed" PlanType="Column">
+													<RootRelation ID="5296_op15_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[PredicateOp]]></Name>
+														<Summary><![CDATA[Data vector scan/lookup on APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.DIM_DATE~main, ~delta1, ~delta2.CALENDAR_DATE of group 4]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079944818,"end":1792953079944842}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.011</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 5":"numUsedLocalContexts 1, CPUTime 0.011 ms, CPUWaitTime 0.000 ms, calls 1","Init CPUTime":"0.002 ms","Init CPUWaitTime":"0.000 ms","InitLocal CPUTime":"0.002 ms","InitLocal CPUWaitTime":"0.000 ms","StateBeforeFinish (~main)":"Cardinality: 7 rows, PredInitState: ValueIdSet: ValueIdSet(kind=Range isSorted=Yes size=7 [40, 47)), RowCountEstimation: {exactly 7 rows}, Uses: 1","operatorId":"15"}]]></Details>
+													</RootRelation>
+												</Plan>
+											</InnerPlans>
+										</RootRelation>
+									</Plan>
+									<Plan ID="5298_group2" Type="Executed" PlanType="Column">
+										<RootRelation ID="5298_group2_node" Status="Finished" Physical="True" TypeName="HEX GROUP">
+											<Name><![CDATA[FragmentScan]]></Name>
+											<Summary><![CDATA[]]></Summary>
+											<ExecutionTime>
+												<Timestamps>[{"Pop":[{"start":1792953079944741,"end":1792953079944865}]}]</Timestamps>
+											</ExecutionTime>
+											<UserCPUTime Unit="ms">0.013</UserCPUTime>
+											<Details><![CDATA[{"max numUsedLocalContexts":"1","Active Table Fragments":"DIM_DATE~main","LogicalGroupId":"2"}]]></Details>
+											<InnerPlans>
+												<Plan ID="5299_op10" Type="Executed" PlanType="Column">
+													<RootRelation ID="5299_op10_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[FragmentScanOp_RpRp]]></Name>
+														<Summary><![CDATA[Operate evaluation pipeline for APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.DIM_DATE~main, ~delta1, ~delta2 of group 2]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079944831,"end":1792953079944865}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.002</UserCPUTime>
+														<EstimatedOutputCardinality>7</EstimatedOutputCardinality>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 5":"numUsedLocalContexts 1, CPUTime 0.002 ms, CPUWaitTime 0.000 ms, calls 1","Estimated Output Cardinality":"7","TaskStats from op: 97":"count = 0, parentOpId: 4294967295\u000aSampling: \u000aSampling interrupted or no sampling took place for opId: 7. SampleSize: 255 rangeSize: 47 maxSampleSize: 8192 earlyExit: 0 hasRunOutOfTime: 0 isCostGettingWorse: 0 forceParallelization: 0\u000acalculated cost: 0 for op: 7 taskSize: 18446744073709551615 will run in seq: 1 forceParallelization: 0 totalRowCount: 47\u000a","operatorId":"10"}]]></Details>
+														<Child ID="5284_op7_node">
+															<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+														</Child>
+														<Child ID="5294_op13_node">
+															<ExecutedOutputCardinality>7</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Reversed"}]]></Details>
+														</Child>
+													</RootRelation>
+												</Plan>
+												<Plan ID="5300_op9" Type="Executed" PlanType="Column">
+													<RootRelation ID="5300_op9_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[FragmentScanIndexLookupOp]]></Name>
+														<Summary><![CDATA[Operate index lookup pipeline for APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.DIM_DATE~main, ~delta1, ~delta2 of group 2]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079944789,"end":1792953079944797}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.004</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 4":"numUsedLocalContexts 1, CPUTime 0.004 ms, CPUWaitTime 0.000 ms, calls 1","StateAfterRun (~main)":"{IndexLookupResult: n/a}","operatorId":"9"}]]></Details>
+														<Child ID="5283_op6_node">
+															<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+														</Child>
+														<Child ID="5293_op12_node">
+															<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Reversed"}]]></Details>
+														</Child>
+													</RootRelation>
+												</Plan>
+												<Plan ID="5301_op8" Type="Executed" PlanType="Column">
+													<RootRelation ID="5301_op8_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+														<Name><![CDATA[FragmentScanInitOp]]></Name>
+														<Summary><![CDATA[Operate init pipeline for APRZYGODA_HANA_FINAL_PROJECT_HDI_DB_1.DIM_DATE~main, ~delta1, ~delta2 of group 2]]></Summary>
+														<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+														<ExecutionTime>
+															<Timestamps>[{"Pop":[{"start":1792953079944741,"end":1792953079944784}]}]</Timestamps>
+														</ExecutionTime>
+														<UserCPUTime Unit="ms">0.007</UserCPUTime>
+														<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 3":"numUsedLocalContexts 1, CPUTime 0.007 ms, CPUWaitTime 0.000 ms, calls 1","StateAfterRun (~main)":"{InitPipelineState: {AllowedToSkipDictScan: false, DictScanSkipped: false, RowCountEstimation: {calculated 7 rows, not more than 7 rows}, ChunkCapacityBound: 7, LargestIntermediateResult: 0}, Fragment Cardinality: 47 rows}","operatorId":"8"}]]></Details>
+														<Child ID="5285_op5_node">
+															<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+														</Child>
+														<Child ID="5290_op11_node">
+															<ExecutedOutputCardinality>0</ExecutedOutputCardinality>
+															<Details><![CDATA[{"ConnectionType":"Reversed"}]]></Details>
+														</Child>
+													</RootRelation>
+												</Plan>
+											</InnerPlans>
+										</RootRelation>
+									</Plan>
+								</InnerPlans>
+							</RootRelation>
+						</Plan>
+						<Plan ID="5280_op18" Type="Executed" PlanType="Column">
+							<RootRelation ID="5280_op18_node" Status="Finished" Mode="Expert" Physical="True" TypeName="HEX OPERATOR">
+								<Name><![CDATA[OnePieceReadValuesOp<ChunkValueSourceT<CopyType)0>,RelationLookupValueSource,RelationBulkValueSource,RowStoreValueSource>]]></Name>
+								<Summary><![CDATA[Materialize: DIM_DATE.DATE_ID (INT NOT NULL)]]></Summary>
+								<Location><![CDATA[123d8d0c-16b9-4011-9f24-1035bd075306-d4bc8:30040]]></Location>
+								<ExecutionTime>
+									<Timestamps>[{"Pop":[{"start":1792953079944804,"end":1792953079944865}]}]</Timestamps>
+								</ExecutionTime>
+								<UserCPUTime Unit="ms">0.007</UserCPUTime>
+								<EstimatedOutputCardinality>7</EstimatedOutputCardinality>
+								<Details><![CDATA[{"max numUsedLocalContexts":"1","calls":"1","pipeline 5":"numUsedLocalContexts 1, CPUTime 0.007 ms, CPUWaitTime 0.000 ms, calls 1","InitLocal CPUTime":"0.001 ms","InitLocal CPUWaitTime":"0.000 ms","Estimated Output Cardinality":"7","operatorId":"18"}]]></Details>
+								<Child ID="5299_op10_node">
+									<ExecutedOutputCardinality>7</ExecutedOutputCardinality>
+									<Details><![CDATA[{"ConnectionType":"Call"}]]></Details>
+								</Child>
+							</RootRelation>
+						</Plan>
+					</InnerPlans>
+				</RootRelation>
+			</Plan>
+		</InnerPlans>
+	</Relation>
+</Plan>
