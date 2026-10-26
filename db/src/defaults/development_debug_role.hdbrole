@@ -1,0 +1,12 @@
+{
+  "role": {
+    "name": "development_debug_role",
+    "schema_analytic_privileges": [
+      {
+        "privileges": [
+          "AP_CARRIERS_ALL"
+        ]
+      }
+    ]
+  }
+}

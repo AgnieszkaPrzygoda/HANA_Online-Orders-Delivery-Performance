@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Privilege:analyticPrivilege xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" id="AP_CARRIERS_ALL" privilegeType="SQL_ANALYTIC_PRIVILEGE" schemaVersion="1.1">
+    <descriptions defaultDescription="AP_CARRIERS_ALL"/>
+    <securedModels>
+        <modelUri>CAC_R_DELIVERY_PERFORMANCE</modelUri>
+    </securedModels>
+    <whereSql>1 = 1</whereSql>
+</Privilege:analyticPrivilege>

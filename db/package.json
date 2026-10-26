@@ -5,6 +5,6 @@
     "@sap/hana-client": "^2.*"
   },
   "scripts": {
-    "start": "node node_modules/@sap/hdi-deploy/deploy.js"
-  }
+  "start": "node node_modules/@sap/hdi-deploy/deploy.js --deploy src/defaults/development_debug_role.hdbrole"
+}
 }
