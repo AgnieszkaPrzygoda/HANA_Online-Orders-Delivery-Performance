@@ -88,7 +88,9 @@
   
     <attribute id="CUSTOMER_RATING" order="13" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="CUSTOMER_RATING"/>
+  
       <keyMapping columnObjectName="Projection_1" columnName="CUSTOMER_RATING"/>
+  
     </attribute>
   </attributes>
   <calculatedAttributes/>
