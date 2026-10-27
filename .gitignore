@@ -1,2 +1,5 @@
 mta_archives/
 .vscode
+
+# SAP HANA MTA deployment files
+mta-op-*/
